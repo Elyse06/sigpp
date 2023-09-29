@@ -1,1 +1,1 @@
-test    
+@extends("layout.master")
