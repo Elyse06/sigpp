@@ -25,7 +25,7 @@ class CreateClientsTable extends Migration
             $table->string('pays');
             $table->string('adresse');
             $table->string('telephone1');
-            $table->string('telephone2');
+            $table->string('telephone2')->nullable();
             $table->string('pieceIdentite');
             $table->string('noPieceIdentite');
 
