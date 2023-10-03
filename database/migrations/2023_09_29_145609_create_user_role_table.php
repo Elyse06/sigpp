@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaimentsTable extends Migration
+class CreateUserRoleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreatePaimentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('paiments', function (Blueprint $table) {
-            $table->id();
-            $table->double('montantPaye');
-            $table->dateTime('datePaiement');
+        Schema::create('user_role', function (Blueprint $table) {
             $table->foreignId('user_id');
-            $table->foreignId('location_id');
+            $table->foreignId('role_id');
         });
 
         Schema::enableForeignKeyConstraints();
@@ -31,10 +28,9 @@ class CreatePaimentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('paiments', function(Blueprint $table){
-            $table->dropForeign(['user_id','location_id']);
+        Schema::table('user_role', function(Blueprint $table){
+            $table->dropForeign(["user_id","role_id"]);
         });
-
-        Schema::dropIfExists('paiments');
+        Schema::dropIfExists('user_role');
     }
 }

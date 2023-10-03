@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTarificationsTable extends Migration
+class CreateArticleProprieteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateTarificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tarifications', function (Blueprint $table) {
-            $table->id();
-            $table->double('prix');
-            $table->foreignId('duree_location_id');
+        Schema::create('article_propriete', function (Blueprint $table) {
             $table->foreignId('article_id');
-            $table->timestamps();
+            $table->foreignId('propriete_article_id');
         });
 
         Schema::enableForeignKeyConstraints();
@@ -31,9 +28,9 @@ class CreateTarificationsTable extends Migration
      */
     public function down()
     {
-        Schema::table('tarifications', function(Blueprint $table){
-            $table->dropForeign(['duree_location_id','article_id']);
+        Schema::table('article_propriete', function(Blueprint $table){
+            $table->dropForeign(["article_id","propriete_article_id"]);
         });
-        Schema::dropIfExists('tarifications');
+        Schema::dropIfExists('article_propriete');
     }
 }

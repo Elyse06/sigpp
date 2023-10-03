@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaimentsTable extends Migration
+class CreateArticleLocationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreatePaimentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('paiments', function (Blueprint $table) {
-            $table->id();
-            $table->double('montantPaye');
-            $table->dateTime('datePaiement');
-            $table->foreignId('user_id');
+        Schema::create('article_location', function (Blueprint $table) {
+            $table->foreignId('article_id');
             $table->foreignId('location_id');
         });
 
@@ -31,10 +28,9 @@ class CreatePaimentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('paiments', function(Blueprint $table){
-            $table->dropForeign(['user_id','location_id']);
+        Schema::table('article_location', function(Blueprint $table){
+            $table->dropForeign(["article_id","location_id"]);
         });
-
-        Schema::dropIfExists('paiments');
+        Schema::dropIfExists('article_location');
     }
 }
