@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMissionEmployeeTable extends Migration
+class CreateMissionEmployeesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMissionEmployeeTable extends Migration
      */
     public function up()
     {
-        Schema::create('mission_employee', function (Blueprint $table) {
+        Schema::create('mission_employees', function (Blueprint $table) {
             $table->foreignId('mission_id')->constrained();
             $table->foreignId('employee_id')->constrained();
         });
@@ -28,9 +28,9 @@ class CreateMissionEmployeeTable extends Migration
      */
     public function down()
     {
-        Schema::table('mission_employee', function(Blueprint $table){
+        Schema::table('mission_employees', function(Blueprint $table){
             $table->dropForeign(['mission_id', 'employee_id']);
         });
-        Schema::dropIfExists('mission_employee');
+        Schema::dropIfExists('mission_employees');
     }
 }
