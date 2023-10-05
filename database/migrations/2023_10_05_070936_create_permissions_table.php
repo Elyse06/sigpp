@@ -15,8 +15,17 @@ class CreatePermissionsTable extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
+            $table->integer('sldtotpermi');
+            $table->integer('sldeffpermi');
+            $table->integer('sldrstpermi');
+            $table->date('debutpermi');
+            $table->date('finpermi');
+            $table->string('motifpermi');
+            $table->foreignId('employee_id')->constrained();
+            $table->timestamps();
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -26,6 +35,9 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
+        Schema::table('permissions', function(Blueprint $table){
+            $table->dropForeign(['employee_id']);
+        });
         Schema::dropIfExists('permissions');
     }
 }

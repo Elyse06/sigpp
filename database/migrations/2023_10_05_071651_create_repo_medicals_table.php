@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTarificationsTable extends Migration
+class CreateRepoMedicalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateTarificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tarifications', function (Blueprint $table) {
+        Schema::create('repo_medicals', function (Blueprint $table) {
             $table->id();
-            $table->double('prix');
-            $table->foreignId('duree_location_id');
-            $table->foreignId('article_id');
+            $table->date('debutrep');
+            $table->date('finrep');
+            $table->string('motifrep');
+            $table->foreignId('employee_id')->constrained();
             $table->timestamps();
         });
 
@@ -31,9 +32,9 @@ class CreateTarificationsTable extends Migration
      */
     public function down()
     {
-        Schema::table('tarifications', function(Blueprint $table){
-            $table->dropForeign(['duree_location_id','article_id']);
+        Schema::table('repo_medicals', function(Blueprint $table){
+            $table->dropForeign(['employee_id']);
         });
-        Schema::dropIfExists('tarifications');
+        Schema::dropIfExists('repo_medicals');
     }
 }
