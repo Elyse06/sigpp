@@ -28,6 +28,5 @@ class DatabaseSeeder extends Seeder
         RepoMedical::factory(10)->create();
         SortiePersonnel::factory(10)->create();
         Mission::factory(10)->create();
-        MissionEmployee::factory(10)->create();
     }
 }
