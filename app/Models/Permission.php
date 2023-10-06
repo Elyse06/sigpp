@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends Model
 {
     use HasFactory;
+
+    public function emploie(){
+        return $this->belongsTo(Employee::class, "employee_id", "id");
+    }
 }
