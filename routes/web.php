@@ -5,6 +5,7 @@ use App\Models\Employee;
 use App\Models\Permission;
 use App\Models\RepoMedical;
 use App\Models\SortiePersonnel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,26 +19,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/employees', function () {
-    return Employee::with('conges', 'permissions')->paginate(5);
-});
 
-Route::get('/conges', function () {
-    return Conge::with('emploie')->paginate(5);
-});
 
-Route::get('/permissions', function () {
-    return Permission::with('emploie')->paginate(5);
-});
+Auth::routes();
 
-Route::get('/repomedicals', function () {
-    return RepoMedical::with('emploie')->paginate(5);
-});
-
-Route::get('/sortieperso', function () {
-    return SortiePersonnel::with('emploie')->paginate(5);
-});
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/planning/mission', [App\Http\Controllers\MissionController::class, 'index'])->name('mission');
+Route::get('/planning/conge', [App\Http\Controllers\CongeController::class, 'index'])->name('conge');
+Route::get('/planning/permission', [App\Http\Controllers\PermissionController::class, 'index'])->name('permission');
+Route::get('/planning/sortiperso', [App\Http\Controllers\SortieController::class, 'index'])->name('sortie');
+Route::get('/planning/repomedical', [App\Http\Controllers\ReposController::class, 'index'])->name('repos');

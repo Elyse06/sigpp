@@ -24,12 +24,12 @@ class EmployeeFactory extends Factory
     public function definition()
     {
         return [
-            "nom" => $this->faker->name,
-            "prenom" => $this->faker->lastName,
+            "nom" => $this->faker->lastName,
+            "prenom" => $this->faker->firstName,
             "date_de_naissance" => $this->faker->date,
             "adresse" => $this->faker->address,
-            "numTel" => $this->faker->phoneNumber,
-            "pin" => $this->faker->randomNumber,
+            "numTel" => $this->faker->unique()->phoneNumber,
+            "pin" => $this->faker->unique()->randomNumber,
             "created_at" => $this->faker->date,
             "updated_at" => $this->faker->date
         ];

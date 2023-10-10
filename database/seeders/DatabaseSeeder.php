@@ -5,10 +5,10 @@ namespace Database\Seeders;
 use App\Models\Conge;
 use App\Models\Employee;
 use App\Models\Mission;
-use App\Models\MissionEmployee;
 use App\Models\Permission;
 use App\Models\RepoMedical;
 use App\Models\SortiePersonnel;
+use App\Models\User;
 use App\Models\Vehicule;
 use Illuminate\Database\Seeder;
 
@@ -28,5 +28,8 @@ class DatabaseSeeder extends Seeder
         RepoMedical::factory(10)->create();
         SortiePersonnel::factory(10)->create();
         Mission::factory(10)->create();
+        User::factory(10)->create();
+
+        Mission::find(1)->emploie()->attach(1);
     }
 }
