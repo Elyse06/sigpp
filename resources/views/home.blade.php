@@ -2,7 +2,7 @@
 
 @section("contenu")
 
-    <x-acceuil />
+    <h1> Bienvenue  </h1>
     
 @endsection
 

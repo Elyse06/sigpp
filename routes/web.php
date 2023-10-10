@@ -28,8 +28,16 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/planning/mission', [App\Http\Controllers\MissionController::class, 'index'])->name('mission');
-Route::get('/planning/conge', [App\Http\Controllers\CongeController::class, 'index'])->name('conge');
-Route::get('/planning/permission', [App\Http\Controllers\PermissionController::class, 'index'])->name('permission');
-Route::get('/planning/sortiperso', [App\Http\Controllers\SortieController::class, 'index'])->name('sortie');
-Route::get('/planning/repomedical', [App\Http\Controllers\ReposController::class, 'index'])->name('repos');
+
+Route::group([
+    "prefix" => "planning",
+    "as" => "planning."
+], 
+    function(){
+        Route::get('/mission', [App\Http\Controllers\MissionController::class, 'index'])->name('mission');
+        Route::get('/conge', [App\Http\Controllers\CongeController::class, 'index'])->name('conge');
+        Route::get('/permission', [App\Http\Controllers\PermissionController::class, 'index'])->name('permission');
+        Route::get('/sortiperso', [App\Http\Controllers\SortieController::class, 'index'])->name('sortie');
+        Route::get('/repomedical', [App\Http\Controllers\ReposController::class, 'index'])->name('repos');
+
+});
