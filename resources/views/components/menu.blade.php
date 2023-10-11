@@ -4,7 +4,7 @@
 
 <li class="nav-item">
 <a href="{{ route('home') }}" class="nav-link {{ setMenuActive('home') }}">
-<i class="nav-icon far fa-circle"></i>
+    <i class="fas fa-home"></i>
 <p>
 Acceuil
 </p>
@@ -15,7 +15,8 @@ Acceuil
 
 <li class="nav-item {{ setMenuClass('planning.', 'menu-open') }}">
 <a href="#" class="nav-link {{ setMenuClass('planning.', 'active') }}">
-<i class="nav-icon fas fa-tachometer-alt"></i>
+    <i class="nav-icon fas fa-calendar-alt"></i>
+
 <p>
 Planning
 <i class="right fas fa-angle-left"></i>
@@ -24,35 +25,35 @@ Planning
 <ul class="nav nav-treeview">
 <li class="nav-item">
 <a href="{{ route('planning.mission') }}" class="nav-link {{ setMenuActive('planning.mission') }}">
-<i class="far fa-circle nav-icon"></i>
+    <i class="fas fa-briefcase"></i>
 <p>Mission</p>
 </a>
 </li>
 
 <li class="nav-item">
 <a href="{{ route('planning.conge') }}" class="nav-link {{ setMenuActive('planning.conge') }}">
-<i class="far fa-circle nav-icon"></i>
+    <i class="fas fa-tachometer-alt"></i> 
 <p>Conge</p>
 </a>
 </li>
 
 <li class="nav-item">
 <a href="{{ route('planning.permission') }}" class="nav-link {{ setMenuActive('planning.permission') }}">
-<i class="far fa-circle nav-icon"></i>
+    <i class="fas fa-user-lock"></i>
 <p>Permission</p>
 </a>
 </li>
 
 <li class="nav-item">
 <a href="{{ route('planning.sortie') }}" class="nav-link {{ setMenuActive('planning.sortie') }}">
-<i class="far fa-circle nav-icon"></i>
+    <i class="fas fa-walking"></i>
 <p>Sortie Personnel</p>
 </a>
 </li>
 
 <li class="nav-item">
 <a href="{{ route('planning.repos') }}" class="nav-link {{ setMenuActive('planning.repos') }}">
-<i class="far fa-circle nav-icon"></i>
+    <i class="fas fa-bed"></i>
 <p>Repos Medical</p>
 </a>
 </li>

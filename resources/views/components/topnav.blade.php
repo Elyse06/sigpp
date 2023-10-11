@@ -1,4 +1,4 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background-color:#315358">
 
 <ul class="navbar-nav">
 
@@ -9,7 +9,7 @@
 
 {{-- home --}}
 <li class="nav-item d-none d-sm-inline-block">
-<a href="{{ route('home') }}" class="nav-link">Home</a>
+<a href="{{ route('home') }}" class="nav-link" style="color:#FFCD00 ">Planning Personnel</a>
 </li>
 
 </ul>

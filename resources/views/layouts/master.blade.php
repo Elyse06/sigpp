@@ -22,12 +22,10 @@
 
 
 {{-- logo ades avec le profil utilisateurs --}}
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #315358">
 
-<a href="index3.html" class="brand-link">
-<img src="{{asset('images/ades.png')}}"  class="brand-image img-circle" style="opacity: .8">
-<span class="brand-text font-weight-light">ADES</span>
-</a>
+<img src="{{asset("images/ades.com.svg")}}">
+
 
 <div class="sidebar">
 
@@ -60,7 +58,7 @@
 
 {{-- Container --}}
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="background-color:#315358 ">
 
 <div class="content-header">
 <div class="container-fluid">
