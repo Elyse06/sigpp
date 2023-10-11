@@ -41,6 +41,8 @@ class Mission extends Component
         $this->btnAjouClick = false;
     }
 
+
+    // pour faire l'ajout
     public function addMission(){
 
         // verifier que les info envoyer par le form sont correct
@@ -54,6 +56,11 @@ class Mission extends Component
 
         // creer un evenement pour dire que l'enregistrement est effectué
         $this->dispatchBrowserEvent("missionCreerSucces", ["message"=>"Mission creer avec succès!"]);
+    }
+
+    // pour la confirmation du supression
+    public function confirmDelete($lieu){
+        $this->dispatchBrowserEvent("comfirmMessage", ["message"=>"Vous etes sur le point de supprimer $lieu de la liste du mission. Voulez-vous continuer?"]);
     }
 
 }

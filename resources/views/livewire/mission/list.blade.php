@@ -40,7 +40,7 @@
 <td>
 
 <button class="btn btn-link"><i class="far fa-edit"></i></button>
-<button class="btn btn-link"><i class="far fa-trash-alt"></i></button>
+<button class="btn btn-link" wire:click="confirmDelete('{{$mission->lieumis}}')"><i class="far fa-trash-alt"></i></button>
 
 </td>
 </tr>
@@ -65,3 +65,29 @@
 
 </div>
 </div>
+
+
+<script>
+    window.addEventListener("comfirmMessage", event=>{
+        Swal.fire({
+            title: 'Etes-vous sure de continuer?',
+            text: event.detail.message,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'continuer',
+            cancelButtonText: 'Annuler'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+                )
+            }
+
+        })
+        
+    })
+</script>
