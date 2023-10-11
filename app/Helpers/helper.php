@@ -2,7 +2,7 @@
 use Illuminate\Support\Str;
 
 function userFullName(){
-    return auth()->user()->prenom . " " . auth()->user()->nom;
+    return auth()->user()->name;
 }
 
 function setMenuClass($route, $class){

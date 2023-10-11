@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Livewire\Conge as LivewireConge;
+use App\Http\Livewire\Mission;
+use App\Http\Livewire\Permission as LivewirePermission;
+use App\Http\Livewire\Repos;
+use App\Http\Livewire\Sortie;
 use App\Models\Conge;
 use App\Models\Employee;
 use App\Models\Permission;
@@ -34,10 +39,10 @@ Route::group([
     "as" => "planning."
 ], 
     function(){
-        Route::get('/mission', [App\Http\Controllers\MissionController::class, 'index'])->name('mission');
-        Route::get('/conge', [App\Http\Controllers\CongeController::class, 'index'])->name('conge');
-        Route::get('/permission', [App\Http\Controllers\PermissionController::class, 'index'])->name('permission');
-        Route::get('/sortiperso', [App\Http\Controllers\SortieController::class, 'index'])->name('sortie');
-        Route::get('/repomedical', [App\Http\Controllers\ReposController::class, 'index'])->name('repos');
+        Route::get('/mission', Mission::class)->name('mission');
+        Route::get('/conge', LivewireConge::class)->name('conge');
+        Route::get('/permission', LivewirePermission::class)->name('permission');
+        Route::get('/sortiperso', Sortie::class)->name('sortie');
+        Route::get('/repomedical', Repos::class)->name('repos');
 
 });
