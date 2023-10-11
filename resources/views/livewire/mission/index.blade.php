@@ -1,13 +1,20 @@
 <div class="w-100">
 
 
+@if ($btnAjouClick)
+
+{{-- formulaire ajout --}}
+@include("livewire.mission.ajout")
+
+{{-- tableau --}}
+@else
 <div class="row p-4 pt-5 w-100">
 <div class="col-12">
 <div class="card">
 <div class="card-header bg-green">
 <h3 class="card-title"><i class="fas fa-users fa-2x"></i>Personnel En Mission</h3>
 <div class="card-tools d-flex align-items-center">
-<a class="btn btn-link text-white mr-4 d-block"><i class="fas fa-plus"></i>Nouvelle Mission</a>
+<a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="ajouterMission()"><i class="fas fa-plus"></i>Nouvelle Mission</a>
 </div>
 </div>
 
@@ -68,5 +75,7 @@
 
 </div>
 </div>
+
+@endif
 
 </div>

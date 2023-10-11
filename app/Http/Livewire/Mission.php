@@ -27,4 +27,8 @@ class Mission extends Component
         $this->btnAjouClick = true;
     }
 
+    public function retourListMis(){
+        $this->btnAjouClick = false;
+    }
+
 }
