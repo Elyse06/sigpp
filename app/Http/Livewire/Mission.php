@@ -14,21 +14,46 @@ class Mission extends Component
     protected $paginationTheme = "bootstrap";
     public $btnAjouClick = false;
 
+    public $newMission = [];
+
+    protected $rules = [
+        'newMission.debutmis' => 'required',
+        'newMission.finmis' => 'required',
+        'newMission.lieumis' => 'required',
+        'newMission.motifmis' => 'required',
+        'newMission.vehicule_id' => 'required'
+    ];
+
     public function render()
     {
         return view('livewire.mission.index', [
-            "missions" => ModelsMission::paginate(5)
+            "missions" => ModelsMission::latest()->paginate(5)
         ])
         ->extends("layouts.master")
         ->section("contenu");
     }
 
-    public function ajouterMission(){
+    public function goAjouterMission(){
         $this->btnAjouClick = true;
     }
 
     public function retourListMis(){
         $this->btnAjouClick = false;
+    }
+
+    public function addMission(){
+
+        // verifier que les info envoyer par le form sont correct
+        $validationAttribute = $this->validate();
+        
+        // ajout d'un nouvelle mission
+        ModelsMission::create($validationAttribute["newMission"]);
+
+        // reinitialiser newMission 
+        $this->newMission = [];
+
+        // creer un evenement pour dire que l'enregistrement est effectué
+        $this->dispatchBrowserEvent("missionCreerSucces", ["message"=>"Mission creer avec succès!"]);
     }
 
 }
