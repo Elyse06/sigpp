@@ -1,25 +1,18 @@
-<div class="w-100">
+<div class="w-100" style="height: 100%">
 
 
-@if ($btnAjouClick)
-
-{{-- formulaire ajout --}}
-@include("livewire.mission.ajout")
-
-{{-- tableau --}}
-@else
-<div class="row p-4 pt-5 w-100">
-<div class="col-12">
-<div class="card">
-<div class="card-header bg-green">
-<h3 class="card-title"><i class="fas fa-users fa-2x"></i>Personnel En Mission</h3>
+<div class="row" style="height: 100%">
+<div class="col-12" style="height: 100%">
+<div class="card"style="height: 100%">
+<div class="card-header" style="background-color:#4A8B2C">
+<h3 style="color: white" class="card-title"><i class="fas fa-users fa-2x pr-1"></i>Listes personnelles en mission</h3>
 <div class="card-tools d-flex align-items-center">
-<a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="ajouterMission()"><i class="fas fa-plus"></i>Nouvelle Mission</a>
+<a class="btn btn-link text-white mr-4 d-block"><i class="fas fa-plus pr-1"></i>Ajout une nouvelle</a>
 </div>
 </div>
 
-<div class="card-body table-responsive p-0 table-striped" style="height: 300px;">
-<table class="table table-head-fixed text-nowrap">
+<div  class="card-body table-responsive p-0 table-striped" style="height: 100%;">
+<table  class="table table-head-fixed text-nowrap" >
 
 
 <thead>
@@ -75,7 +68,5 @@
 
 </div>
 </div>
-
-@endif
 
 </div>

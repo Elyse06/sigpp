@@ -2,7 +2,7 @@
 
 @section("contenu")
 
-    <h1> Bienvenue {{userFullName()}}  </h1>
+    <x-acceuil />
     
 @endsection
 
