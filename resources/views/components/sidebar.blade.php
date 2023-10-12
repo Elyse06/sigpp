@@ -1,8 +1,8 @@
-<aside class="control-sidebar control-sidebar-dark">
+<aside class="control-sidebar">
 
 {{-- deconection --}}
 <div class="bg-dark">
-<div class="card-body bg-dark box-profile">
+<div class="card-body  box-profile" style="background-color:#315358">
 <div class="text-center">
 <img class="profile-user-img img-fluid img-circle" src="{{asset('images/user.png')}}" alt="User profile picture">
 </div>
