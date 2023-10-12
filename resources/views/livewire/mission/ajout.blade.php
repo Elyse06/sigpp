@@ -55,14 +55,14 @@
 </div>
 
 <script>
-    window.addEventListener("missionCreerSucces", event=>{
+    window.addEventListener("showSuccesMessage", event=>{
         Swal.fire({
             position: 'top-end',
             icon:'success',
             toast: true,
             title: event.detail.message || "Opération effectuer avec succès",
             showConfirmButton: false,
-            timer: 3000
+            timer: 5000
         })
     })
 </script>

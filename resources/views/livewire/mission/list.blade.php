@@ -39,8 +39,8 @@
 <td>  </td>
 <td>
 
-<button class="btn btn-link"><i class="far fa-edit"></i></button>
-<button class="btn btn-link" wire:click="confirmDelete('{{$mission->lieumis}}')"><i class="far fa-trash-alt"></i></button>
+<button class="btn btn-link" wire:click="goEditMission({{$mission->id}})"><i class="far fa-edit"></i></button>
+<button class="btn btn-link" wire:click="confirmDelete('{{$mission->lieumis}}', {{$mission->id}})"><i class="far fa-trash-alt"></i></button>
 
 </td>
 </tr>
@@ -70,9 +70,9 @@
 <script>
     window.addEventListener("comfirmMessage", event=>{
         Swal.fire({
-            title: 'Etes-vous sure de continuer?',
-            text: event.detail.message,
-            icon: 'warning',
+            title: event.detail.message.title,
+            text: event.detail.message.text,
+            icon: event.detail.message.type,
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -80,13 +80,20 @@
             cancelButtonText: 'Annuler'
             }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-                )
+                @this.deleteMission(event.detail.message.data.mission_id)
             }
 
+        })
+
+        window.addEventListener("showSuccesMessage", event=>{
+            Swal.fire({
+                position: 'top-end',
+                icon:'success',
+                toast: true,
+                title: event.detail.message || "Opération effectuer avec succès",
+                showConfirmButton: false,
+                timer: 5000
+            })
         })
         
     })
