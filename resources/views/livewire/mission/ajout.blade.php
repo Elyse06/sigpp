@@ -1,8 +1,31 @@
+<style>
+    .card.card-primary {
+      width: 100%;
+      height: 500px; 
+    }
+  
+    .form-group {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      grid-column-gap: 0px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+  
+    /* Classe pour les champs d'entrée spécifiques */
+    input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 400px; /* Largeur de tous les champs de saisie */
+        }
+
+  </style>
 <div class="row p-4 pt-5">
 
 <div class="card card-primary">
-<div class="card-header">
-<h3 class="card-title"><i class="fas fa-plus"></i>Formulaire d'ajout d'une nouvelle mission</h3>
+<div style="background-color:#4A8B2C" class="card-header">
+<h3 class="card-title"><i class="fas fa-plus pr-2"></i>Formulaire d'ajout d'une nouvelle mission</h3>
 </div>
 
 
@@ -10,9 +33,12 @@
 <div class="card-body">
 <div class="form-group">
 <label>Id Employée</label>
-<input type="text" wire:model = "newMission.employee_id" class="form-control" required>
+<input type="number" wire:model = "newMission.employee_id" value="1" class="form-control" required>
 </div>
-
+<div class="form-group">
+    <label>Id vehicule</label>
+    <input type="number" wire:model = "newMission.vehicule_id" value="1" class="form-control" required>
+    </div>
 <div class="form-group">
 <label>Date de debut</label>
 <input type="date" wire:model = "newMission.debutmis" class="form-control" required>
@@ -30,7 +56,7 @@
 
 <div class="form-group">
 <label>Motif</label>
-<select class="form-control" wire:model = "newMission.motifmis">
+<select style="width: 400px" class="form-control" wire:model = "newMission.motifmis">
 <option value="">------------</option>
 <option value="vente">Vente</option>
 <option value="Achat d'une matérielle">Achat d'une matérielle</option>
@@ -38,10 +64,7 @@
 </select>
 </div>
 
-<div class="form-group">
-<label>Id vehicule</label>
-<input type="text" wire:model = "newMission.vehicule_id" class="form-control" required>
-</div>
+
 
 </div>
 
