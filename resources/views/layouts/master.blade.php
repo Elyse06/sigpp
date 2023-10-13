@@ -23,20 +23,34 @@
 
 {{-- logo ades avec le profil utilisateurs --}}
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #315358">
+    <style>
+        .center-image {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 50%; /* Utilisez un pourcentage pour rendre l'image responsive */
+          max-width: 100%; /* Garantit que l'image ne dépasse pas la largeur du conteneur parent */
+          height: auto; /* La hauteur s'ajuste automatiquement en fonction de la largeur */
+        }
+        </style>
+        
+        <img src="{{ asset('images/ades.com.svg') }}" class="center-image" alt="Description de l'image" />
+        
 
-<img src="{{asset("images/ades.com.svg")}}">
 
 
-<div class="sidebar">
 
-<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-<div class="image">
-<img src="{{asset('images/user.png')}}" class="img-circle elevation-2" alt="User Image">
-</div>
-<div class="info">
-<a href="#" class="d-block">{{Auth::user()->name}}</a>
-</div>
-</div>
+<div class="sidebar john">
+
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-center">
+        <div class="image">
+          <img src="{{ asset('images/user.png') }}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+        </div>
+      </div>
+      
 
 <div class="form-inline">
 <div class="input-group" data-widget="sidebar-search">

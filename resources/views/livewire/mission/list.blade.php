@@ -36,11 +36,11 @@
 <td> {{$mission->lieumis}} </td>
 <td> {{$mission->debutmis}} </td>
 <td> {{$mission->finmis}} </td>
-<td>  </td>
+<td> {{$mission->motifmis}} </td>
 <td>
 
 <button class="btn btn-link" wire:click="goEditMission({{$mission->id}})"><i class="far fa-edit"></i></button>
-<button class="btn btn-link" wire:click="confirmDelete('{{$mission->lieumis}}', {{$mission->id}})"><i class="far fa-trash-alt"></i></button>
+<button class="btn btn-link" wire:click="confirmDelete({{$mission->id}})"><i class="far fa-trash-alt"></i></button>
 
 </td>
 </tr>

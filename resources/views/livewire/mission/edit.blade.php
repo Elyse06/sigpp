@@ -10,7 +10,7 @@
     <div class="card-body">
     <div class="form-group">
     <label>Id Employée</label>
-    <input type="text" class="form-control" required>
+    <input type="text" wire:model = "editMission.employee_id" class="form-control" required>
     </div>
     
     <div class="form-group">

@@ -27,7 +27,7 @@ class MissionFactory extends Factory
             "lieumis" => $this->faker->city,
             "debutmis" => $this->faker->date,
             "finmis" => $this->faker->date,
-            "motifmis" => $this->faker->text,
+            "motifmis" => $this->faker->word,
             "vehicule_id" => rand(1, 10),
             "created_at" => $this->faker->date,
             "updated_at" => $this->faker->date

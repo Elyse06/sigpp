@@ -41,7 +41,7 @@ $(document).ready(function() {
     var data = {
         labels: ['Présent', 'Congé', 'Mission', 'Permission', 'Répos médicale', 'Sortie Personnel'],
         datasets: [{
-            data: [700, 500, 400, 600, 50, 200],
+            data: [65,8, 13, 7, 2, 5],
             backgroundColor: ['green', 'turquoise', 'navy', 'gray', 'red', 'orange']
         }]
     };

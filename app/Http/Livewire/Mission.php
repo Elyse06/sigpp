@@ -46,7 +46,8 @@ class Mission extends Component
             'newMission.finmis' => 'required',
             'newMission.lieumis' => 'required',
             'newMission.motifmis' => 'required',
-            'newMission.vehicule_id' => 'required'
+            'newMission.vehicule_id' => 'required',
+            'newMission.employee_id' => 'required'
         ];
     }
 
@@ -75,9 +76,16 @@ class Mission extends Component
 
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
+        // recuperation de l'attribut employee_id seulement
+        $valide = $this->validate(['newMission.employee_id' => 'required']);
         
         // ajout d'un nouvelle mission
-        ModelsMission::create($validationAttribute["newMission"]);
+        $newAdd = ModelsMission::create($validationAttribute["newMission"]);
+
+        $newAdd = $newAdd->id;
+
+        // ajout du table mission employee
+        ModelsMission::find($newAdd)->emploie()->attach($valide);
 
         // reinitialiser newMission 
         $this->newMission = [];
@@ -99,9 +107,9 @@ class Mission extends Component
     }
 
     // pour la confirmation du supression
-    public function confirmDelete($lieu, $id){
+    public function confirmDelete($id){
         $this->dispatchBrowserEvent("comfirmMessage", ["message"=>[
-            "text" => "Vous etes sur le point de supprimer $lieu de la liste du mission. Voulez-vous continuer?",
+            "text" => "Vous etes sur le point de supprimer cette composant de la liste du mission. Voulez-vous continuer?",
             "title" => "Etes-vous sure de continuer?",
             "type" => "warning",
             "data" => [
