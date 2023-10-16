@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EchartController;
 use App\Http\Livewire\Conge as LivewireConge;
 use App\Http\Livewire\Mission;
 use App\Http\Livewire\Permission as LivewirePermission;
@@ -31,6 +32,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes();
+
+Route::get('/vuhvuy', [EchartController::class,'echart'])->name('acceuil');
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

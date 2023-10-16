@@ -9,26 +9,11 @@ use App\Models\RepoMedical;
 use App\Models\SortiePersonnel;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class EchartController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function echart(Request $request)
     {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        $mission = Mission::get();
+    	$mission = Mission::get();
     	$conge = Conge::get();
     	$permission = Permission::get();
     	$sortie = SortiePersonnel::get();
@@ -38,6 +23,6 @@ class HomeController extends Controller
     	$permission_count = count($permission);
     	$sortie_count = count($sortie);
     	$repos_count = count($repos);
-    	return view('home',compact('mission_count','conge_count','permission_count','sortie_count','repos_count'));
+    	return view('components.acceuil',compact('mission_count','conge_count','permission_count','sortie_count','repos_count'));
     }
 }
