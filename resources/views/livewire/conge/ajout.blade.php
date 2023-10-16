@@ -37,8 +37,9 @@
 </div>
 <div class="form-group">
     <label>Solde du mois</label>
-    <input type="number" wire:model = "newConge.sldtotcon" value="1" class="form-control" required>
+    <input type="number" wire:model = "newConge.sldtotcon" class="form-control">
 </div>
+
 <div class="form-group">
     <label>Total Prix</label>
     <input type="number" wire:model = "newConge.sldeffcon" value="1" class="form-control" required>
@@ -77,6 +78,7 @@
 
 </div>
 
+
 <script>
     window.addEventListener("showSuccesMessage", event=>{
         Swal.fire({
@@ -89,3 +91,5 @@
         })
     })
 </script>
+
+

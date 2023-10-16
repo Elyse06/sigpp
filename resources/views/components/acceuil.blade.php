@@ -21,10 +21,12 @@
       <style>
         .card-body {
           background-color: #FFFFFF;
+          height: 30%;
+
         }
       </style>
       <div class="card-body">
-        <canvas id="pieChart" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%; display: block; width: 100%;" width="334" height="250" class="chartjs-render-monitor"></canvas>
+        <canvas id="pieChart" style="min-height: 400px; height: 400px; max-height: 400px; max-width: 100%; display: block; width: 100%;" width="334" height="250" class="chartjs-render-monitor"></canvas>
       </div>
     </div>
   </div>
