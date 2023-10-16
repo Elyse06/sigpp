@@ -28,7 +28,7 @@ class CongeFactory extends Factory
             "sldrstcon" => $this->faker->randomNumber,
             "debutcon" => $this->faker->date,
             "fincon" => $this->faker->date,
-            "motifcon" => $this->faker->text,
+            "motifcon" => $this->faker->word,
             "employee_id" => rand(1, 10),
             "created_at" => $this->faker->date,
             "updated_at" => $this->faker->date

@@ -1,7 +1,7 @@
 <style>
     .card.card-primary {
       width: 100%;
-      height: 500px; 
+      height: 550px; 
     }
   
     .form-group {
@@ -21,7 +21,7 @@
         }
 
   </style>
-<div class="row p-4 pt-5">
+<div class="row">
 
 <div class="card card-primary">
 <div style="background-color:#4A8B2C" class="card-header">
@@ -66,9 +66,6 @@
 <option value="Etude">Etude</option>
 </select>
 </div>
-
-
-
 </div>
 
 <div class="card-footer">

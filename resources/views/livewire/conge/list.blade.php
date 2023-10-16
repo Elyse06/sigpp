@@ -1,6 +1,31 @@
-<div class="row" style="height: 100%">
-    <div class="col-12" style="height: 100%">
-    <div class="card"style="height: 100%">
+<style>
+    .table th, .table td {
+        padding: 5px; /* Ajustez la valeur de marge intérieure comme vous le souhaitez */
+    }
+
+    .table th:nth-child(1),
+    .table td:nth-child(1) {
+        width: 5%; /* Ajustez la largeur de la première colonne */
+    }
+
+    .table th:nth-child(2),
+    .table td:nth-child(2) {
+        width: 5%; /* Ajustez la largeur de la deuxième colonne */
+    }
+
+    /* Continuez de la même manière pour les autres colonnes */
+
+    /* Pour réduire la largeur du tableau lui-même */
+    .table {
+        width: 90%; /* Ajustez la largeur totale du tableau */
+    }
+</style>
+
+
+
+<div class="row" style="width: 100%">
+    <div class="col-12" style="width: 100%">
+    <div class="card"style="width:100%">
     <div class="card-header" style="background-color:#4A8B2C">
     <h3 style="color: white" class="card-title"><i class="fas fa-users fa-2x pr-1"></i>Listes personnelles en Conge</h3>
     <div class="card-tools d-flex align-items-center">
@@ -35,7 +60,7 @@
     <td> {{$conge->emploie->nom}} </td>
     <td> {{$conge->emploie->prenom}} </td>
     <td> {{$conge->emploie->numTel}} </td>
-    <td>  </td>
+    <td> {{$conge->motifcon}}  </td>
     <td> {{$conge->sldtotcon}} </td>
     <td> {{$conge->sldeffcon}} </td>
     <td> {{$conge->sldrstcon}} </td>

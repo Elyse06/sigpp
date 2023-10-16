@@ -23,7 +23,7 @@
 
   </style>
 
-<div class="row p-4 pt-5">
+<div class="row p-2 pt-3">
 
     <div class="card card-primary">
     <div style="background-color:#4A8B2C" class="card-header">

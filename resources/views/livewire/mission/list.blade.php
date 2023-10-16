@@ -1,3 +1,28 @@
+<style>
+    .table th, .table td {
+        padding: 5px; /* Ajustez la valeur de marge intérieure comme vous le souhaitez */
+    }
+
+    .table th:nth-child(1),
+    .table td:nth-child(1) {
+        width: 5%; /* Ajustez la largeur de la première colonne */
+    }
+
+    .table th:nth-child(2),
+    .table td:nth-child(2) {
+        width: 5%; /* Ajustez la largeur de la deuxième colonne */
+    }
+
+    /* Continuez de la même manière pour les autres colonnes */
+
+    /* Pour réduire la largeur du tableau lui-même */
+    .table {
+        width: 90%; /* Ajustez la largeur totale du tableau */
+    }
+</style>
+
+
+
 <div class="row" style="height: 100%">
 <div class="col-12" style="height: 100%">
 <div class="card"style="height: 100%">
