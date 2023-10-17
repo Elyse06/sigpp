@@ -29,7 +29,7 @@ class SortiePersonnelFactory extends Factory
             "sldrstsortie" => $this->faker->randomNumber,
             "debutsortie" => $this->faker->date,
             "finsortie" => $this->faker->date,
-            "motifsortie" => $this->faker->text,
+            "motifsortie" => $this->faker->word,
             "employee_id" => rand(1, 10),
             "created_at" => $this->faker->date,
             "updated_at" => $this->faker->date
