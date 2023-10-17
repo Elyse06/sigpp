@@ -30,6 +30,15 @@ class DatabaseSeeder extends Seeder
         Mission::factory(10)->create();
         User::factory(10)->create();
 
-        Mission::find(1)->emploie()->attach(1);
+        Mission::find(1)->emploie()->attach(7);
+        Mission::find(2)->emploie()->attach(8);
+        Mission::find(3)->emploie()->attach(6);
+        Mission::find(4)->emploie()->attach(3);
+        Mission::find(5)->emploie()->attach(9);
+        Mission::find(6)->emploie()->attach(4);
+        Mission::find(7)->emploie()->attach(2);
+        Mission::find(8)->emploie()->attach(10);
+        Mission::find(9)->emploie()->attach(5);
+        Mission::find(10)->emploie()->attach(1);
     }
 }
