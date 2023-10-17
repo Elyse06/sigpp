@@ -61,4 +61,16 @@ Planning
 </li>
 
 </ul>
+
+<ul class="nav nav-pills nav-sidebar">
+
+    <li class="nav-item">
+    <a href="{{ route('etat') }}" class="nav-link {{ setMenuActive('etat') }}">
+        <i class="fa-solid fa-fan"></i>
+    <p>
+        Etats
+    </p>
+    </a>
+</ul>
+
 </nav>

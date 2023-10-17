@@ -36,6 +36,7 @@ Auth::routes();
 Route::get('/vuhvuy', [EchartController::class,'echart'])->name('acceuil');
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/etat', [App\Http\Controllers\EtatController::class, 'index'])->name('etat');
 
 Route::group([
     "prefix" => "planning",
