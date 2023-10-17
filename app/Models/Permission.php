@@ -9,6 +9,16 @@ class Permission extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'employee_id',
+        'sldtotpermi',
+        'sldeffpermi',
+        'sldrstpermi',
+        'debutpermi',
+        'finpermi',
+        'motifpermi',
+    ];
+
     public function emploie(){
         return $this->belongsTo(Employee::class, "employee_id", "id");
     }

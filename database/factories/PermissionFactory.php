@@ -29,7 +29,7 @@ class PermissionFactory extends Factory
             "sldrstpermi" => $this->faker->randomNumber,
             "debutpermi" => $this->faker->date,
             "finpermi" => $this->faker->date,
-            "motifpermi" => $this->faker->text,
+            "motifpermi" => $this->faker->word,
             "employee_id" => rand(1, 10),
             "created_at" => $this->faker->date,
             "updated_at" => $this->faker->date
