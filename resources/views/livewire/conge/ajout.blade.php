@@ -37,7 +37,7 @@
 </div>
 <div class="form-group">
     <label>Solde du mois</label>
-    <input type="number" wire:model = "newConge.sldtotcon" class="form-control">
+    <input type="number" wire:model = "newConge.sldtotcon" class="form-control" required>
 </div>
 
 <div class="form-group">
