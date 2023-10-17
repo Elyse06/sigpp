@@ -68,8 +68,8 @@
     <td> {{$sortie->finsortie}} </td>
     <td>
     
-    <button class="btn btn-link" wire:click="goEditSortie({{$sortie->id}})"><i class="far fa-edit"></i></button>
-    <button class="btn btn-link" wire:click="confirmDelete({{$sortie->id}})"><i class="far fa-trash-alt"></i></button>
+    <button class="btn btn-link" wire:click="goEditSortie({{$sortie->id}})"><i style="color: green" class="far fa-edit"></i></button>
+    <button class="btn btn-link" wire:click="confirmDelete({{$sortie->id}})"><i style="color: red" class="far fa-trash-alt"></i></button>
     
     </td>
     </tr>

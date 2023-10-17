@@ -68,8 +68,8 @@
     <td> {{$conge->fincon}} </td>
     <td>
     
-    <button class="btn btn-link" wire:click="goEditConge({{$conge->id}})"><i class="far fa-edit"></i></button>
-    <button class="btn btn-link" wire:click="confirmDelete({{$conge->id}})"><i class="far fa-trash-alt"></i></button>
+    <button class="btn btn-link" wire:click="goEditConge({{$conge->id}})"><i style="color: green" class="far fa-edit"></i></button>
+    <button class="btn btn-link" wire:click="confirmDelete({{$conge->id}})"><i style="color: red" class="far fa-trash-alt"></i></button>
     
     </td>
     </tr>
