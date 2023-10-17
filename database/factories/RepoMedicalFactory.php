@@ -26,7 +26,7 @@ class RepoMedicalFactory extends Factory
         return [
             "debutrep" => $this->faker->date,
             "finrep" => $this->faker->date,
-            "motifrep" => $this->faker->text,
+            "motifrep" => $this->faker->word,
             "employee_id" => rand(1, 10),
             "created_at" => $this->faker->date,
             "updated_at" => $this->faker->date
