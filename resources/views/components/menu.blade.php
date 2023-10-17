@@ -66,7 +66,8 @@ Planning
 
     <li class="nav-item">
     <a href="{{ route('etat') }}" class="nav-link {{ setMenuActive('etat') }}">
-        <i class="fa-solid fa-fan"></i>
+        <i class="fas fa-check-circle"></i>
+
     <p>
         Etats
     </p>
