@@ -62,8 +62,8 @@
     <td> {{$repos->finrep}} </td>
     <td>
     
-    <button class="btn btn-link" wire:click="goEditRepos({{$repos->id}})"><i class="far fa-edit"></i></button>
-    <button class="btn btn-link" wire:click="confirmDelete({{$repos->id}})"><i class="far fa-trash-alt"></i></button>
+    <button class="btn btn-link" wire:click="goEditRepos({{$repos->id}})"><i style="color: green" class="far fa-edit"></i></button>
+    <button class="btn btn-link" wire:click="confirmDelete({{$repos->id}})"><i style="color: red" class="far fa-trash-alt"></i></button>
     
     </td>
     </tr>
