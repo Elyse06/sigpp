@@ -70,8 +70,9 @@
 </div>
 
 <div class="card-footer">
+<button type="button" class="btn btn-danger" wire:click.prevent="retourListSortie()">Retour</button>    
 <button type="submit" class="btn btn-primary">Enregistrer</button>
-<button type="button" class="btn btn-danger" wire:click.prevent="retourListSortie()">Retour</button>
+
 </div>
 </form>
 </div>

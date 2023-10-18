@@ -25,7 +25,7 @@
 
 <div class="card card-primary">
 <div style="background-color:#4A8B2C" class="card-header">
-<h3 class="card-title"><i class="fas fa-plus pr-2"></i>Formulaire d'ajout d'une nouvelle mission</h3>
+<h3 class="card-title"><i class="fas fa-plus pr-2"></i>Formulaire d'ajout d'une nouvelle congé</h3>
 </div>
 
 
@@ -70,8 +70,9 @@
 </div>
 
 <div class="card-footer">
+<button type="button" class="btn btn-danger" wire:click.prevent="retourListCon()">Retour</button>    
 <button type="submit" class="btn btn-primary">Enregistrer</button>
-<button type="button" class="btn btn-danger" wire:click.prevent="retourListCon()">Retour</button>
+
 </div>
 </form>
 </div>
