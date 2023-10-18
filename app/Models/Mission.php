@@ -20,4 +20,12 @@ class Mission extends Model
     public function emploie(){
         return $this->belongsToMany(Employee::class, "mission_employees", "mission_id", "employee_id");
     }
+
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($mission) { // before delete() method call this
+             $mission->emploie()->detach();
+        });
+    }
 }

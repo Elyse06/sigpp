@@ -29,6 +29,7 @@ class Mission extends Component
         ->section("contenu");
     }
 
+    
     // plusiere roles
     public function rules(){
         if($this->currentPage == PAGEEDITFORM){
@@ -120,6 +121,8 @@ class Mission extends Component
 
     // pour la suppression
     public function deleteMission($id){
+        ModelsMission::find($id)->emploie()->detach();
+
         ModelsMission::destroy($id);
 
         $this->dispatchBrowserEvent("showSuccesMessage", ["message"=>"Mission supprimer avec succès!"]);
