@@ -19,6 +19,9 @@
         select {
             width: 400px; /* Largeur de tous les champs de saisie */
         }
+        .card-footer button {
+    width:120px; /* Ajustez la valeur en fonction de la taille souhaitée */
+  }
 
   </style>
 <div class="row">
@@ -70,8 +73,9 @@
 </div>
 
 <div class="card-footer">
+<button type="button" class="btn btn-danger" wire:click.prevent="retourListPermission()">Retour</button>    
 <button type="submit" class="btn btn-primary">Enregistrer</button>
-<button type="button" class="btn btn-danger" wire:click.prevent="retourListPermission()">Retour</button>
+
 </div>
 </form>
 </div>

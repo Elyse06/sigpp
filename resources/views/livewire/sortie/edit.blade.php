@@ -1,7 +1,7 @@
 <style>
     .card.card-primary {
       width: 100%;
-      height: 500px; 
+      height: 550px; 
       
       /* Vous pouvez également spécifier une largeur maximale si nécessaire */
       /* max-width: 1200px; */
@@ -20,10 +20,14 @@
         select {
             width: 400px; /* Largeur de tous les champs de saisie */
         }
+        
+        .card-footer button {
+    width:120px; /* Ajustez la valeur en fonction de la taille souhaitée */
+  }
 
   </style>
 
-<div class="row p-2 pt-3">
+<div class="row">
 
     <div class="card card-primary">
     <div style="background-color:#4A8B2C" class="card-header">
@@ -74,8 +78,9 @@
     </div>
     
     <div class="card-footer">
+    <button type="button" class="btn btn-danger" wire:click.prevent="retourListSortie()">Retour</button>    
     <button type="submit" class="btn btn-primary">Enregistrer</button>
-    <button type="button" class="btn btn-danger" wire:click.prevent="retourListSortie()">Retour</button>
+    
     </div>
     </form>
     </div>

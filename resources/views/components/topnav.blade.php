@@ -9,7 +9,7 @@
 
 {{-- home --}}
 <li class="nav-item d-none d-sm-inline-block">
-<a href="{{ route('home') }}" class="nav-link" style="color:#FFCD00 ">Planning Personnel</a>
+<a href="{{ route('home') }}" class="nav-link" style="color:#FFCD00; font-weight: bold; font-size: 30px;  ">Planning Personnel</a>
 </li>
 
 </ul>
