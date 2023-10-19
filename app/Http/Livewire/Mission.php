@@ -34,6 +34,7 @@ class Mission extends Component
     public function rules(){
         if($this->currentPage == PAGEEDITFORM){
             return [
+                'editMission.employee_id' => 'required',
                 'editMission.debutmis' => 'required',
                 'editMission.finmis' => 'required',
                 'editMission.lieumis' => 'required',
@@ -58,9 +59,17 @@ class Mission extends Component
     }
 
     // mandeha @formulaire editer
-    public function goEditMission($id){
-        // recuperer tous les valeur du table pour le mettre dans le form a editer
-        $this->editMission = ModelsMission::find($id)->toArray();
+    public function goEditMission($id, $idem){
+        $mission = ModelsMission::find($id);
+        $table = $mission->toArray();
+        
+        // recuperer tous les valeur du table pour le mettre dans le form a editer 
+        
+        $this->editMission = $table + [
+            'employee_id' => $idem
+        ];
+        // $this->editMission = $table;
+
 
         $this->currentPage = PAGEEDITFORM;
     }
@@ -99,8 +108,13 @@ class Mission extends Component
     public function updateMission(){
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
+        $valide = $this->validate(['editMission.employee_id' => 'required']);
 
+
+        $mission = ModelsMission::find($this->editMission["id"]);
+        $mission -> emploie() -> employee_id = $valide['editMission']['employee_id'];
         // modification
+        // $fn->edh_id = $valide['editMission']['empo'];
         ModelsMission::find($this->editMission["id"])->update($validationAttribute["editMission"]);
 
         // creer un evenement pour dire que l'enregistrement est effectué

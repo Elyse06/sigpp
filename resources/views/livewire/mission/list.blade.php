@@ -64,7 +64,7 @@
 <td> {{$mission->motifmis}} </td>
 <td>
 
-<button class="btn btn-link" wire:click="goEditMission({{$mission->id}})"><i style="color: green" class="far fa-edit"></i></button>
+<button class="btn btn-link" wire:click="goEditMission({{$mission->id}}, {{$mission->emploie->implode("id")}})"><i style="color: green" class="far fa-edit"></i></button>
 <button class="btn btn-link" wire:click="confirmDelete({{$mission->id}})"><i style="color:red" class="far fa-trash-alt"></i></button>
 
 </td>
