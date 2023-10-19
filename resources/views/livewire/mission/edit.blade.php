@@ -38,11 +38,11 @@
     <div class="card-body">
     <div class="form-group">
     <label>Id Employée</label>
-    <input type="text" wire:model = "editMission.employee_id" class="form-control" required>
+    <input type="number" wire:model = "editMission.employee_id" class="form-control" required>
     </div>
     <div class="form-group">
         <label>Id vehicule</label>
-        <input type="text" wire:model = "editMission.vehicule_id" class="form-control" required>
+        <input type="number" wire:model = "editMission.vehicule_id" class="form-control" required>
         </div>
         
     <div class="form-group">

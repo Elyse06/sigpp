@@ -110,15 +110,26 @@ class Mission extends Component
         $validationAttribute = $this->validate();
         $valide = $this->validate(['editMission.employee_id' => 'required']);
 
+        $id = $this->editMission["id"];
 
-        $mission = ModelsMission::find($this->editMission["id"]);
-        $mission -> emploie() -> employee_id = $valide['editMission']['employee_id'];
-        // modification
+        //recuperer l'id du ligne a modifier
+        $mission = ModelsMission::find($id);
+        
+
         // $fn->edh_id = $valide['editMission']['empo'];
-        ModelsMission::find($this->editMission["id"])->update($validationAttribute["editMission"]);
+        // $mission->emploie->employee_id = $valide['editMission']['employee_id'];
+
+
+        // modification pour le table mission
+        $mission->update($validationAttribute["editMission"]);
+
+        //modification du relation
+        // $mission->emploie()->updateExistingPivot($id, [ 'employee_id' => $valide]);
+        $mission->emploie()->sync([$id => ['employee_id' => $valide['editMission']['employee_id']]]);
 
         // creer un evenement pour dire que l'enregistrement est effectué
-        $this->dispatchBrowserEvent("showSuccesMessage", ["message"=>"Mission modifier avec succès!"]);
+        // $this->dispatchBrowserEvent("showSuccesMessage", ["message"=>"Mission modifier avec succès!"]);
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "Mission modifiée avec succès!"]);
     }
 
     // pour la confirmation du supression
