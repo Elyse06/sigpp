@@ -19,10 +19,18 @@ class Permission extends Component
     public $newPermission= [];
     public $editPermission = [];
 
+    public $search = "";
+
 public function render()
     {
+
+        $searchCriteria = "%".$this->search."%";
+
         return view('livewire.permission.index', [
-            "permissions" => ModelsPermission::latest()->paginate(5)
+            "permissions" => ModelsPermission::whereHas('emploie', function ($query) use ($searchCriteria){
+                $query->where('nom', 'like', '%' . $searchCriteria . '%');
+
+            })->latest()->paginate(5)
         ])
         ->extends("layouts.master")
         ->section("contenu");

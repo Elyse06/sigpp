@@ -19,11 +19,18 @@ class Sortie extends Component
     public $newSortie = [];
     public $editSortie = [];
 
+    public $search = "";
 
     public function render()
     {
+
+        $searchCriteria = "%".$this->search."%";
+
         return view('livewire.sortie.index', [
-            "sorties" => SortiePersonnel::latest()->paginate(5)
+            "sorties" => SortiePersonnel::whereHas('emploie', function ($query) use ($searchCriteria){
+                $query->where('nom', 'like', '%' . $searchCriteria . '%');
+
+            })->latest()->paginate(5)
         ])
         ->extends("layouts.master")
         ->section("contenu");

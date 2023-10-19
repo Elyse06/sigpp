@@ -18,11 +18,20 @@ class Conge extends Component
     public $newConge = [];
     public $editConge = [];
 
+    public $search = "";
+
 
     public function render()
     {
+
+        $searchCriteria = "%".$this->search."%";
+
+
         return view('livewire.conge.index', [
-            "conges" => ModelsConge::latest()->paginate(5)
+            "conges" => ModelsConge::whereHas('emploie', function ($query) use ($searchCriteria){
+                $query->where('nom', 'like', '%' . $searchCriteria . '%');
+
+            })->latest()->paginate(5)
         ])
         ->extends("layouts.master")
         ->section("contenu");

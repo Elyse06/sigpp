@@ -30,6 +30,17 @@
 <h3 style="color: white" class="card-title"><i class="fas fa-users fa-2x pr-1"></i>Listes personnelles en mission</h3>
 <div class="card-tools d-flex align-items-center">
 <a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="goAjouterMission()"><i class="fas fa-plus pr-1"></i>Ajout une nouvelle</a>
+
+<div class="input-group input-group-md" style="width: 250px;">
+    <input type="text" name="table_search" wire:model.debounce="search" class="form-control float-right" placeholder="Search">
+
+    <div class="input-group-append">
+    <button type="submit" class="btn btn-default">
+    <i class="fas fa-search"></i>
+    </button>
+    </div>
+</div>
+
 </div>
 </div>
 
