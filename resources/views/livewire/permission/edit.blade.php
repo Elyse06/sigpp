@@ -1,7 +1,7 @@
 <style>
     .card.card-primary {
       width: 100%;
-      height: 550px; 
+      height: 565px;  
       
       /* Vous pouvez également spécifier une largeur maximale si nécessaire */
       /* max-width: 1200px; */
@@ -37,7 +37,7 @@
     <form role="form" wire:submit.prevent="updatePermission()">
     <div class="card-body">
     <div class="form-group">
-    <label>Id Employée</label>
+    <label>N° Matricule Employeur</label>
     <input type="number" wire:model = "editPermission.employee_id" value="1" class="form-control" required>
     </div>
     <div class="form-group">

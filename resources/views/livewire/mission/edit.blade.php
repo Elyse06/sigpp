@@ -1,7 +1,7 @@
 <style>
     .card.card-primary {
       width: 100%;
-      height: 500px; 
+      height: 525px; 
       
       /* Vous pouvez également spécifier une largeur maximale si nécessaire */
       /* max-width: 1200px; */
@@ -37,11 +37,11 @@
     <form role="form" wire:submit.prevent="updateMission()">
     <div class="card-body">
     <div class="form-group">
-    <label>Id Employée</label>
+    <label>N° Matricule Employeur</label>
     <input type="number" wire:model = "editMission.employee_id" class="form-control" required>
     </div>
     <div class="form-group">
-        <label>Id vehicule</label>
+        <label>N° Matricule Employeur</label>
         <input type="number" wire:model = "editMission.vehicule_id" class="form-control" required>
         </div>
         
