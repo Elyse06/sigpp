@@ -19,11 +19,18 @@ class Mission extends Component
     public $newMission = [];
     public $editMission = [];
 
+    public $search = "";
 
     public function render()
     {
+
+        $searchCriteria = "%".$this->search."%";
+
         return view('livewire.mission.index', [
-            "missions" => ModelsMission::latest()->paginate(5)
+            "missions" => ModelsMission::whereHas('emploie', function ($query) use ($searchCriteria){
+                $query->where('nom', 'like', '%' . $searchCriteria . '%');
+
+            })->latest()->paginate(5)
         ])
         ->extends("layouts.master")
         ->section("contenu");
