@@ -93,11 +93,14 @@ class Mission extends Component
 
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
+        $missionData = $validationAttribute["newMission"];
+        $missionData['expires_at'] = $missionData['finmis'];
+        
         // recuperation de l'attribut employee_id seulement
         $valide = $this->validate(['newMission.employee_id' => 'required']);
         
         // ajout d'un nouvelle mission
-        $newAdd = ModelsMission::create($validationAttribute["newMission"]);
+        $newAdd = ModelsMission::create($missionData);
 
         $newAdd = $newAdd->id;
 

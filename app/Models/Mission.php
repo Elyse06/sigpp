@@ -9,12 +9,15 @@ class Mission extends Model
 {
     use HasFactory;
 
+    protected $dates = ['expires_at'];
+
     protected $fillable = [
         'lieumis',
         'debutmis',
         'finmis',
         'motifmis',
         'vehicule_id',
+        'expires_at',
     ];
 
     public function emploie(){

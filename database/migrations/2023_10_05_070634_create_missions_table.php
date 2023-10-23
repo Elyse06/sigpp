@@ -20,6 +20,7 @@ class CreateMissionsTable extends Migration
             $table->date('finmis');
             $table->string('motifmis');
             $table->foreignId('vehicule_id')->constrained();
+            $table->timestamp('expires_at');
             $table->timestamps();
         });
     }

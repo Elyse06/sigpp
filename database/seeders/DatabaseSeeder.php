@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Models\Mission;
 use App\Models\Permission;
 use App\Models\RepoMedical;
+use App\Models\SoldeConge;
 use App\Models\SortiePersonnel;
 use App\Models\User;
 use App\Models\Vehicule;
@@ -21,14 +22,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Employee::factory(10)->create();
-        Vehicule::factory(10)->create();
-        Conge::factory(10)->create();
+        Employee::factory(50)->create();
+        Vehicule::factory(5)->create();
+        Conge::factory(2)->create();
         Permission::factory(10)->create();
-        RepoMedical::factory(10)->create();
-        SortiePersonnel::factory(10)->create();
-        Mission::factory(10)->create();
+        RepoMedical::factory(4)->create();
+        SortiePersonnel::factory(15)->create();
+        Mission::factory(20)->create();
         User::factory(10)->create();
+        SoldeConge::factory(50)->create();
 
         Mission::find(1)->emploie()->attach(7);
         Mission::find(2)->emploie()->attach(8);

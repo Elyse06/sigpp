@@ -13,9 +13,17 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
+
+    protected $commands = [
+        Commands\DeleteExpiredRecords::class,
+        Commands\IncrementSoldeConge::class,
+    ];
+
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('expired:delete')->everyMinute();
+        $schedule->command('increment:solde')->monthlyOn(28, '23:59');
     }
 
     /**
