@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Conge as ModelsConge;
 use App\Models\SoldeConge;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -82,6 +83,34 @@ class Conge extends Component
         $this->editConge = [];
     }
 
+    // remplir le solde restant
+    public function remplirSoldeRestant()
+    {
+        // Récupérez le "Solde du mois" et le "Total Prix" depuis le modèle.
+        $soldeDuMois = $this->newConge['sldtotcon'];
+        $totalPrix = $this->newConge['sldeffcon'];
+
+        // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
+        $soldeRestant = $soldeDuMois - $totalPrix;
+
+        // Mettez à jour le champ "Solde restant".
+        $this->newConge['sldrstcon'] = $soldeRestant;
+    }
+
+    // recuperer le solde du moi en fonction du employee
+    public function getSoldeByEmployeeId()
+    {
+        // Effectuez ici la requête pour récupérer le solde du mois en fonction de l'ID de l'employé.
+        $employeeId = $this->newConge['employee_id'];
+
+        // Remplacez le code suivant par votre propre logique de requête.
+        $solde = DB::table('solde_conges')
+            ->where('employee_id', $employeeId)
+            ->value('solde');
+
+        $this->newConge['sldtotcon'] = $solde;
+    }
+
     // pour faire l'ajout
     public function addConge(){
 
@@ -107,9 +136,13 @@ class Conge extends Component
     public function updateConge(){
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
+        $congeData = $validationAttribute["editConge"];
+        $solde = $congeData['sldrstcon'];
+        $idemploi = $congeData['employee_id'];
 
         // modification
-        ModelsConge::find($this->editConge["id"])->update($validationAttribute["editConge"]);
+        ModelsConge::find($this->editConge["id"])->update($congeData);
+        SoldeConge::where('employee_id',$idemploi)->update(['solde' => $solde]);
 
         // creer un evenement pour dire que l'enregistrement est effectué
         $this->dispatchBrowserEvent("showSuccesMessage", ["message"=>"Conge modifier avec succès!"]);

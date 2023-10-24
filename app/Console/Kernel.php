@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('expired:delete')->everyMinute();
-        $schedule->command('increment:solde')->everyMinute();
+        $schedule->command('increment:solde')->monthlyOn(28, '23:59');
     }
 
     /**
