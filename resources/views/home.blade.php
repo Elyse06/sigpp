@@ -54,7 +54,7 @@
         // Exemple de fonction pour mettre à jour le graphique avec des données dynamiques
         function updateChartWithDynamicData() {
             //variable present
-            var present = 150 - ({{$conge_count}}+{{$mission_count}}+{{$permission_count}}+{{$repos_count}}+{{$sortie_count}});
+            var present = {{$total_count}} - ({{$conge_count}}+{{$mission_count}}+{{$permission_count}}+{{$repos_count}}+{{$sortie_count}});
         // Obtenez les nouvelles données ici
         var newLabels = ['Présent', 'Congé', 'Mission', 'Permission', 'Répos médicale', 'Sortie Personnel'];
         var newValues = [present, {{$conge_count}}, {{$mission_count}}, {{$permission_count}}, {{$repos_count}}, {{$sortie_count}}];

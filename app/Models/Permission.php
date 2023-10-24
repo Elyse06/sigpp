@@ -17,6 +17,7 @@ class Permission extends Model
         'debutpermi',
         'finpermi',
         'motifpermi',
+        'expires_at',
     ];
 
     public function emploie(){

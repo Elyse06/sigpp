@@ -22,6 +22,7 @@ class CreatePermissionsTable extends Migration
             $table->date('finpermi');
             $table->string('motifpermi');
             $table->foreignId('employee_id')->constrained();
+            $table->timestamp('expires_at');
             $table->timestamps();
         });
 

@@ -79,9 +79,11 @@ class Repos extends Component
 
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
+        $repoData = $validationAttribute["newRepos"];
+        $repoData['expires_at'] = $repoData['finrep'];
         
         // ajout d'un nouvelle mission
-        RepoMedical::create($validationAttribute["newRepos"]);
+        RepoMedical::create($repoData);
 
         // reinitialiser newMission 
         $this->newRepos = [];

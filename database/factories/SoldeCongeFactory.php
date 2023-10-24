@@ -24,7 +24,7 @@ class SoldeCongeFactory extends Factory
     public function definition()
     {
         return [
-            "solde" => $this->faker->rand(2, 20),
+            "solde" => $this->faker->randomNumber(1, false),
             "employee_id" => rand(1, 50)
         ];
     }

@@ -42,10 +42,10 @@ class IncrementSoldeConge extends Command
         $soldeConges = SoldeConge::all(); // Ou utilisez une condition pour filtrer les enregistrements si nécessaire.
 
         foreach ($soldeConges as $soldeConge) {
-            if (now()->isSameDay($lastDayOfMonth)) {
+            
                 $soldeConge->solde += 2;
                 $soldeConge->save();
-            }
+            
         }
     }
 }

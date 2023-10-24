@@ -14,6 +14,7 @@ class RepoMedical extends Model
         'debutrep',
         'finrep',
         'motifrep',
+        'expires_at',
     ];
 
 

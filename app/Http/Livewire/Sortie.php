@@ -85,9 +85,11 @@ class Sortie extends Component
 
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
+        $sortiData = $validationAttribute["newSortie"];
+        $sortiData['expires_at'] = $sortiData['finsortie'];
         
         // ajout d'un nouvelle mission
-        SortiePersonnel::create($validationAttribute["newSortie"]);
+        SortiePersonnel::create($sortiData);
 
         // reinitialiser newMission 
         $this->newSortie = [];

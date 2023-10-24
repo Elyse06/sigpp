@@ -17,6 +17,7 @@ class CreateSoldeCongesTable extends Migration
             $table->id();
             $table->integer('solde');
             $table->foreignId('employee_id')->constrained();
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

@@ -28,6 +28,7 @@ class RepoMedicalFactory extends Factory
             "finrep" => $this->faker->date,
             "motifrep" => $this->faker->word,
             "employee_id" => rand(1, 10),
+            "expires_at" => $this->faker->date,
             "created_at" => $this->faker->date,
             "updated_at" => $this->faker->date
         ];

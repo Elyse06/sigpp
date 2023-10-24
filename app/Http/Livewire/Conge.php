@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Conge as ModelsConge;
+use App\Models\SoldeConge;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -86,11 +87,16 @@ class Conge extends Component
 
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
+        $congeData = $validationAttribute["newConge"];
+        $congeData['expires_at'] = $congeData['fincon'];
+        $solde = $congeData['sldrstcon'];
+        $idemploi = $congeData['employee_id'];
         
-        // ajout d'un nouvelle mission
-        ModelsConge::create($validationAttribute["newConge"]);
+        // ajout d'un nouvelle conge
+        ModelsConge::create($congeData);
+        SoldeConge::where('employee_id',$idemploi)->update(['solde' => $solde]);
 
-        // reinitialiser newMission 
+        // reinitialiser newconge 
         $this->newConge = [];
 
         // creer un evenement pour dire que l'enregistrement est effectué
@@ -112,7 +118,7 @@ class Conge extends Component
     // pour la confirmation du supression
     public function confirmDelete($id){
         $this->dispatchBrowserEvent("comfirmMessage", ["message"=>[
-            "text" => "Vous etes sur le point de supprimer cette composant de la liste du mission. Voulez-vous continuer?",
+            "text" => "Vous etes sur le point de supprimer cette composant de la liste du conge. Voulez-vous continuer?",
             "title" => "Etes-vous sure de continuer?",
             "type" => "warning",
             "data" => [

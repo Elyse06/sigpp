@@ -24,23 +24,18 @@ class DatabaseSeeder extends Seeder
     {
         Employee::factory(50)->create();
         Vehicule::factory(5)->create();
-        Conge::factory(2)->create();
-        Permission::factory(10)->create();
-        RepoMedical::factory(4)->create();
-        SortiePersonnel::factory(15)->create();
-        Mission::factory(20)->create();
+        Conge::factory(1)->create();
+        Permission::factory(2)->create();
+        RepoMedical::factory(1)->create();
+        SortiePersonnel::factory(4)->create();
+        Mission::factory(5)->create();
         User::factory(10)->create();
         SoldeConge::factory(50)->create();
 
         Mission::find(1)->emploie()->attach(7);
-        Mission::find(2)->emploie()->attach(8);
-        Mission::find(3)->emploie()->attach(6);
-        Mission::find(4)->emploie()->attach(3);
-        Mission::find(5)->emploie()->attach(9);
-        Mission::find(6)->emploie()->attach(4);
-        Mission::find(7)->emploie()->attach(2);
-        Mission::find(8)->emploie()->attach(10);
-        Mission::find(9)->emploie()->attach(5);
-        Mission::find(10)->emploie()->attach(1);
+        Mission::find(2)->emploie()->attach(41);
+        Mission::find(3)->emploie()->attach(23);
+        Mission::find(4)->emploie()->attach(18);
+        Mission::find(5)->emploie()->attach(32);
     }
 }

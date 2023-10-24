@@ -29,10 +29,10 @@ class VehiculeFactory extends Factory
             "categorie" => array_rand(["Voiture", "Moto", "Bus"], 1),
             "plaque_immatriculation" => $this->faker->swiftBicNumber,
             "disponibilite" => rand(0, 1),
-            "categorie_vehicule" => $this->faker->text,
-            "probleme" => $this->faker->text,
+            "categorie_vehicule" => $this->faker->word,
+            "probleme" => $this->faker->word,
             "kilometrage" => $this->faker->randomNumber,
-            "vehiculecol" => $this->faker->text,
+            "vehiculecol" => $this->faker->word,
             "created_at" => $this->faker->date,
             "updated_at" => $this->faker->date
         ];

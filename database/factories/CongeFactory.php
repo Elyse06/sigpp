@@ -23,13 +23,14 @@ class CongeFactory extends Factory
     public function definition()
     {
         return [
-            "sldtotcon" => $this->faker->rand(0, 45),
-            "sldeffcon" => $this->faker->rand(0, 45),
-            "sldrstcon" => $this->faker->rand(0, 45),
+            "sldtotcon" => $this->faker->randomNumber,
+            "sldeffcon" => $this->faker->randomNumber,
+            "sldrstcon" => $this->faker->randomNumber,
             "debutcon" => $this->faker->date,
             "fincon" => $this->faker->date,
             "motifcon" => $this->faker->word,
             "employee_id" => rand(1, 10),
+            "expires_at" => $this->faker->date,
             "created_at" => $this->faker->date,
             "updated_at" => $this->faker->date
         ];

@@ -31,6 +31,7 @@ class SortiePersonnelFactory extends Factory
             "finsortie" => $this->faker->date,
             "motifsortie" => $this->faker->word,
             "employee_id" => rand(1, 10),
+            "expires_at" => $this->faker->date,
             "created_at" => $this->faker->date,
             "updated_at" => $this->faker->date
         ];

@@ -9,6 +9,10 @@ class Employee extends Model
 {
     use HasFactory;
 
+    public function soldeConges(){
+        return $this->hasOne(SoldeConge::class);
+    }
+
     public function conges(){
         return $this->hasMany(Conge::class);
     }

@@ -86,9 +86,11 @@ public function render()
 
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
+        $permissionData = $validationAttribute["newPermission"];
+        $permissionData['expires_at'] = $permissionData['finpermi'];
         
         // ajout d'un nouvelle mission
-        ModelsPermission::create($validationAttribute["newPermission"]);
+        ModelsPermission::create($permissionData);
 
         // reinitialiser newMission 
         $this->newPermission = [];
