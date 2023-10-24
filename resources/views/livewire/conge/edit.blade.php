@@ -38,19 +38,19 @@
     <div class="card-body">
     <div class="form-group">
     <label>N° Matricule Employeur</label>
-    <input type="number" wire:model = "editConge.employee_id" value="1" class="form-control" required>
+    <input type="number" wire:model = "editConge.employee_id" value="1" class="form-control" required wire:change="getSoldeByEmployeeIdEdit">
     </div>
     <div class="form-group">
         <label>Solde du mois</label>
-        <input type="number" wire:model = "editConge.sldtotcon" value="1" class="form-control" required>
+        <input type="number" wire:model = "editConge.sldtotcon" value="1" class="form-control" required readonly>
     </div>
     <div class="form-group">
         <label>Total Prix</label>
-        <input type="number" wire:model = "editConge.sldeffcon" value="1" class="form-control" required>
+        <input type="number" wire:model = "editConge.sldeffcon" value="1" class="form-control" required wire:change="remplirSoldeRestantEdit">
     </div>
     <div class="form-group">
         <label>Solde restant</label>
-        <input type="number" wire:model = "editConge.sldrstcon" value="1" class="form-control" required>
+        <input type="number" wire:model = "editConge.sldrstcon" value="1" class="form-control" required readonly>
     </div>
     <div class="form-group">
     <label>Date de debut</label>

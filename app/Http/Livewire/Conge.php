@@ -97,6 +97,19 @@ class Conge extends Component
         $this->newConge['sldrstcon'] = $soldeRestant;
     }
 
+    public function remplirSoldeRestantEdit()
+    {
+        // Récupérez le "Solde du mois" et le "Total Prix" depuis le modèle.
+        $soldeDuMois = $this->editConge['sldtotcon'];
+        $totalPrix = $this->editConge['sldeffcon'];
+
+        // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
+        $soldeRestant = $soldeDuMois - $totalPrix;
+
+        // Mettez à jour le champ "Solde restant".
+        $this->editConge['sldrstcon'] = $soldeRestant;
+    }
+
     // recuperer le solde du moi en fonction du employee
     public function getSoldeByEmployeeId()
     {
@@ -109,6 +122,19 @@ class Conge extends Component
             ->value('solde');
 
         $this->newConge['sldtotcon'] = $solde;
+    }
+
+    public function getSoldeByEmployeeIdEdit()
+    {
+        // Effectuez ici la requête pour récupérer le solde du mois en fonction de l'ID de l'employé.
+        $employeeId = $this->editConge['employee_id'];
+
+        // Remplacez le code suivant par votre propre logique de requête.
+        $solde = DB::table('solde_conges')
+            ->where('employee_id', $employeeId)
+            ->value('solde');
+
+        $this->editConge['sldtotcon'] = $solde;
     }
 
     // pour faire l'ajout
