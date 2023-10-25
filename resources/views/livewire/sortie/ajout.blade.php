@@ -37,20 +37,20 @@
 <div class="card-body">
 <div class="form-group">
 <label>N° Matricule Employeur</label>
-<input type="number" wire:model = "newSortie.employee_id" value="1" class="form-control" required>
+<input type="number" wire:model = "newSortie.employee_id" value="1" class="form-control" required wire:change="getSoldeByEmployeeId">
 </div>
 <div class="form-group">
     <label>Solde du mois</label>
-    <input type="number" wire:model = "newSortie.sldtotsortie" class="form-control" required>
+    <input type="number" wire:model = "newSortie.sldtotsortie" class="form-control" required readonly>
 </div>
 
 <div class="form-group">
     <label>Total Prix</label>
-    <input type="number" wire:model = "newSortie.sldeffsortie" value="1" class="form-control" required>
+    <input type="number" wire:model = "newSortie.sldeffsortie" value="1" class="form-control" required wire:change="remplirSoldeRestant">
 </div>
 <div class="form-group">
     <label>Solde restant</label>
-    <input type="number" wire:model = "newSortie.sldrstsortie" value="1" class="form-control" required>
+    <input type="number" wire:model = "newSortie.sldrstsortie" value="1" class="form-control" required readonly>
 </div>
 <div class="form-group">
 <label>Date de debut</label>

@@ -8,6 +8,8 @@ use App\Models\Mission;
 use App\Models\Permission;
 use App\Models\RepoMedical;
 use App\Models\SoldeConge;
+use App\Models\SoldePermission;
+use App\Models\SoldeSortie;
 use App\Models\SortiePersonnel;
 use App\Models\User;
 use App\Models\Vehicule;
@@ -31,6 +33,8 @@ class DatabaseSeeder extends Seeder
         Mission::factory(5)->create();
         User::factory(10)->create();
         SoldeConge::factory(50)->create();
+        SoldePermission::factory(50)->create();
+        SoldeSortie::factory(50)->create();
 
         Mission::find(1)->emploie()->attach(7);
         Mission::find(2)->emploie()->attach(41);

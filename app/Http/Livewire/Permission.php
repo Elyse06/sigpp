@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Permission as ModelsPermission;
+use App\Models\SoldePermission;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -81,6 +83,61 @@ public function render()
         $this->editPermission = [];
     }
 
+        // remplir le solde restant
+        public function remplirSoldeRestant()
+        {
+            // Récupérez le "Solde du mois" et le "Total Prix" depuis le modèle.
+            $soldeDuMois = $this->newPermission['sldtotpermi'];
+            $totalPrix = $this->newPermission['sldeffpermi'];
+    
+            // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
+            $soldeRestant = $soldeDuMois - $totalPrix;
+    
+            // Mettez à jour le champ "Solde restant".
+            $this->newPermission['sldrstpermi'] = $soldeRestant;
+        }
+    
+        public function remplirSoldeRestantEdit()
+        {
+            // Récupérez le "Solde du mois" et le "Total Prix" depuis le modèle.
+            $soldeDuMois = $this->editPermission['sldtotpermi'];
+            $totalPrix = $this->editPermission['sldeffpermi'];
+    
+            // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
+            $soldeRestant = $soldeDuMois - $totalPrix;
+    
+            // Mettez à jour le champ "Solde restant".
+            $this->editPermission['sldrstpermi'] = $soldeRestant;
+        }
+    
+        // recuperer le solde du moi en fonction du employee
+        public function getSoldeByEmployeeId()
+        {
+            // Effectuez ici la requête pour récupérer le solde du mois en fonction de l'ID de l'employé.
+            $employeeId = $this->newPermission['employee_id'];
+    
+            // Remplacez le code suivant par votre propre logique de requête.
+            $solde = DB::table('solde_permissions')
+                ->where('employee_id', $employeeId)
+                ->value('solde');
+    
+            $this->newPermission['sldtotpermi'] = $solde;
+        }
+    
+        public function getSoldeByEmployeeIdEdit()
+        {
+            // Effectuez ici la requête pour récupérer le solde du mois en fonction de l'ID de l'employé.
+            $employeeId = $this->editPermission['employee_id'];
+    
+            // Remplacez le code suivant par votre propre logique de requête.
+            $solde = DB::table('solde_permissions')
+                ->where('employee_id', $employeeId)
+                ->value('solde');
+    
+            $this->editPermission['sldtotpermi'] = $solde;
+        }
+
+
     // pour faire l'ajout
     public function addPermission(){
 
@@ -88,9 +145,12 @@ public function render()
         $validationAttribute = $this->validate();
         $permissionData = $validationAttribute["newPermission"];
         $permissionData['expires_at'] = $permissionData['finpermi'];
+        $solde = $permissionData['sldrstpermi'];
+        $idemploi = $permissionData['employee_id'];
         
         // ajout d'un nouvelle mission
         ModelsPermission::create($permissionData);
+        SoldePermission::where('employee_id',$idemploi)->update(['solde' => $solde]);
 
         // reinitialiser newMission 
         $this->newPermission = [];
@@ -103,9 +163,13 @@ public function render()
     public function updatePermission(){
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
+        $permissionData = $validationAttribute["editPermission"];
+        $solde = $permissionData['sldrstpermi'];
+        $idemploi = $permissionData['employee_id'];
 
         // modification
-        ModelsPermission::find($this->editPermission["id"])->update($validationAttribute["editPermission"]);
+        ModelsPermission::find($this->editPermission["id"])->update($permissionData);
+        SoldePermission::where('employee_id',$idemploi)->update(['solde' => $solde]);
 
         // creer un evenement pour dire que l'enregistrement est effectué
         $this->dispatchBrowserEvent("showSuccesMessage", ["message"=>"Permission modifier avec succès!"]);

@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\SoldeSortie;
 use App\Models\SortiePersonnel;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -80,6 +82,61 @@ class Sortie extends Component
         $this->editSortie = [];
     }
 
+        // remplir le solde restant
+        public function remplirSoldeRestant()
+        {
+            // Récupérez le "Solde du mois" et le "Total Prix" depuis le modèle.
+            $soldeDuMois = $this->newSortie['sldtotsortie'];
+            $totalPrix = $this->newSortie['sldeffsortie'];
+    
+            // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
+            $soldeRestant = $soldeDuMois - $totalPrix;
+    
+            // Mettez à jour le champ "Solde restant".
+            $this->newSortie['sldrstsortie'] = $soldeRestant;
+        }
+    
+        public function remplirSoldeRestantEdit()
+        {
+            // Récupérez le "Solde du mois" et le "Total Prix" depuis le modèle.
+            $soldeDuMois = $this->editSortie['sldtotsortie'];
+            $totalPrix = $this->editSortie['sldeffsortie'];
+    
+            // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
+            $soldeRestant = $soldeDuMois - $totalPrix;
+    
+            // Mettez à jour le champ "Solde restant".
+            $this->editSortie['sldrstsortie'] = $soldeRestant;
+        }
+    
+        // recuperer le solde du moi en fonction du employee
+        public function getSoldeByEmployeeId()
+        {
+            // Effectuez ici la requête pour récupérer le solde du mois en fonction de l'ID de l'employé.
+            $employeeId = $this->newSortie['employee_id'];
+    
+            // Remplacez le code suivant par votre propre logique de requête.
+            $solde = DB::table('solde_sorties')
+                ->where('employee_id', $employeeId)
+                ->value('solde');
+    
+            $this->newSortie['sldtotsortie'] = $solde;
+        }
+    
+        public function getSoldeByEmployeeIdEdit()
+        {
+            // Effectuez ici la requête pour récupérer le solde du mois en fonction de l'ID de l'employé.
+            $employeeId = $this->editSortie['employee_id'];
+    
+            // Remplacez le code suivant par votre propre logique de requête.
+            $solde = DB::table('solde_sorties')
+                ->where('employee_id', $employeeId)
+                ->value('solde');
+    
+            $this->editSortie['sldtotsortie'] = $solde;
+        }
+
+
     // pour faire l'ajout
     public function addSortie(){
 
@@ -87,9 +144,12 @@ class Sortie extends Component
         $validationAttribute = $this->validate();
         $sortiData = $validationAttribute["newSortie"];
         $sortiData['expires_at'] = $sortiData['finsortie'];
+        $solde = $sortiData['sldrstsortie'];
+        $idemploi = $sortiData['employee_id'];
         
         // ajout d'un nouvelle mission
         SortiePersonnel::create($sortiData);
+        SoldeSortie::where('employee_id',$idemploi)->update(['solde' => $solde]);
 
         // reinitialiser newMission 
         $this->newSortie = [];
@@ -102,9 +162,13 @@ class Sortie extends Component
     public function updateSortie(){
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
+        $sortiData = $validationAttribute["editSortie"];
+        $solde = $sortiData['sldrstsortie'];
+        $idemploi = $sortiData['employee_id'];
 
         // modification
-        SortiePersonnel::find($this->editSortie["id"])->update($validationAttribute["editSortie"]);
+        SortiePersonnel::find($this->editSortie["id"])->update($sortiData);
+        SoldeSortie::where('employee_id',$idemploi)->update(['solde' => $solde]);
 
         // creer un evenement pour dire que l'enregistrement est effectué
         $this->dispatchBrowserEvent("showSuccesMessage", ["message"=>"Sortie modifier avec succès!"]);

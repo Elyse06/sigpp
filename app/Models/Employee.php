@@ -13,6 +13,14 @@ class Employee extends Model
         return $this->hasOne(SoldeConge::class);
     }
 
+    public function soldePermissions(){
+        return $this->hasOne(SoldePermission::class);
+    }
+
+    public function soldeSorties(){
+        return $this->hasOne(SoldeSortie::class);
+    }
+
     public function conges(){
         return $this->hasMany(Conge::class);
     }
