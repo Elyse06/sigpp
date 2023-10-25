@@ -37,8 +37,14 @@
     <form role="form" wire:submit.prevent="updateRepos()">
     <div class="card-body">
     <div class="form-group">
-    <label>N° Matricule Employeur</label>
-    <input type="number" wire:model = "editRepos.employee_id" value="1" class="form-control" required>
+    <label>Nom</label>
+    <select style="width: 400px" wire:model = "editRepos.employee_id" class="form-control">
+        <option value="">Tous les Employées</option>
+        @foreach ($employees as $employee)
+            <option value="{{ $employee->id }}">{{ $employee->nom }} {{ $employee->prenom }}</option>
+        @endforeach
+    </select>
+    {{-- <input type="number" wire:model = "editRepos.employee_id" value="1" class="form-control" required> --}}
     </div>
     <div class="form-group">
     <label>Date de debut</label>
