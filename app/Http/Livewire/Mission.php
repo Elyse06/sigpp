@@ -31,6 +31,8 @@ class Mission extends Component
                 $query->where('nom', 'like', '%' . $searchCriteria . '%');
 
             })->latest()->paginate(5)
+        ], [
+            "employees" => Employee::all()
         ])
         ->extends("layouts.master")
         ->section("contenu");

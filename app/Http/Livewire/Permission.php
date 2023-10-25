@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Employee;
 use App\Models\Permission as ModelsPermission;
 use App\Models\SoldePermission;
 use Illuminate\Support\Facades\DB;
@@ -33,6 +34,8 @@ public function render()
                 $query->where('nom', 'like', '%' . $searchCriteria . '%');
 
             })->latest()->paginate(5)
+        ], [
+            "employees" => Employee::all()
         ])
         ->extends("layouts.master")
         ->section("contenu");

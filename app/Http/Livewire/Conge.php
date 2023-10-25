@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Conge as ModelsConge;
+use App\Models\Employee;
 use App\Models\SoldeConge;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -34,6 +35,8 @@ class Conge extends Component
                 $query->where('nom', 'like', '%' . $searchCriteria . '%');
 
             })->latest()->paginate(5)
+        ], [
+            "employees" => Employee::all()
         ])
         ->extends("layouts.master")
         ->section("contenu");

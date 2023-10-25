@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Employee;
 use App\Models\RepoMedical;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -30,6 +31,8 @@ class Repos extends Component
                 $query->where('nom', 'like', '%' . $searchCriteria . '%');
 
             })->latest()->paginate(5)
+        ], [
+            "employees" => Employee::all()
         ])
         ->extends("layouts.master")
         ->section("contenu");

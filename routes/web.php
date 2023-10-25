@@ -5,6 +5,7 @@ use App\Http\Livewire\Conge as LivewireConge;
 use App\Http\Livewire\Mission;
 use App\Http\Livewire\Permission as LivewirePermission;
 use App\Http\Livewire\Repos;
+use App\Http\Livewire\Solde;
 use App\Http\Livewire\Sortie;
 use App\Models\Conge;
 use App\Models\Employee;
@@ -35,6 +36,7 @@ Auth::routes();
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/Solde des employées', [Solde::class, 'render'])->name('solde');
 
 Route::group([
     "prefix" => "planning",

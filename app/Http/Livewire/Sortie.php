@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Employee;
 use App\Models\SoldeSortie;
 use App\Models\SortiePersonnel;
 use Illuminate\Support\Facades\DB;
@@ -33,6 +34,8 @@ class Sortie extends Component
                 $query->where('nom', 'like', '%' . $searchCriteria . '%');
 
             })->latest()->paginate(5)
+        ], [
+            "employees" => Employee::all()
         ])
         ->extends("layouts.master")
         ->section("contenu");

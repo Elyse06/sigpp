@@ -11,6 +11,17 @@ Acceuil
 </a>
 </ul>
 
+<ul class="nav nav-pills nav-sidebar">
+
+<li class="nav-item">
+<a href="{{ route('solde') }}" class="nav-link {{ setMenuActive('solde') }}">
+    <i class=""></i>
+<p>
+Solde Des Employées
+</p>
+</a>
+</ul>
+
 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
 <li class="nav-item {{ setMenuClass('planning.', 'menu-open') }}">
