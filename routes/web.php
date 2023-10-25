@@ -38,18 +38,19 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/Solde des employées', [Solde::class, 'render'])->name('solde');
 
-Route::group([
-    "prefix" => "planning",
-    "as" => "planning."
-], 
-    function(){
+Route::group(
+    [
+        "prefix" => "planning",
+        "as" => "planning."
+    ],
+    function () {
         Route::get('/mission', Mission::class)->name('mission');
         Route::get('/conge', LivewireConge::class)->name('conge');
         Route::get('/permission', LivewirePermission::class)->name('permission');
         Route::get('/sortiperso', Sortie::class)->name('sortie');
         Route::get('/repomedical', Repos::class)->name('repos');
-
-});
+    }
+);
 Route::get('/notifications/expiredConges', 'NotificationController@getExpiredConges');
 Route::get('/notifications', function () {
     return view('notifications');

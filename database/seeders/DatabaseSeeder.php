@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Employee::factory(50)->create();
+        Employee::factory(30)->create();
         Vehicule::factory(5)->create();
         Conge::factory(1)->create();
         Permission::factory(2)->create();
@@ -32,14 +32,14 @@ class DatabaseSeeder extends Seeder
         SortiePersonnel::factory(4)->create();
         Mission::factory(5)->create();
         User::factory(10)->create();
-        SoldeConge::factory(50)->create();
-        SoldePermission::factory(50)->create();
-        SoldeSortie::factory(50)->create();
+        SoldeConge::factory(30)->create();
+        SoldePermission::factory(30)->create();
+        SoldeSortie::factory(30)->create();
 
         Mission::find(1)->emploie()->attach(7);
-        Mission::find(2)->emploie()->attach(41);
+        Mission::find(2)->emploie()->attach(11);
         Mission::find(3)->emploie()->attach(23);
         Mission::find(4)->emploie()->attach(18);
-        Mission::find(5)->emploie()->attach(32);
+        Mission::find(5)->emploie()->attach(29);
     }
 }

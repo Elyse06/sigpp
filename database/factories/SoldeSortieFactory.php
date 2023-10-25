@@ -25,7 +25,7 @@ class SoldeSortieFactory extends Factory
     {
         return [
             "solde" => $this->faker->randomNumber(1, false),
-            "employee_id" => rand(1, 50)
+            "employee_id" => rand(1, 30)
         ];
     }
 }
