@@ -29,6 +29,10 @@ class Mission extends Model
         return $this->belongsTo(User::class, "user_id", "id");
     }
 
+    public function vehicules(){
+        return $this->belongsTo(Vehicule::class, "vehicule_id", "id");
+    }
+
     public static function boot() {
         parent::boot();
 

@@ -46,7 +46,13 @@
 </div>
 <div class="form-group">
     <label>N° Matricule vehicule</label>
-    <input type="number" wire:model = "newMission.vehicule_id" value="1" class="form-control" required>
+    <select style="width: 400px" wire:model = "newMission.vehicule_id" class="form-control">
+    <option value="">------------------</option>
+    @foreach ($vehicules as $vehicule)
+        <option value="{{ $vehicule->id }}">{{ $vehicule->plaque_immatriculation }}</option>
+    @endforeach
+</select>
+    {{-- <input type="number" wire:model = "newMission.vehicule_id" value="1" class="form-control" required> --}}
     </div>
 <div class="form-group">
 <label>Date de debut</label>

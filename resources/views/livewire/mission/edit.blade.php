@@ -48,7 +48,13 @@
     </div>
     <div class="form-group">
         <label>N° Matricule Vehicule</label>
-        <input type="number" wire:model = "editMission.vehicule_id" class="form-control" required>
+        <select style="width: 400px" wire:model = "editMission.employee_id" class="form-control">
+        <option value="">Tous les Employées</option>
+        @foreach ($vehicules as $vehicule)
+            <option value="{{ $vehicule->id }}">{{ $vehicule->plaque_immatriculation }}</option>
+        @endforeach
+    </select>
+        {{-- <input type="number" wire:model = "editMission.vehicule_id" class="form-control" required> --}}
     </div>
         
     <div class="form-group">

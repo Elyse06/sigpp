@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Employee;
 use App\Models\Mission as ModelsMission;
+use App\Models\Vehicule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,15 +26,14 @@ class Mission extends Component
     {
 
         $searchCriteria = "%".$this->search."%";
+        $missions = ModelsMission::whereHas('emploie', function ($query) use ($searchCriteria){
+            $query->where('nom', 'like', '%' . $searchCriteria . '%');
 
-        return view('livewire.mission.index', [
-            "missions" => ModelsMission::whereHas('emploie', function ($query) use ($searchCriteria){
-                $query->where('nom', 'like', '%' . $searchCriteria . '%');
+        })->latest()->paginate(5);
+        $employees = Employee::all();
+        $vehicules = Vehicule::all();
 
-            })->latest()->paginate(5)
-        ], [
-            "employees" => Employee::all()
-        ])
+        return view('livewire.mission.index', compact('missions','employees','vehicules'))
         ->extends("layouts.master")
         ->section("contenu");
     }
