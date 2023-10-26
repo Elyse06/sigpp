@@ -16,7 +16,7 @@ class CreateSoldeCongesTable extends Migration
         Schema::create('solde_conges', function (Blueprint $table) {
             $table->id();
             $table->integer('solde');
-            $table->foreignId('employee_id')->constrained();
+            $table->foreignId('employee_id')->unique()->constrained();
             $table->timestamps();
         });
 

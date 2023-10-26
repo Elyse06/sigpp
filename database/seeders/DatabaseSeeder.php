@@ -26,15 +26,18 @@ class DatabaseSeeder extends Seeder
     {
         Employee::factory(30)->create();
         Vehicule::factory(5)->create();
-        Conge::factory(1)->create();
-        Permission::factory(2)->create();
-        RepoMedical::factory(1)->create();
-        SortiePersonnel::factory(4)->create();
-        Mission::factory(5)->create();
         User::factory(10)->create();
-        SoldeConge::factory(30)->create();
-        SoldePermission::factory(30)->create();
-        SoldeSortie::factory(30)->create();
+        
+        Mission::factory(5)->create();
+        
+        $this->call(CongeTableSeeder::class);
+        $this->call(PermissionTableSeeder::class);
+        $this->call(ReposMedicalTableSeeder::class);
+        $this->call(SortiePersonnelTableSeeder::class);
+        $this->call(SoldeCongeTableSeeder::class);
+        $this->call(SoldeSortieTableSeeder::class);
+        $this->call(SoldePermissionTableSeeder::class);
+        
 
         Mission::find(1)->emploie()->attach(7);
         Mission::find(2)->emploie()->attach(11);

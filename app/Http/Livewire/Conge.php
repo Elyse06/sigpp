@@ -147,6 +147,7 @@ class Conge extends Component
         $validationAttribute = $this->validate();
         $congeData = $validationAttribute["newConge"];
         $congeData['expires_at'] = $congeData['fincon'];
+        $congeData['user_id'] = $congeData['employee_id'];
         $solde = $congeData['sldrstcon'];
         $idemploi = $congeData['employee_id'];
         
@@ -166,6 +167,8 @@ class Conge extends Component
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
         $congeData = $validationAttribute["editConge"];
+        $congeData['expires_at'] = $congeData['fincon'];
+        $congeData['user_id'] = $congeData['employee_id'];
         $solde = $congeData['sldrstcon'];
         $idemploi = $congeData['employee_id'];
 

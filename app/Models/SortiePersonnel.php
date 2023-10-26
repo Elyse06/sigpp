@@ -11,6 +11,7 @@ class SortiePersonnel extends Model
 
     protected $fillable = [
         'employee_id',
+        'user_id',
         'sldtotsortie',
         'sldeffsortie',
         'sldrstsortie',
@@ -22,5 +23,9 @@ class SortiePersonnel extends Model
 
     public function emploie(){
         return $this->belongsTo(Employee::class, "employee_id", "id");
+    }
+
+    public function users(){
+        return $this->belongsTo(User::class, "user_id", "id");
     }
 }

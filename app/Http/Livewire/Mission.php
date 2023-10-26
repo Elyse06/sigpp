@@ -97,6 +97,7 @@ class Mission extends Component
         $validationAttribute = $this->validate();
         $missionData = $validationAttribute["newMission"];
         $missionData['expires_at'] = $missionData['finmis'];
+        $missionData['user_id'] = $missionData['employee_id'];
         
         // recuperation de l'attribut employee_id seulement
         $valide = $this->validate(['newMission.employee_id' => 'required']);
@@ -120,6 +121,10 @@ class Mission extends Component
     public function updateMission(){
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
+        $missionData = $validationAttribute["editMission"];
+        $missionData['expires_at'] = $missionData['finmis'];
+        $missionData['user_id'] = $missionData['employee_id'];
+        
         $valide = $this->validate(['editMission.employee_id' => 'required']);
 
         $id = $this->editMission["id"];
@@ -133,7 +138,7 @@ class Mission extends Component
 
 
         // modification pour le table mission
-        $mission->update($validationAttribute["editMission"]);
+        $mission->update($missionData);
 
         //modification du relation
         // $mission->emploie()->updateExistingPivot($id, [ 'employee_id' => $valide]);

@@ -84,6 +84,7 @@ class Repos extends Component
         $validationAttribute = $this->validate();
         $repoData = $validationAttribute["newRepos"];
         $repoData['expires_at'] = $repoData['finrep'];
+        $repoData['user_id'] = $repoData['employee_id'];
         
         // ajout d'un nouvelle mission
         RepoMedical::create($repoData);
@@ -99,9 +100,12 @@ class Repos extends Component
     public function updateRepos(){
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
+        $repoData = $validationAttribute["editRepos"];
+        $repoData['expires_at'] = $repoData['finrep'];
+        $repoData['user_id'] = $repoData['employee_id'];
 
         // modification
-        RepoMedical::find($this->editRepos["id"])->update($validationAttribute["editRepos"]);
+        RepoMedical::find($this->editRepos["id"])->update($repoData);
 
         // creer un evenement pour dire que l'enregistrement est effectué
         $this->dispatchBrowserEvent("showSuccesMessage", ["message"=>"Repos modifier avec succès!"]);
