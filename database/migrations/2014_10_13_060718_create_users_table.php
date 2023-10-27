@@ -18,8 +18,11 @@ class CreateUsersTable extends Migration
             $table->string("name");
             $table->string("email");
             $table->string("password");
+            $table->foreignId('employee_id')->unique()->constrained();
             $table->timestamps();
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -29,6 +32,9 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::table('users', function(Blueprint $table){
+            $table->dropForeign(['employee_id']);
+        });
         Schema::dropIfExists('users');
     }
 }
