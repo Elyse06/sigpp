@@ -20,7 +20,6 @@ class ReposMedicalTableSeeder extends Seeder
                 "finrep" => "2023-10-22",
                 "motifrep" => "Palu",
                 "employee_id" => "7",
-                "user_id" => "7",
                 "expires_at" => "2023-10-22",
             ]
         ]);

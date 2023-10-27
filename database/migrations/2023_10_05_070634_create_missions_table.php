@@ -20,7 +20,6 @@ class CreateMissionsTable extends Migration
             $table->date('finmis');
             $table->string('motifmis');
             $table->foreignId('vehicule_id')->constrained();
-            $table->foreignId('user_id')->constrained();
             $table->timestamp('expires_at');
             $table->timestamps();
         });
@@ -34,7 +33,7 @@ class CreateMissionsTable extends Migration
     public function down()
     {
         Schema::table('missions', function(Blueprint $table){
-            $table->dropForeign(['vehicule_id','user_id']);
+            $table->dropForeign(['vehicule_id']);
         });
         Schema::dropIfExists('missions');
     }

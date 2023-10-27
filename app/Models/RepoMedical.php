@@ -11,7 +11,6 @@ class RepoMedical extends Model
     
     protected $fillable = [
         'employee_id',
-        'user_id',
         'debutrep',
         'finrep',
         'motifrep',
@@ -25,7 +24,4 @@ class RepoMedical extends Model
         return $this->belongsTo(Employee::class, "employee_id", "id");
     }
 
-    public function users(){
-        return $this->belongsTo(User::class, "user_id", "id");
-    }
 }

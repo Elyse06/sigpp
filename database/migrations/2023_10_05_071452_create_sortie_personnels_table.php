@@ -22,7 +22,6 @@ class CreateSortiePersonnelsTable extends Migration
             $table->date('finsortie');
             $table->string('motifsortie');
             $table->foreignId('employee_id')->unique()->constrained();
-            $table->foreignId('user_id')->unique()->constrained();
             $table->timestamp('expires_at');
             $table->timestamps();
         });
@@ -38,7 +37,7 @@ class CreateSortiePersonnelsTable extends Migration
     public function down()
     {
         Schema::table('sortie_personnels', function(Blueprint $table){
-            $table->dropForeign(['employee_id','user_id']);
+            $table->dropForeign(['employee_id']);
         });
         Schema::dropIfExists('sortie_personnels');
     }

@@ -11,7 +11,6 @@ class Conge extends Model
 
     protected $fillable = [
         'employee_id',
-        'user_id',
         'sldtotcon',
         'sldeffcon',
         'sldrstcon',
@@ -26,7 +25,4 @@ class Conge extends Model
         return $this->belongsTo(Employee::class, "employee_id", "id");
     }
 
-    public function users(){
-        return $this->belongsTo(User::class, "user_id", "id");
-    }
 }

@@ -148,7 +148,6 @@ public function render()
         $validationAttribute = $this->validate();
         $permissionData = $validationAttribute["newPermission"];
         $permissionData['expires_at'] = $permissionData['finpermi'];
-        $permissionData['user_id'] = $permissionData['employee_id'];
         $solde = $permissionData['sldrstpermi'];
         $idemploi = $permissionData['employee_id'];
         
@@ -169,7 +168,6 @@ public function render()
         $validationAttribute = $this->validate();
         $permissionData = $validationAttribute["editPermission"];
         $permissionData['expires_at'] = $permissionData['finpermi'];
-        $permissionData['user_id'] = $permissionData['employee_id'];
         $solde = $permissionData['sldrstpermi'];
         $idemploi = $permissionData['employee_id'];
 

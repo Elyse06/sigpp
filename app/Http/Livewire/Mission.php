@@ -97,7 +97,6 @@ class Mission extends Component
         $validationAttribute = $this->validate();
         $missionData = $validationAttribute["newMission"];
         $missionData['expires_at'] = $missionData['finmis'];
-        $missionData['user_id'] = $missionData['employee_id'];
         
         // recuperation de l'attribut employee_id seulement
         $valide = $this->validate(['newMission.employee_id' => 'required']);
@@ -123,7 +122,6 @@ class Mission extends Component
         $validationAttribute = $this->validate();
         $missionData = $validationAttribute["editMission"];
         $missionData['expires_at'] = $missionData['finmis'];
-        $missionData['user_id'] = $missionData['employee_id'];
         
         $valide = $this->validate(['editMission.employee_id' => 'required']);
 

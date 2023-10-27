@@ -13,7 +13,6 @@ class Mission extends Model
 
     protected $fillable = [
         'lieumis',
-        'user_id',
         'debutmis',
         'finmis',
         'motifmis',
@@ -23,10 +22,6 @@ class Mission extends Model
 
     public function emploie(){
         return $this->belongsToMany(Employee::class, "mission_employees", "mission_id", "employee_id");
-    }
-
-    public function users(){
-        return $this->belongsTo(User::class, "user_id", "id");
     }
 
     public function vehicules(){

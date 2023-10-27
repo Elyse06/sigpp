@@ -23,7 +23,6 @@ class PermissionTableSeeder extends Seeder
                 "finpermi" => "2023-10-18",
                 "motifpermi" => "Etude",
                 "employee_id" => "1",
-                "user_id" => "1",
                 "expires_at" => "2023-10-18",
             ],
             [
@@ -34,7 +33,6 @@ class PermissionTableSeeder extends Seeder
                 "finpermi" => "2023-10-21",
                 "motifpermi" => "Famille",
                 "employee_id" => "4",
-                "user_id" => "4",
                 "expires_at" => "2023-10-21",
             ]
         ]);

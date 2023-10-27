@@ -147,7 +147,6 @@ class Sortie extends Component
         $validationAttribute = $this->validate();
         $sortiData = $validationAttribute["newSortie"];
         $sortiData['expires_at'] = $sortiData['finsortie'];
-        $sortiData['user_id'] = $sortiData['employee_id'];
         $solde = $sortiData['sldrstsortie'];
         $idemploi = $sortiData['employee_id'];
         
@@ -168,7 +167,6 @@ class Sortie extends Component
         $validationAttribute = $this->validate();
         $sortiData = $validationAttribute["editSortie"];
         $sortiData['expires_at'] = $sortiData['finsortie'];
-        $sortiData['user_id'] = $sortiData['employee_id'];
         $solde = $sortiData['sldrstsortie'];
         $idemploi = $sortiData['employee_id'];
 

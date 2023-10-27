@@ -22,7 +22,6 @@ class CreateCongesTable extends Migration
             $table->date('fincon');
             $table->string('motifcon');
             $table->foreignId('employee_id')->unique()->constrained();
-            $table->foreignId('user_id')->constrained();
             $table->timestamp('expires_at');
             $table->timestamps();
         });
@@ -38,7 +37,7 @@ class CreateCongesTable extends Migration
     public function down()
     {
         Schema::table('conges', function(Blueprint $table){
-            $table->dropForeign(['employee_id','user_id']);
+            $table->dropForeign(['employee_id']);
         });
         Schema::dropIfExists('conges');
     }

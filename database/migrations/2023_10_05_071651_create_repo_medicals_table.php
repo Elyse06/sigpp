@@ -19,7 +19,6 @@ class CreateRepoMedicalsTable extends Migration
             $table->date('finrep');
             $table->string('motifrep');
             $table->foreignId('employee_id')->unique()->constrained();
-            $table->foreignId('user_id')->unique()->constrained();
             $table->timestamp('expires_at');
             $table->timestamps();
         });
@@ -35,7 +34,7 @@ class CreateRepoMedicalsTable extends Migration
     public function down()
     {
         Schema::table('repo_medicals', function (Blueprint $table) {
-            $table->dropForeign(['employee_id','user_id']);
+            $table->dropForeign(['employee_id']);
         });
         Schema::dropIfExists('repo_medicals');
     }
