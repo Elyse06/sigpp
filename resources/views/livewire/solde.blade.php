@@ -60,12 +60,13 @@
 
                         <thead>
                             <tr>
-                                <th style="width:20%;">Nom</th>
-                                <th style="width:20%;">Prenom</th>
+                                <th style="width:15%;">Nom</th>
+                                <th style="width:15%;">Prenom</th>
                                 <th style="width:15%;">Telephone</th>
                                 <th style="width:15%;">Solde du conge</th>
                                 <th style="width:15%;">Solde du permission</th>
                                 <th style="width:15%;">Solde du sortie</th>
+                                <th style="width:10%;">Statuts</th>
                             </tr>
                         </thead>
 
@@ -79,6 +80,23 @@
                                     <td class="text-center"> {{ $employee->soldeConges->solde }} </td>
                                     <td class="text-center"> {{ $employee->soldePermissions->solde }} </td>
                                     <td class="text-center"> {{ $employee->soldeSorties->solde }} </td>
+                                    <td class="text-center"> 
+
+                                        @if (in_array($employee->id, $conges->pluck('employee_id')->all()))
+                                            <p> C </p>
+                                        @elseif (in_array($employee->id, $missions->pluck('pivot.employee_id')->all()))
+                                            <p> M </p>
+                                        @elseif (in_array($employee->id, $permissions->pluck('employee_id')->all()))
+                                            <p> P </p>
+                                        @elseif (in_array($employee->id, $sorties->pluck('employee_id')->all()))
+                                            <p> S </p>
+                                        @elseif (in_array($employee->id, $repos->pluck('employee_id')->all()))
+                                            <p> R </p>
+                                        @else
+                                            <p> Present </p>
+                                        @endif
+
+                                     </td>
 
                                 </tr>
                             @endforeach
@@ -92,7 +110,7 @@
                 <div class="card-footer">
                     <div class="float-right">
 
-                        {{ $employees->links() }}
+                        
 
                     </div>
                 </div>
