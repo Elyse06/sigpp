@@ -2,8 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Conge;
 use App\Models\Mission;
+use App\Notifications\MissionEndingNotification;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Notification;
 
 class CheckEventEndDates extends Command
 {
@@ -38,12 +41,19 @@ class CheckEventEndDates extends Command
      */
     public function handle()
     {
-        $missions = Mission::whereDate('finmis', '=', now())->get();
-
-        foreach ($missions as $mission) {
-            // Créez une instance de la notification et envoyez-la à l'utilisateur associé à la mission
-            $user = $mission->user; // Assurez-vous que votre modèle Mission a une relation vers l'utilisateur
-            $user->notify(new MissionEndingNotification($mission));
+        // notification
+        $conge = Conge::whereDate('fincon', '<', now())->first();
+        if ($conge) {
+            $employee = $conge->employee;
+            if ($employee) {
+                $employeeName = $employee->nom;
+                $user = $employee->user;
+                if ($user) {
+                    // Maintenant, vous avez l'objet User associé à la mission.
+                    // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
+                    Notification::send($user, new MissionEndingNotification($employeeName));
+                }
+            }
         }
-        }
+    }
 }

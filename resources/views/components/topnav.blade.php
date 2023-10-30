@@ -14,10 +14,15 @@
     <ul class="navbar-nav ml-auto" id="notification-list">
         {{-- notification --}}
         <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
                 <i class="far fa-bell"></i>
-                <span class="badge badge-danger" id="notification-badge">0</span>
+                <span class="caret" id="notification-badge"></span>
             </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                    <a class="dropdown-item">No record found</a>
+                
+            </div>
         </li>
         
         {{-- se déconnecter --}}
@@ -29,14 +34,4 @@
     </ul>
 </nav>
 
-<script>
-    $(document).ready(function () {
-        $.get('/notifications/expired-conges', function (data) {
-            var notificationList = $('#notification-list');
-            data.forEach(function (message) {
-                notificationList.append('<li>' + message + '</li>');
-            });
-        });
-    });
-    
-</script>
+

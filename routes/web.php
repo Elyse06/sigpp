@@ -51,7 +51,4 @@ Route::group(
         Route::get('/repomedical', Repos::class)->name('repos');
     }
 );
-Route::get('/notifications/expiredConges', 'NotificationController@getExpiredConges');
-Route::get('/notifications', function () {
-    return view('notifications');
-});
+
