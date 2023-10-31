@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class MissionEndingNotification extends Notification
+class PermissionEndingNotification extends Notification
 {
     use Queueable;
     protected $employeeName;
@@ -56,7 +56,7 @@ class MissionEndingNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'Bonjour ' . $this->employeeName . ' la mission est terminé',
+            'message' => 'Bonjour ' . $this->employeeName . ' la permission est terminé',
         ];
     }
 }

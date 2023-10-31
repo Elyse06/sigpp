@@ -4,7 +4,14 @@ namespace App\Console\Commands;
 
 use App\Models\Conge;
 use App\Models\Mission;
+use App\Models\Permission;
+use App\Models\RepoMedical;
+use App\Models\SortiePersonnel;
+use App\Notifications\CongeEndingNotification;
 use App\Notifications\MissionEndingNotification;
+use App\Notifications\PermissionEndingNotification;
+use App\Notifications\ReposEndingNotification;
+use App\Notifications\SortiEndingNotification;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Notification;
 
@@ -41,9 +48,9 @@ class CheckEventEndDates extends Command
      */
     public function handle()
     {
-        // notification
-        $conge = Conge::whereDate('fincon', '<', now())->first();
-        if ($conge) {
+        // notification conge
+        $conges = Conge::whereDate('fincon', '<', now())->get();
+        foreach ($conges as $conge) {
             $employee = $conge->emploie;
             if ($employee) {
                 $employeeName = $employee->nom;
@@ -51,7 +58,52 @@ class CheckEventEndDates extends Command
                 if ($user) {
                     // Maintenant, vous avez l'objet User associé à la mission.
                     // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
-                    Notification::send($user, new MissionEndingNotification($employeeName));
+                    Notification::send($user, new CongeEndingNotification($employeeName));
+                }
+            }
+        }
+
+        // notification permission
+        $permissions = Permission::whereDate('finpermi', '<', now())->get();
+        foreach ($permissions as $permission) {
+            $employee = $permission->emploie;
+            if ($employee) {
+                $employeeName = $employee->nom;
+                $user = $employee->users;
+                if ($user) {
+                    // Maintenant, vous avez l'objet User associé à la mission.
+                    // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
+                    Notification::send($user, new PermissionEndingNotification($employeeName));
+                }
+            }
+        }
+
+        // notification repos
+        $reposs = RepoMedical::whereDate('finrep', '<', now())->get();
+        foreach ($reposs as $repos) {
+            $employee = $repos->emploie;
+            if ($employee) {
+                $employeeName = $employee->nom;
+                $user = $employee->users;
+                if ($user) {
+                    // Maintenant, vous avez l'objet User associé à la mission.
+                    // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
+                    Notification::send($user, new ReposEndingNotification($employeeName));
+                }
+            }
+        }
+
+        // notification sortie
+        $sorties = SortiePersonnel::whereDate('finsortie', '<', now())->get();
+        foreach ($sorties as $sortie) {
+            $employee = $sortie->emploie;
+            if ($employee) {
+                $employeeName = $employee->nom;
+                $user = $employee->users;
+                if ($user) {
+                    // Maintenant, vous avez l'objet User associé à la mission.
+                    // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
+                    Notification::send($user, new SortiEndingNotification($employeeName));
                 }
             }
         }
