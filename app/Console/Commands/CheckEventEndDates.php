@@ -44,10 +44,10 @@ class CheckEventEndDates extends Command
         // notification
         $conge = Conge::whereDate('fincon', '<', now())->first();
         if ($conge) {
-            $employee = $conge->employee;
+            $employee = $conge->emploie;
             if ($employee) {
                 $employeeName = $employee->nom;
-                $user = $employee->user;
+                $user = $employee->users;
                 if ($user) {
                     // Maintenant, vous avez l'objet User associé à la mission.
                     // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.

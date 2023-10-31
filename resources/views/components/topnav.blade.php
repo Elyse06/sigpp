@@ -13,17 +13,24 @@
     </ul>
     <ul class="navbar-nav ml-auto" id="notification-list">
         {{-- notification --}}
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
-                <i class="far fa-bell"></i>
-                <span class="caret" id="notification-badge"></span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+        @auth
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                    <i class="far fa-bell"></i>
+                    <span class="caret" id="notification-badge"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                    <a class="dropdown-item">No record found</a>
-                
-            </div>
-        </li>
+                @forelse (auth()->user()->notifications as $notification)
+                    <a class="dropdown-item">{{ $notification->data['message'] }}</a>
+                @empty
+                <a class="dropdown-item">No record found</a> 
+                @endforelse
+                    
+                </div>
+            </li>
+        @endauth
+        
         
         {{-- se déconnecter --}}
         <li class="nav-item">

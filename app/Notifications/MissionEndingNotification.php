@@ -56,7 +56,7 @@ class MissionEndingNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'Le congé est terminé pour ' . $this->employeeName,
+            'message' => 'Bonjour ' . $this->employeeName . ' le conge est terminé',
         ];
     }
 }

@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
     {
         Employee::factory(30)->create();
         Vehicule::factory(5)->create();
-        User::factory(10)->create();
+        User::factory(30)->create();
         
         Mission::factory(5)->create();
         
