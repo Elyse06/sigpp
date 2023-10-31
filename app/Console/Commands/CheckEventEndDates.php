@@ -7,6 +7,7 @@ use App\Models\Mission;
 use App\Models\Permission;
 use App\Models\RepoMedical;
 use App\Models\SortiePersonnel;
+use App\Models\User;
 use App\Notifications\CongeEndingNotification;
 use App\Notifications\MissionEndingNotification;
 use App\Notifications\PermissionEndingNotification;
@@ -48,6 +49,7 @@ class CheckEventEndDates extends Command
      */
     public function handle()
     {
+        $id = 1;
         // notification conge
         $conges = Conge::whereDate('fincon', '<', now())->get();
         foreach ($conges as $conge) {
@@ -56,9 +58,15 @@ class CheckEventEndDates extends Command
                 $employeeName = $employee->nom;
                 $user = $employee->users;
                 if ($user) {
+                    $rhUser = User::where('id', $id)->get();
+                    if ($rhUser) {
+                        Notification::send([$user, $rhUser], new CongeEndingNotification($employeeName));
+                    } else {
+                        Notification::send($user, new CongeEndingNotification($employeeName));
+                    }
                     // Maintenant, vous avez l'objet User associé à la mission.
                     // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
-                    Notification::send($user, new CongeEndingNotification($employeeName));
+                    // Notification::send($user, new CongeEndingNotification($employeeName));
                 }
             }
         }
@@ -71,9 +79,15 @@ class CheckEventEndDates extends Command
                 $employeeName = $employee->nom;
                 $user = $employee->users;
                 if ($user) {
+                    $rhUser = User::where('id', $id)->get();
+                    if ($rhUser) {
+                        Notification::send([$user, $rhUser], new PermissionEndingNotification($employeeName));
+                    } else {
+                        Notification::send($user, new PermissionEndingNotification($employeeName));
+                    }
                     // Maintenant, vous avez l'objet User associé à la mission.
                     // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
-                    Notification::send($user, new PermissionEndingNotification($employeeName));
+                    // Notification::send($user, new PermissionEndingNotification($employeeName));
                 }
             }
         }
@@ -86,9 +100,15 @@ class CheckEventEndDates extends Command
                 $employeeName = $employee->nom;
                 $user = $employee->users;
                 if ($user) {
+                    $rhUser = User::where('id', $id)->get();
+                    if ($rhUser) {
+                        Notification::send([$user, $rhUser], new ReposEndingNotification($employeeName));
+                    } else {
+                        Notification::send($user, new ReposEndingNotification($employeeName));
+                    }
                     // Maintenant, vous avez l'objet User associé à la mission.
                     // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
-                    Notification::send($user, new ReposEndingNotification($employeeName));
+                    // Notification::send($user, new ReposEndingNotification($employeeName));
                 }
             }
         }
@@ -101,9 +121,15 @@ class CheckEventEndDates extends Command
                 $employeeName = $employee->nom;
                 $user = $employee->users;
                 if ($user) {
+                    $rhUser = User::where('id', $id)->get();
+                    if ($rhUser) {
+                        Notification::send([$user, $rhUser], new SortiEndingNotification($employeeName));
+                    } else {
+                        Notification::send($user, new SortiEndingNotification($employeeName));
+                    }
                     // Maintenant, vous avez l'objet User associé à la mission.
                     // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
-                    Notification::send($user, new SortiEndingNotification($employeeName));
+                    // Notification::send($user, new SortiEndingNotification($employeeName));
                 }
             }
         }

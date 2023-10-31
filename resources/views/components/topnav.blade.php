@@ -11,13 +11,13 @@
             <a href="{{ route('home') }}" class="nav-link" style="color:#FFCD00; font-weight: bold; font-size: 30px;  ">Planning Personnel</a>
         </li>
     </ul>
-    <ul class="navbar-nav ml-auto" id="notification-list">
+    <ul class="navbar-nav ml-auto">
         {{-- notification --}}
         @auth
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
-                    <i class="far fa-bell"></i>
-                    <span class="caret" id="notification-badge"></span>
+                <a class="nav-link" data-toggle="dropdown" href="#" role="button">
+                    <i class="fas fa-bell"></i>
+                    <span class="caret"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 

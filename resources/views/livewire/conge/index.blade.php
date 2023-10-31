@@ -28,7 +28,7 @@
              cancelButtonText: 'Annuler'
              }).then((result) => {
              if (result.isConfirmed) {
-                 @this.deleteMission(event.detail.message.data.mission_id)
+                 @this.deleteConge(event.detail.message.data.conge_id)
              }
  
          })

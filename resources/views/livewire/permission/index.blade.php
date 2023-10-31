@@ -27,7 +27,7 @@
              cancelButtonText: 'Annuler'
              }).then((result) => {
              if (result.isConfirmed) {
-                 @this.deleteMission(event.detail.message.data.mission_id)
+                 @this.deletePermission(event.detail.message.data.permi_id)
              }
  
          })
