@@ -57,6 +57,7 @@ class CongeEndingNotification extends Notification
     {
         return [
             'message' => 'Bonjour ' . $this->employeeName . ' le conge est terminé',
+            'url' => route('planning.conge', [], false)
         ];
     }
 }

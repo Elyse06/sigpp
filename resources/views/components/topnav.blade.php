@@ -19,10 +19,16 @@
                     <i class="fas fa-bell"></i>
                     <span class="caret"></span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <div style="background-color: #315358;" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
+                <h1>Notifications</h1>
                 @forelse (auth()->user()->notifications as $notification)
-                    <a class="dropdown-item">{{ $notification->data['message'] }}</a>
+                    <a class="dropdown-item" href="{{ $notification->data['url'] }}">
+                        <i class="fas fa-bell"></i>
+                        {{ $notification->data['message'] }}
+                    </a>
+                    <button class="btn btn-link" wire:click="confirmDelete()"><i style="color: red" class="far fa-trash-alt"></i>
+                    </button>
                 @empty
                 <a class="dropdown-item">No record found</a> 
                 @endforelse

@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Notifications\CongeEndingNotification;
 use App\Notifications\MissionEndingNotification;
 use App\Notifications\PermissionEndingNotification;
+use App\Notifications\PlanningEndingNotification;
 use App\Notifications\ReposEndingNotification;
 use App\Notifications\SortiEndingNotification;
 use Illuminate\Console\Command;
@@ -50,6 +51,31 @@ class CheckEventEndDates extends Command
     public function handle()
     {
         $id = 1;
+
+        // notification mission
+        $missions = Conge::whereDate('fincon', '<', now())->get();
+        foreach ($missions as $mission) {
+            $employee = $mission->emploie;
+            if ($employee) {
+                $employeeName = $employee->nom;
+                $user = $employee->users;
+                if ($user) {
+                    $rhUser = User::where('id', $id)->get();
+                    if ($rhUser) {
+                        $planning = 'mission';
+                        Notification::send($user, new CongeEndingNotification($employeeName));
+                        Notification::send($rhUser, new PlanningEndingNotification($employeeName, $planning));
+                    } else {
+                        Notification::send($user, new CongeEndingNotification($employeeName));
+                    }
+                    // Maintenant, vous avez l'objet User associé à la mission.
+                    // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
+                    // Notification::send($user, new CongeEndingNotification($employeeName));
+                }
+            }
+        }
+
+
         // notification conge
         $conges = Conge::whereDate('fincon', '<', now())->get();
         foreach ($conges as $conge) {
@@ -60,7 +86,9 @@ class CheckEventEndDates extends Command
                 if ($user) {
                     $rhUser = User::where('id', $id)->get();
                     if ($rhUser) {
-                        Notification::send([$user, $rhUser], new CongeEndingNotification($employeeName));
+                        $planning = 'conge';
+                        Notification::send($user, new CongeEndingNotification($employeeName));
+                        Notification::send($rhUser, new PlanningEndingNotification($employeeName, $planning));
                     } else {
                         Notification::send($user, new CongeEndingNotification($employeeName));
                     }
@@ -81,7 +109,9 @@ class CheckEventEndDates extends Command
                 if ($user) {
                     $rhUser = User::where('id', $id)->get();
                     if ($rhUser) {
-                        Notification::send([$user, $rhUser], new PermissionEndingNotification($employeeName));
+                        $planning = 'permission';
+                        Notification::send($user, new PermissionEndingNotification($employeeName));
+                        Notification::send($rhUser, new PlanningEndingNotification($employeeName, $planning));
                     } else {
                         Notification::send($user, new PermissionEndingNotification($employeeName));
                     }
@@ -102,7 +132,9 @@ class CheckEventEndDates extends Command
                 if ($user) {
                     $rhUser = User::where('id', $id)->get();
                     if ($rhUser) {
-                        Notification::send([$user, $rhUser], new ReposEndingNotification($employeeName));
+                        $planning = 'repos';
+                        Notification::send($user, new ReposEndingNotification($employeeName));
+                        Notification::send($rhUser, new PlanningEndingNotification($employeeName, $planning));
                     } else {
                         Notification::send($user, new ReposEndingNotification($employeeName));
                     }
@@ -123,7 +155,9 @@ class CheckEventEndDates extends Command
                 if ($user) {
                     $rhUser = User::where('id', $id)->get();
                     if ($rhUser) {
-                        Notification::send([$user, $rhUser], new SortiEndingNotification($employeeName));
+                        $planning = 'sortie';
+                        Notification::send($user, new SortiEndingNotification($employeeName));
+                        Notification::send($rhUser, new PlanningEndingNotification($employeeName, $planning));
                     } else {
                         Notification::send($user, new SortiEndingNotification($employeeName));
                     }

@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('expired:delete')->everyMinute();
+        // $schedule->command('expired:delete')->everyMinute();
         $schedule->command('end:date')->everyMinute();
         $schedule->command('increment:solde')->monthlyOn(28, '23:59');
         $schedule->command('reset:permission')->monthlyOn(28, '23:59');

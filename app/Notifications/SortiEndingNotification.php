@@ -57,6 +57,7 @@ class SortiEndingNotification extends Notification
     {
         return [
             'message' => 'Bonjour ' . $this->employeeName . ' la sortie est terminé',
+            'url' => route('planning.sortie', [], false)
         ];
     }
 }

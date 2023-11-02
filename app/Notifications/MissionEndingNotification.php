@@ -57,6 +57,7 @@ class MissionEndingNotification extends Notification
     {
         return [
             'message' => 'Bonjour ' . $this->employeeName . ' la mission est terminé',
+            'url' => route('planning.mission', [], false)
         ];
     }
 }

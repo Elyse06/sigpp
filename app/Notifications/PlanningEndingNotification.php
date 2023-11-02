@@ -7,19 +7,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PermissionEndingNotification extends Notification
+class PlanningEndingNotification extends Notification
 {
     use Queueable;
     protected $employeeName;
+    protected $planning;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($employeeName)
+    public function __construct($employeeName, $planning)
     {
         $this->employeeName = $employeeName;
+        $this->planning = $planning;
     }
 
     /**
@@ -55,9 +57,10 @@ class PermissionEndingNotification extends Notification
      */
     public function toArray($notifiable)
     {
+        $dateNow = now();
         return [
-            'message' => 'Bonjour ' . $this->employeeName . ' la permission est terminé',
-            'url' => route('planning.permission', [], false)
+            'message' => 'Bonjour ' . $this->employeeName . ' a fini le ' . $this->planning . ' ' . $dateNow,
+            'url' => route('planning.'.$this->planning, [], false)
         ];
     }
 }

@@ -57,6 +57,7 @@ class ReposEndingNotification extends Notification
     {
         return [
             'message' => 'Bonjour ' . $this->employeeName . ' le repos est terminé',
+            'url' => route('planning.repos', [], false)
         ];
     }
 }
