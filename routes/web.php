@@ -14,6 +14,7 @@ use App\Models\RepoMedical;
 use App\Models\SortiePersonnel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +52,18 @@ Route::group(
         Route::get('/repomedical', Repos::class)->name('repos');
     }
 );
+
+
+Route::get('/pdf', [Solde::class, 'generatePDF'])->name('rapport.generatePDF');
+
+Route::get('/Solde des employées/downloadPDF/{filename}', [Solde::class, 'downloadPDF'])
+    ->name('rapport.downloadPDF');
+
+    Route::get('/download-pdf/{filename}', function ($filename) {
+        $localPath = 'C:\laragon\www\Moo4\pdf'; // Remplacez par le chemin complet vers votre répertoire local
+    
+        $file = $localPath . DIRECTORY_SEPARATOR . $filename;
+    
+        return Response::download($file);
+    })->name('download-pdf');
 
