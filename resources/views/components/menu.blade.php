@@ -17,8 +17,9 @@ Acceuil
 <a href="{{ route('solde') }}" class="nav-link {{ setMenuActive('solde') }}">
     <i class=""></i>
 <p>
-Solde Des Employées
+    <i class="fas fa-money-bill-wave"></i> Solde Des Employées
 </p>
+
 </a>
 </ul>
 

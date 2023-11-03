@@ -85,9 +85,9 @@
                                 <td> {{ $conge->emploie->prenom }} </td>
                                 <td> {{ $conge->emploie->numTel }} </td>
                                 <td> {{ $conge->motifcon }} </td>
-                                <td> {{ $conge->sldtotcon }} </td>
-                                <td> {{ $conge->sldeffcon }} </td>
-                                <td> {{ $conge->sldrstcon }} </td>
+                                <td class="text-center"> {{ $conge->sldtotcon }} </td>
+                                <td class="text-center"> {{ $conge->sldeffcon }} </td>
+                                <td class="text-center"> {{ $conge->sldrstcon }} </td>
                                 <td> {{ $conge->debutcon }} </td>
                                 <td> {{ $conge->fincon }} </td>
                                 <td>

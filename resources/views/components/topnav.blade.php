@@ -19,21 +19,39 @@
                     <i class="fas fa-bell"></i>
                     <span class="caret"></span>
                 </a>
-                <div style="background-color: #315358;" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <style>
+                    .notification-list {
+                        max-height: 300px; /* Ajustez cette valeur selon vos besoins */
+                        overflow-y: auto;
+                        
+                    }
+                </style>
+                
+                <div style="background-color: #315358; width: 510px;border-radius: 15px; " class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <h5 style="text-align: center;color:#FFCD00;">Notifications</h5>
+                    <div class="notification-list">
+                        <ul style="list-style-type: none; padding: 0;">
+                            @forelse (auth()->user()->notifications as $notification)
+                                <li style="display: flex; align-items: center;">
+                                    <a style="color: white;" href="{{ $notification->data['url'] }}">
+                                        <i style="color: green;margin-left:10px" class="fas fa-exclamation-triangle"></i>
 
-                <h1>Notifications</h1>
-                @forelse (auth()->user()->notifications as $notification)
-                    <a class="dropdown-item" href="{{ $notification->data['url'] }}">
-                        <i class="fas fa-bell"></i>
-                        {{ $notification->data['message'] }}
-                    </a>
-                    <button class="btn btn-link" wire:click="confirmDelete()"><i style="color: red" class="far fa-trash-alt"></i>
-                    </button>
-                @empty
-                <a class="dropdown-item">No record found</a> 
-                @endforelse
-                    
+                                        {{ $notification->data['message'] }}
+                                    </a>
+                                    <button class="btn btn-link" wire:click="confirmDelete()" style="margin-left: auto;">
+                                        <i style="color: red" class="fas fa-times"></i>
+
+                                    </button>
+                                </li>
+                            @empty
+                                <li><a class="dropdown-item">No record found</a></li>
+                            @endforelse
+                        </ul>
+                    </div>
                 </div>
+                
+                
+                
             </li>
         @endauth
         

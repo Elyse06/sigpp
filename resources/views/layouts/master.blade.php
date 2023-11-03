@@ -31,8 +31,12 @@
           width: 50%; /* Utilisez un pourcentage pour rendre l'image responsive */
           max-width: 100%; /* Garantit que l'image ne dépasse pas la largeur du conteneur parent */
           height: auto; /* La hauteur s'ajuste automatiquement en fonction de la largeur */
+        
+        
         }
+
         </style>
+ 
         
         <img src="{{ asset('images/ades.com.svg') }}" class="center-image" alt="Description de l'image" />
         

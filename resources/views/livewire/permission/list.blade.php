@@ -72,9 +72,9 @@
     <td> {{$permission->emploie->prenom}} </td>
     <td> {{$permission->emploie->numTel}} </td>
     <td> {{$permission->motifpermi}}  </td>
-    <td> {{$permission->sldtotpermi}} </td>
-    <td> {{$permission->sldeffpermi}} </td>
-    <td> {{$permission->sldrstpermi}} </td>
+    <td class="text-center"> {{$permission->sldtotpermi}} </td>
+    <td class="text-center"> {{$permission->sldeffpermi}} </td>
+    <td class="text-center"> {{$permission->sldrstpermi}} </td>
     <td> {{$permission->debutpermi}} </td>
     <td> {{$permission->finpermi}} </td>
     <td>

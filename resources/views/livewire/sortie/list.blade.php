@@ -72,9 +72,9 @@
     <td> {{$sortie->emploie->prenom}} </td>
     <td> {{$sortie->emploie->numTel}} </td>
     <td> {{$sortie->motifsortie}}  </td>
-    <td> {{$sortie->sldtotsortie}} </td>
-    <td> {{$sortie->sldeffsortie}} </td>
-    <td> {{$sortie->sldrstsortie}} </td>
+    <td class="text-center"> {{$sortie->sldtotsortie}} </td>
+    <td class="text-center"> {{$sortie->sldeffsortie}} </td>
+    <td class="text-center"> {{$sortie->sldrstsortie}} </td>
     <td> {{$sortie->debutsortie}} </td>
     <td> {{$sortie->finsortie}} </td>
     <td>
