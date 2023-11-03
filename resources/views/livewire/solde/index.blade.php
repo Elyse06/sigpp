@@ -36,9 +36,22 @@
             </h3>
 
             <div class="card-tools d-flex align-items-center">
+                <style>
+                    .btn-custom {
+    background-color: transparent; /* Supprime l'arrière-plan */
+    border: none; /* Supprime la bordure */
+    padding: 0; /* Supprime le rembourrage */
+}
+
+                </style>
                 <div>
-                    <a href="{{ route('rapport.generatePDF') }}" class="btn btn-primary">Générer le PDF</a>
+                    <a style="margin-right: 10px; color:white" href="{{ route('rapport.generatePDF') }}" class="btn btn-custom"> <!-- Utilisez une classe personnalisée -->
+                        <i class="fas fa-file-pdf" style="color: red;"></i> <!-- Icône de PDF -->
+                        Générer le PDF
+                    </a>
                 </div>
+                
+                
 
                 <div class="input-group input-group-md" style="width: 250px;">
                     <input type="text" name="table_search" wire:model.debounce="search"
@@ -55,7 +68,7 @@
         </div>
 
 
-        <div class="card-body table-responsive p-0" style="height: 300px;">
+        <div class="card-body table-responsive p-0" style="height: 420px;">
             <table class="table table-head-fixed text-nowrap">
                 <thead>
                     <tr>
@@ -80,17 +93,18 @@
                             <td class="text-center"> 
 
                                 @if (in_array($employee->id, $conges->pluck('employee_id')->all()))
-                                    <p> C </p>
+                                <i class="fas fa-circle" style="color: turquoise; font-size: 10px;"></i>
+
                                 @elseif (in_array($employee->id, $missions->pluck('pivot.employee_id')->all()))
-                                    <p> M </p>
+                                <i class="fas fa-circle" style="color: navy; font-size: 10px;"></i>
                                 @elseif (in_array($employee->id, $permissions->pluck('employee_id')->all()))
-                                    <p> P </p>
+                                <i class="fas fa-circle" style="color: gray; font-size: 10px;"></i>
                                 @elseif (in_array($employee->id, $sorties->pluck('employee_id')->all()))
-                                    <p> S </p>
+                                <i class="fas fa-circle" style="color: orange; font-size: 10px;"></i>
                                 @elseif (in_array($employee->id, $repos->pluck('employee_id')->all()))
-                                    <p> R </p>
+                                <i class="fas fa-circle" style="color: red; font-size: 10px;"></i>
                                 @else
-                                    <p> Present </p>
+                                <i class="fas fa-circle" style="color: green; font-size: 10px;"></i>
                                 @endif
 
                              </td>
