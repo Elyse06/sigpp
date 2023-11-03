@@ -41,7 +41,7 @@ class Solde extends Component
 
         $pdf = PDF::loadView('livewire.solde.pdf', compact('employees'));
 
-        $localPath = 'F:\P\Project\ADES\sigpp\pdf';
+        $localPath = 'E:';
         $filename = 'Liste-' . now()->format('Y-m-d') . '.pdf';
         $pdf->save($localPath . DIRECTORY_SEPARATOR . $filename); // Sauvegardez le PDF
 
@@ -52,7 +52,7 @@ class Solde extends Component
 
     public function downloadPDF($filename)
     {
-        $filePath ='F:\P\Project\ADES\sigpp\pdf\\' . $filename;
+        $filePath ='E:\\' . $filename;
 
         return response()->download($filePath, 'liste.pdf');
     }
