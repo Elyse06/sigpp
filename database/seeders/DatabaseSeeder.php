@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SoldeCongeTableSeeder::class);
         $this->call(SoldeSortieTableSeeder::class);
         $this->call(SoldePermissionTableSeeder::class);
+        $this->call(EventSeeder::class);
         
 
         Mission::find(1)->emploie()->attach(7);

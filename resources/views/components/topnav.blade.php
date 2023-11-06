@@ -38,7 +38,7 @@
 
                                         {{ $notification->data['message'] }}
                                     </a>
-                                    <button class="btn btn-link" wire:click="confirmDelete()" style="margin-left: auto;">
+                                    <button class="btn btn-link" wire:click="confirmDelete({{ $notification->id }})" style="margin-left: auto;">
                                         <i style="color: red" class="fas fa-times"></i>
 
                                     </button>
@@ -64,5 +64,25 @@
         </li>
     </ul>
 </nav>
+
+<script>
+    window.addEventListener("comfirmMessage", event=>{
+         Swal.fire({
+             title: event.detail.message.title,
+             text: event.detail.message.text,
+             icon: event.detail.message.type,
+             showCancelButton: true,
+             confirmButtonColor: '#3085d6',
+             cancelButtonColor: '#d33',
+             confirmButtonText: 'continuer',
+             cancelButtonText: 'Annuler'
+             }).then((result) => {
+             if (result.isConfirmed) {
+                
+             }
+ 
+         })
+     })
+ </script>
 
 

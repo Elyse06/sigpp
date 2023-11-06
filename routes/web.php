@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EchartController;
+use App\Http\Livewire\Calendar;
 use App\Http\Livewire\Conge as LivewireConge;
 use App\Http\Livewire\Mission;
 use App\Http\Livewire\Permission as LivewirePermission;
@@ -37,7 +38,18 @@ Auth::routes();
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/Solde des employées/sup', [App\Http\Controllers\NotificationController::class, 'index'])->name('solde');
 Route::get('/Solde des employées', [Solde::class, 'render'])->name('solde');
+
+Route::group(
+    [
+        "prefix" => "emploie",
+        "as" => "emploie."
+    ],
+    function () {
+        Route::get('/calendar', Calendar::class)->name('calendar');
+    }
+);
 
 Route::group(
     [
