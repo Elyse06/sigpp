@@ -69,6 +69,15 @@ Planning
 <p>Repos Medical</p>
 </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('planning.etat') }}" class="nav-link {{ setMenuActive('planning.etat') }}">
+        <i class="fas fa-check-circle"></i>
+
+    <p>Etats</p>
+    </a>
+</li>
+
 </ul>
 </li>
 

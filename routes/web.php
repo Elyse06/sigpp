@@ -3,6 +3,7 @@
 use App\Http\Controllers\EchartController;
 use App\Http\Livewire\Calendar;
 use App\Http\Livewire\Conge as LivewireConge;
+use App\Http\Livewire\Etat;
 use App\Http\Livewire\Mission;
 use App\Http\Livewire\Permission as LivewirePermission;
 use App\Http\Livewire\Repos;
@@ -62,6 +63,7 @@ Route::group(
         Route::get('/permission', LivewirePermission::class)->name('permission');
         Route::get('/sortiperso', Sortie::class)->name('sortie');
         Route::get('/repomedical', Repos::class)->name('repos');
+        Route::get('/etat', Etat::class)->name('etat');
     }
 );
 

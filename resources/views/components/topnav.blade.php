@@ -4,7 +4,7 @@
     <ul class="navbar-nav" style="display: flex; align-items: center;"> <!-- Utilisez display: flex; pour aligner horizontalement -->
         {{-- logo manakely --}}
         <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            <a style="color: white" class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         {{-- home --}}
         <li class="nav-item d-none d-sm-inline-block">
@@ -16,7 +16,7 @@
         @auth
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#" role="button">
-                    <i class="fas fa-bell"></i>
+                    <i style="color: white" class="fas fa-bell"></i>
                     <span class="caret"></span>
                 </a>
                 <style>
@@ -44,7 +44,7 @@
                                     </button>
                                 </li>
                             @empty
-                                <li><a class="dropdown-item">No record found</a></li>
+                                <li><a  style="color: white;">Aucun enregistrement trouvé</a></li>
                             @endforelse
                         </ul>
                     </div>
@@ -59,7 +59,7 @@
         {{-- se déconnecter --}}
         <li class="nav-item">
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                <i class="fas fa-user"></i>
+                <i style="color: white" class="fas fa-user"></i>
             </a>
         </li>
     </ul>
