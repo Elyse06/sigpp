@@ -49,7 +49,7 @@
         align-items: center;
         /* Centre verticalement */
         margin-top: 80px;
-        margin-left: 150px;/* Ajoute une marge supérieure de 20px */
+        margin-left: 150px;
       }
     </style>
     
