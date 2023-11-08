@@ -18,7 +18,7 @@ class CreateRepoMedicalsTable extends Migration
             $table->date('debutrep');
             $table->date('finrep');
             $table->string('motifrep');
-            $table->foreignId('employee_id')->unique()->constrained();
+            $table->foreignId('employee_id')->constrained();
             $table->timestamp('expires_at');
             $table->timestamps();
         });

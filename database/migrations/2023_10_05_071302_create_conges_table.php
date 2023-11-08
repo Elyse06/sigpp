@@ -21,7 +21,7 @@ class CreateCongesTable extends Migration
             $table->date('debutcon');
             $table->date('fincon');
             $table->string('motifcon');
-            $table->foreignId('employee_id')->unique()->constrained();
+            $table->foreignId('employee_id')->constrained();
             $table->timestamp('expires_at');
             $table->timestamps();
         });

@@ -17,7 +17,7 @@
     <div class="card card-danger">
       <div style="background-color:#315358;float:left;  font-weight: bold;" class="card-header">Statut des employées
         <div class="card-tools">
-        <button  type="submit" style="background-color: #007bff; border-radius: 10px">Actualité</button>
+        <button  type="submit" style="background-color: #007bff; border-radius: 10px">Ce jour</button>
           
             <label for="start_date" >Date de début :</label>
             <input type="date" id="start_date" name="start_date">

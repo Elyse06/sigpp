@@ -31,91 +31,114 @@ class HomeController extends Controller
     public function index()
     {
 
+        $topEmployeesMission = Employee::select('employees.id', 'employees.nom', DB::raw('COUNT(mission_employees.mission_id) as mission_count'))
+        ->join('mission_employees', 'employees.id', '=', 'mission_employees.employee_id')
+        ->groupBy('employees.id', 'employees.nom')
+        ->orderByDesc('mission_count')
+        ->limit(10)
+        ->get();
+
+
+
+        $topEmployeesCon = Conge::select('employee_id', DB::raw('COUNT(*) as conge_count'))
+        ->groupBy('employee_id')
+        ->orderByDesc('conge_count')
+        ->limit(10)
+        ->get();
+
+        $topEmployeesPermi = Permission::select('employee_id', DB::raw('COUNT(*) as permission_count'))
+        ->groupBy('employee_id')
+        ->orderByDesc('permission_count')
+        ->limit(10)
+        ->get();
+
+        $topEmployeesSortie = SortiePersonnel::select('employee_id', DB::raw('COUNT(*) as sortie_count'))
+        ->groupBy('employee_id')
+        ->orderByDesc('sortie_count')
+        ->limit(10)
+        ->get();
+
+        $topEmployeesRep = RepoMedical::select('employee_id', DB::raw('COUNT(*) as repos_count'))
+        ->groupBy('employee_id')
+        ->orderByDesc('repos_count')
+        ->limit(10)
+        ->get();
+
         $currentYear = now()->year;
-        $m_year = Mission::whereYear('debutmis', $currentYear)->whereYear('finmis', $currentYear)->get();
-        $c_year = Conge::whereYear('debutcon', $currentYear)->whereYear('fincon', $currentYear)->get();
-        $p_year = Permission::whereYear('debutpermi', $currentYear)->whereYear('finpermi', $currentYear)->get();
-        $s_year = SortiePersonnel::whereYear('debutsortie', $currentYear)->whereYear('finsortie', $currentYear)->get();
-        $r_year = RepoMedical::whereYear('debutrep', $currentYear)->whereYear('finrep', $currentYear)->get();
-
-            if($m_year)
+            if($currentYear)
             {
-                $m_jan = Mission::where(function($query) {$query->whereMonth('debutmis', 1)->orWhere(function($query) {$query->whereMonth('finmis', 1)->whereNull('debutmis');});})->count();
-                $m_fev = Mission::where(function($query) {$query->whereMonth('debutmis', 2)->orWhere(function($query) {$query->whereMonth('finmis', 2)->whereNull('debutmis');});})->count();
-                $m_mar = Mission::where(function($query) {$query->whereMonth('debutmis', 3)->orWhere(function($query) {$query->whereMonth('finmis', 3)->whereNull('debutmis');});})->count();
-                $m_avr = Mission::where(function($query) {$query->whereMonth('debutmis', 4)->orWhere(function($query) {$query->whereMonth('finmis', 4)->whereNull('debutmis');});})->count();
-                $m_mai = Mission::where(function($query) {$query->whereMonth('debutmis', 5)->orWhere(function($query) {$query->whereMonth('finmis', 5)->whereNull('debutmis');});})->count();
-                $m_jun = Mission::where(function($query) {$query->whereMonth('debutmis', 6)->orWhere(function($query) {$query->whereMonth('finmis', 6)->whereNull('debutmis');});})->count();
-                $m_jul = Mission::where(function($query) {$query->whereMonth('debutmis', 7)->orWhere(function($query) {$query->whereMonth('finmis', 7)->whereNull('debutmis');});})->count();
-                $m_aou = Mission::where(function($query) {$query->whereMonth('debutmis', 8)->orWhere(function($query) {$query->whereMonth('finmis', 8)->whereNull('debutmis');});})->count();
-                $m_sep = Mission::where(function($query) {$query->whereMonth('debutmis', 9)->orWhere(function($query) {$query->whereMonth('finmis', 9)->whereNull('debutmis');});})->count();
-                $m_oct = Mission::where(function($query) {$query->whereMonth('debutmis', 10)->orWhere(function($query) {$query->whereMonth('finmis', 10)->whereNull('debutmis');});})->count();
-                $m_nov = Mission::where(function($query) {$query->whereMonth('debutmis', 11)->orWhere(function($query) {$query->whereMonth('finmis', 11)->whereNull('debutmis');});})->count();
-                $m_dec = Mission::where(function($query) {$query->whereMonth('debutmis', 12)->orWhere(function($query) {$query->whereMonth('finmis', 12)->whereNull('debutmis');});})->count();
+                $m_jan = Mission::whereYear('debutmis', $currentYear)->whereMonth('debutmis', 1)->get()->count();
+                $m_fev = Mission::whereYear('debutmis', $currentYear)->whereMonth('debutmis', 2)->get()->count();
+                $m_mar = Mission::whereYear('debutmis', $currentYear)->whereMonth('debutmis', 3)->get()->count();
+                $m_avr = Mission::whereYear('debutmis', $currentYear)->whereMonth('debutmis', 4)->get()->count();
+                $m_mai = Mission::whereYear('debutmis', $currentYear)->whereMonth('debutmis', 5)->get()->count();
+                $m_jun = Mission::whereYear('debutmis', $currentYear)->whereMonth('debutmis', 6)->get()->count();
+                $m_jul = Mission::whereYear('debutmis', $currentYear)->whereMonth('debutmis', 7)->get()->count();
+                $m_aou = Mission::whereYear('debutmis', $currentYear)->whereMonth('debutmis', 8)->get()->count();
+                $m_sep = Mission::whereYear('debutmis', $currentYear)->whereMonth('debutmis', 9)->get()->count();
+                $m_oct = Mission::whereYear('debutmis', $currentYear)->whereMonth('debutmis', 10)->get()->count();
+                $m_nov = Mission::whereYear('debutmis', $currentYear)->whereMonth('debutmis', 11)->get()->count();
+                $m_dec = Mission::whereYear('debutmis', $currentYear)->whereMonth('debutmis', 12)->get()->count();
             }
-
-            if($c_year)
+            if($currentYear)
             {
-                $c_jan = Conge::whereMonth('debutcon', 1)->whereMonth('fincon', 1)->get()->count();
-                $c_fev = Conge::whereMonth('debutcon', 2)->whereMonth('fincon', 2)->get()->count();
-                $c_mar = Conge::whereMonth('debutcon', 3)->whereMonth('fincon', 3)->get()->count();
-                $c_avr = Conge::whereMonth('debutcon', 4)->whereMonth('fincon', 4)->get()->count();
-                $c_mai = Conge::whereMonth('debutcon', 5)->whereMonth('fincon', 5)->get()->count();
-                $c_jun = Conge::whereMonth('debutcon', 6)->whereMonth('fincon', 6)->get()->count();
-                $c_jul = Conge::whereMonth('debutcon', 7)->whereMonth('fincon', 7)->get()->count();
-                $c_aou = Conge::whereMonth('debutcon', 8)->whereMonth('fincon', 8)->get()->count();
-                $c_sep = Conge::whereMonth('debutcon', 9)->whereMonth('fincon', 9)->get()->count();
-                $c_oct = Conge::whereMonth('debutcon', 10)->whereMonth('fincon', 10)->get()->count();
-                $c_nov = Conge::whereMonth('debutcon', 11)->whereMonth('fincon', 11)->get()->count();
-                $c_dec = Conge::whereMonth('debutcon', 12)->whereMonth('fincon', 12)->get()->count();
+                $c_jan = Conge::whereYear('debutcon', $currentYear)->whereMonth('debutcon', 1)->get()->count();
+                $c_fev = Conge::whereYear('debutcon', $currentYear)->whereMonth('debutcon', 2)->get()->count();
+                $c_mar = Conge::whereYear('debutcon', $currentYear)->whereMonth('debutcon', 3)->get()->count();
+                $c_avr = Conge::whereYear('debutcon', $currentYear)->whereMonth('debutcon', 4)->get()->count();
+                $c_mai = Conge::whereYear('debutcon', $currentYear)->whereMonth('debutcon', 5)->get()->count();
+                $c_jun = Conge::whereYear('debutcon', $currentYear)->whereMonth('debutcon', 6)->get()->count();
+                $c_jul = Conge::whereYear('debutcon', $currentYear)->whereMonth('debutcon', 7)->get()->count();
+                $c_aou = Conge::whereYear('debutcon', $currentYear)->whereMonth('debutcon', 8)->get()->count();
+                $c_sep = Conge::whereYear('debutcon', $currentYear)->whereMonth('debutcon', 9)->get()->count();
+                $c_oct = Conge::whereYear('debutcon', $currentYear)->whereMonth('debutcon', 10)->get()->count();
+                $c_nov = Conge::whereYear('debutcon', $currentYear)->whereMonth('debutcon', 11)->get()->count();
+                $c_dec = Conge::whereYear('debutcon', $currentYear)->whereMonth('debutcon', 12)->get()->count();
             }
-
-            if($p_year)
+            if($currentYear)
             {
-                $p_jan = Permission::whereMonth('debutpermi', 1)->whereMonth('finpermi', 1)->get()->count();
-                $p_fev = Permission::whereMonth('debutpermi', 2)->whereMonth('finpermi', 2)->get()->count();
-                $p_mar = Permission::whereMonth('debutpermi', 3)->whereMonth('finpermi', 3)->get()->count();
-                $p_avr = Permission::whereMonth('debutpermi', 4)->whereMonth('finpermi', 4)->get()->count();
-                $p_mai = Permission::whereMonth('debutpermi', 5)->whereMonth('finpermi', 5)->get()->count();
-                $p_jun = Permission::whereMonth('debutpermi', 6)->whereMonth('finpermi', 6)->get()->count();
-                $p_jul = Permission::whereMonth('debutpermi', 7)->whereMonth('finpermi', 7)->get()->count();
-                $p_aou = Permission::whereMonth('debutpermi', 8)->whereMonth('finpermi', 8)->get()->count();
-                $p_sep = Permission::whereMonth('debutpermi', 9)->whereMonth('finpermi', 9)->get()->count();
-                $p_oct = Permission::whereMonth('debutpermi', 10)->whereMonth('finpermi', 10)->get()->count();
-                $p_nov = Permission::whereMonth('debutpermi', 11)->whereMonth('finpermi', 11)->get()->count();
-                $p_dec = Permission::whereMonth('debutpermi', 12)->whereMonth('finpermi', 12)->get()->count();
+                $p_jan = Permission::whereYear('debutpermi', $currentYear)->whereMonth('debutpermi', 1)->get()->count();
+                $p_fev = Permission::whereYear('debutpermi', $currentYear)->whereMonth('debutpermi', 2)->get()->count();
+                $p_mar = Permission::whereYear('debutpermi', $currentYear)->whereMonth('debutpermi', 3)->get()->count();
+                $p_avr = Permission::whereYear('debutpermi', $currentYear)->whereMonth('debutpermi', 4)->get()->count();
+                $p_mai = Permission::whereYear('debutpermi', $currentYear)->whereMonth('debutpermi', 5)->get()->count();
+                $p_jun = Permission::whereYear('debutpermi', $currentYear)->whereMonth('debutpermi', 6)->get()->count();
+                $p_jul = Permission::whereYear('debutpermi', $currentYear)->whereMonth('debutpermi', 7)->get()->count();
+                $p_aou = Permission::whereYear('debutpermi', $currentYear)->whereMonth('debutpermi', 8)->get()->count();
+                $p_sep = Permission::whereYear('debutpermi', $currentYear)->whereMonth('debutpermi', 9)->get()->count();
+                $p_oct = Permission::whereYear('debutpermi', $currentYear)->whereMonth('debutpermi', 10)->get()->count();
+                $p_nov = Permission::whereYear('debutpermi', $currentYear)->whereMonth('debutpermi', 11)->get()->count();
+                $p_dec = Permission::whereYear('debutpermi', $currentYear)->whereMonth('debutpermi', 12)->get()->count();
             }
-
-            if($s_year)
+            if($currentYear)
             {
-                $s_jan = SortiePersonnel::whereMonth('debutsortie', 1)->whereMonth('finsortie', 1)->get()->count();
-                $s_fev = SortiePersonnel::whereMonth('debutsortie', 2)->whereMonth('finsortie', 2)->get()->count();
-                $s_mar = SortiePersonnel::whereMonth('debutsortie', 3)->whereMonth('finsortie', 3)->get()->count();
-                $s_avr = SortiePersonnel::whereMonth('debutsortie', 4)->whereMonth('finsortie', 4)->get()->count();
-                $s_mai = SortiePersonnel::whereMonth('debutsortie', 5)->whereMonth('finsortie', 5)->get()->count();
-                $s_jun = SortiePersonnel::whereMonth('debutsortie', 6)->whereMonth('finsortie', 6)->get()->count();
-                $s_jul = SortiePersonnel::whereMonth('debutsortie', 7)->whereMonth('finsortie', 7)->get()->count();
-                $s_aou = SortiePersonnel::whereMonth('debutsortie', 8)->whereMonth('finsortie', 8)->get()->count();
-                $s_sep = SortiePersonnel::whereMonth('debutsortie', 9)->whereMonth('finsortie', 9)->get()->count();
-                $s_oct = SortiePersonnel::whereMonth('debutsortie', 10)->whereMonth('finsortie', 10)->get()->count();
-                $s_nov = SortiePersonnel::whereMonth('debutsortie', 11)->whereMonth('finsortie', 11)->get()->count();
-                $s_dec = SortiePersonnel::whereMonth('debutsortie', 12)->whereMonth('finsortie', 12)->get()->count();
+                $s_jan = SortiePersonnel::whereYear('debutsortie', $currentYear)->whereMonth('debutsortie', 1)->get()->count();
+                $s_fev = SortiePersonnel::whereYear('debutsortie', $currentYear)->whereMonth('debutsortie', 2)->get()->count();
+                $s_mar = SortiePersonnel::whereYear('debutsortie', $currentYear)->whereMonth('debutsortie', 3)->get()->count();
+                $s_avr = SortiePersonnel::whereYear('debutsortie', $currentYear)->whereMonth('debutsortie', 4)->get()->count();
+                $s_mai = SortiePersonnel::whereYear('debutsortie', $currentYear)->whereMonth('debutsortie', 5)->get()->count();
+                $s_jun = SortiePersonnel::whereYear('debutsortie', $currentYear)->whereMonth('debutsortie', 6)->get()->count();
+                $s_jul = SortiePersonnel::whereYear('debutsortie', $currentYear)->whereMonth('debutsortie', 7)->get()->count();
+                $s_aou = SortiePersonnel::whereYear('debutsortie', $currentYear)->whereMonth('debutsortie', 8)->get()->count();
+                $s_sep = SortiePersonnel::whereYear('debutsortie', $currentYear)->whereMonth('debutsortie', 9)->get()->count();
+                $s_oct = SortiePersonnel::whereYear('debutsortie', $currentYear)->whereMonth('debutsortie', 10)->get()->count();
+                $s_nov = SortiePersonnel::whereYear('debutsortie', $currentYear)->whereMonth('debutsortie', 11)->get()->count();
+                $s_dec = SortiePersonnel::whereYear('debutsortie', $currentYear)->whereMonth('debutsortie', 12)->get()->count();
             }
-
-            if($r_year)
+            if($currentYear)
             {
-                $r_jan =RepoMedical::whereMonth('debutrep', 1)->whereMonth('finrep', 1)->get()->count();
-                $r_fev =RepoMedical::whereMonth('debutrep', 2)->whereMonth('finrep', 2)->get()->count();
-                $r_mar =RepoMedical::whereMonth('debutrep', 3)->whereMonth('finrep', 3)->get()->count();
-                $r_avr =RepoMedical::whereMonth('debutrep', 4)->whereMonth('finrep', 4)->get()->count();
-                $r_mai =RepoMedical::whereMonth('debutrep', 5)->whereMonth('finrep', 5)->get()->count();
-                $r_jun =RepoMedical::whereMonth('debutrep', 6)->whereMonth('finrep', 6)->get()->count();
-                $r_jul =RepoMedical::whereMonth('debutrep', 7)->whereMonth('finrep', 7)->get()->count();
-                $r_aou =RepoMedical::whereMonth('debutrep', 8)->whereMonth('finrep', 8)->get()->count();
-                $r_sep =RepoMedical::whereMonth('debutrep', 9)->whereMonth('finrep', 9)->get()->count();
-                $r_oct =RepoMedical::whereMonth('debutrep', 10)->whereMonth('finrep', 10)->get()->count();
-                $r_nov =RepoMedical::whereMonth('debutrep', 11)->whereMonth('finrep', 11)->get()->count();
-                $r_dec =RepoMedical::whereMonth('debutrep', 12)->whereMonth('finrep', 12)->get()->count();
+                $r_jan =RepoMedical::whereYear('debutrep', $currentYear)->whereMonth('debutrep', 1)->get()->count();
+                $r_fev =RepoMedical::whereYear('debutrep', $currentYear)->whereMonth('debutrep', 2)->get()->count();
+                $r_mar =RepoMedical::whereYear('debutrep', $currentYear)->whereMonth('debutrep', 3)->get()->count();
+                $r_avr =RepoMedical::whereYear('debutrep', $currentYear)->whereMonth('debutrep', 4)->get()->count();
+                $r_mai =RepoMedical::whereYear('debutrep', $currentYear)->whereMonth('debutrep', 5)->get()->count();
+                $r_jun =RepoMedical::whereYear('debutrep', $currentYear)->whereMonth('debutrep', 6)->get()->count();
+                $r_jul =RepoMedical::whereYear('debutrep', $currentYear)->whereMonth('debutrep', 7)->get()->count();
+                $r_aou =RepoMedical::whereYear('debutrep', $currentYear)->whereMonth('debutrep', 8)->get()->count();
+                $r_sep =RepoMedical::whereYear('debutrep', $currentYear)->whereMonth('debutrep', 9)->get()->count();
+                $r_oct =RepoMedical::whereYear('debutrep', $currentYear)->whereMonth('debutrep', 10)->get()->count();
+                $r_nov =RepoMedical::whereYear('debutrep', $currentYear)->whereMonth('debutrep', 11)->get()->count();
+                $r_dec =RepoMedical::whereYear('debutrep', $currentYear)->whereMonth('debutrep', 12)->get()->count();
             }
 
         
@@ -131,7 +154,8 @@ class HomeController extends Controller
             'm_sep', 'c_sep', 'p_sep', 's_sep', 'r_sep',
             'm_oct', 'c_oct', 'p_oct', 's_oct', 'r_oct',
             'm_nov', 'c_nov', 'p_nov', 's_nov', 'r_nov',
-            'm_dec', 'c_dec', 'p_dec', 's_dec', 'r_dec'
+            'm_dec', 'c_dec', 'p_dec', 's_dec', 'r_dec',
+            'topEmployeesCon', 'topEmployeesPermi', 'topEmployeesSortie', 'topEmployeesRep','topEmployeesMission'
         ));
     }
 }
