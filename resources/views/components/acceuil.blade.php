@@ -133,67 +133,6 @@
 
     </div>
 
-
-    <script>
-        // Données du graphique (exemples)
-        var data = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Juin', 'Jul', 'Aout', 'Sept', 'oct', 'Nov', 'Des'],
-            datasets: [{
-                    label: 'Congé',
-                    data: [10, 15, 7, 12, 9, 5, 4, 7, 6, 11, 13, 3],
-                    backgroundColor: 'turquoise',
-                    borderColor: 'turquoise',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Mission',
-                    data: [10, 15, 7, 12, 9, 5, 4, 7, 6, 11, 13, 3],
-                    backgroundColor: 'navy',
-                    borderColor: 'navy',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Permission',
-                    data: [10, 15, 7, 12, 9, 5, 4, 7, 6, 11, 13, 3],
-                    backgroundColor: 'gray',
-                    borderColor: 'gray',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Répos Medical',
-                    data: [10, 15, 7, 12, 9, 5, 4, 7, 6, 11, 13, 3],
-                    backgroundColor: 'red',
-                    borderColor: 'red',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Sortie Personnel',
-                    data: [10, 15, 7, 12, 9, 5, 4, 7, 6, 11, 13, 3],
-                    backgroundColor: 'yellow',
-                    borderColor: 'yellow',
-                    borderWidth: 1
-                }
-            ]
-        };
-
-        // Configuration du graphique
-        var options = {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        };
-
-        // Création du graphique à barres
-        var ctx = document.getElementById('barChart').getContext('2d');
-        var myBarChart = new Chart(ctx, {
-            type: 'bar',
-            data: data,
-            options: options
-        });
-    </script>
-
 </body>
 
 </html>
