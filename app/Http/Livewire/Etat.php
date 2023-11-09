@@ -14,11 +14,11 @@ class Etat extends Component
 {
     public function render()
     {
-        $mission = Mission::get();
-    	$conge = Conge::get();
-    	$permission = Permission::get();
-    	$sortie = SortiePersonnel::get();
-    	$repos = RepoMedical::get();
+        $mission = Mission::where('debutmis', '>=', now()->toDateString())->get();
+    	$conge = Conge::where('debutcon', '>=', now()->toDateString())->get();
+    	$permission = Permission::where('debutpermi', '>=', now()->toDateString())->get();
+    	$sortie = SortiePersonnel::where('debutsortie', '>=', now()->toDateString())->get();
+    	$repos = RepoMedical::where('debutrep', '>=', now()->toDateString())->get();
         $total = Employee::get();
     	$mission_count = count($mission);    	
     	$conge_count = count($conge);
