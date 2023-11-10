@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Conge as ModelsConge;
 use App\Models\Employee;
 use App\Models\SoldeConge;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -116,28 +117,40 @@ class Conge extends Component
     // recuperer le solde du moi en fonction du employee
     public function getSoldeByEmployeeId()
     {
-        // Effectuez ici la requête pour récupérer le solde du mois en fonction de l'ID de l'employé.
+        $dateDebut = Carbon::parse($this->newConge['debutcon'])->year;
+        $dateFin = Carbon::parse($this->newConge['fincon'])->year;
+
+        dump($dateDebut);
         $employeeId = $this->newConge['employee_id'];
 
-        // Remplacez le code suivant par votre propre logique de requête.
-        $solde = DB::table('solde_conges')
-            ->where('employee_id', $employeeId)
-            ->value('solde');
+        $solde = Employee::where('id', $employeeId)->value('soldeconge');
 
         $this->newConge['sldtotcon'] = $solde;
     }
 
     public function getSoldeByEmployeeIdEdit()
     {
-        // Effectuez ici la requête pour récupérer le solde du mois en fonction de l'ID de l'employé.
         $employeeId = $this->editConge['employee_id'];
 
-        // Remplacez le code suivant par votre propre logique de requête.
-        $solde = DB::table('solde_conges')
-            ->where('employee_id', $employeeId)
-            ->value('solde');
+        $solde = Employee::where('id', $employeeId)->value('soldeconge');
 
         $this->editConge['sldtotcon'] = $solde;
+    }
+
+    // recuperer le total prix by date
+    public function remplirTotalPrix()
+    {
+        $dateDebut = $this->newConge['debutcon'];
+        $dateFin = $this->newConge['fincon'];
+        $totalPrix = Carbon::parse($dateDebut)->diff(Carbon::parse($dateFin))->d;
+        $this->newConge['sldeffcon'] = $totalPrix;
+    }
+    public function remplirTotalPrixEdit()
+    {
+        $dateDebut = $this->editConge['debutcon'];
+        $dateFin = $this->editConge['fincon'];
+        $totalPrix = Carbon::parse($dateDebut)->diff(Carbon::parse($dateFin))->d;
+        $this->newConge['sldeffcon'] = $totalPrix;
     }
 
     // pour faire l'ajout
@@ -146,13 +159,9 @@ class Conge extends Component
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
         $congeData = $validationAttribute["newConge"];
-        $congeData['expires_at'] = $congeData['fincon'];
-        $solde = $congeData['sldrstcon'];
-        $idemploi = $congeData['employee_id'];
         
         // ajout d'un nouvelle conge
         ModelsConge::create($congeData);
-        SoldeConge::where('employee_id',$idemploi)->update(['solde' => $solde]);
 
         // reinitialiser newconge 
         $this->newConge = [];
@@ -166,13 +175,9 @@ class Conge extends Component
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
         $congeData = $validationAttribute["editConge"];
-        $congeData['expires_at'] = $congeData['fincon'];
-        $solde = $congeData['sldrstcon'];
-        $idemploi = $congeData['employee_id'];
 
         // modification
         ModelsConge::find($this->editConge["id"])->update($congeData);
-        SoldeConge::where('employee_id',$idemploi)->update(['solde' => $solde]);
 
         // creer un evenement pour dire que l'enregistrement est effectué
         $this->dispatchBrowserEvent("showSuccesMessage", ["message"=>"Conge modifier avec succès!"]);

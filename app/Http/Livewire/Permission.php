@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Employee;
 use App\Models\Permission as ModelsPermission;
 use App\Models\SoldePermission;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -115,29 +116,37 @@ public function render()
     
         // recuperer le solde du moi en fonction du employee
         public function getSoldeByEmployeeId()
-        {
-            // Effectuez ici la requête pour récupérer le solde du mois en fonction de l'ID de l'employé.
+        {  
             $employeeId = $this->newPermission['employee_id'];
-    
-            // Remplacez le code suivant par votre propre logique de requête.
-            $solde = DB::table('solde_permissions')
-                ->where('employee_id', $employeeId)
-                ->value('solde');
+   
+            $solde = Employee::where('id', $employeeId)->value('soldepermission');
     
             $this->newPermission['sldtotpermi'] = $solde;
         }
     
         public function getSoldeByEmployeeIdEdit()
-        {
-            // Effectuez ici la requête pour récupérer le solde du mois en fonction de l'ID de l'employé.
+        {   
             $employeeId = $this->editPermission['employee_id'];
-    
-            // Remplacez le code suivant par votre propre logique de requête.
-            $solde = DB::table('solde_permissions')
-                ->where('employee_id', $employeeId)
-                ->value('solde');
+ 
+            $solde = Employee::where('id', $employeeId)->value('soldepermission');
     
             $this->editPermission['sldtotpermi'] = $solde;
+        }
+
+        // recuperer le total prix by date
+        public function remplirTotalPrix()
+        {
+            $dateDebut = $this->newPermission['debutpermi'];
+            $dateFin = $this->newPermission['finpermi'];
+            $totalPrix = Carbon::parse($dateDebut)->diff(Carbon::parse($dateFin))->d;
+            $this->newPermission['sldeffpermi'] = $totalPrix;
+        }
+        public function remplirTotalPrixEdit()
+        {
+            $dateDebut = $this->editPermission['debutpermi'];
+            $dateFin = $this->editPermission['finpermi'];
+            $totalPrix = Carbon::parse($dateDebut)->diff(Carbon::parse($dateFin))->d;
+            $this->editPermission['sldeffpermi'] = $totalPrix;
         }
 
 
@@ -147,13 +156,9 @@ public function render()
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
         $permissionData = $validationAttribute["newPermission"];
-        $permissionData['expires_at'] = $permissionData['finpermi'];
-        $solde = $permissionData['sldrstpermi'];
-        $idemploi = $permissionData['employee_id'];
         
         // ajout d'un nouvelle mission
         ModelsPermission::create($permissionData);
-        SoldePermission::where('employee_id',$idemploi)->update(['solde' => $solde]);
 
         // reinitialiser newMission 
         $this->newPermission = [];
@@ -167,13 +172,9 @@ public function render()
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
         $permissionData = $validationAttribute["editPermission"];
-        $permissionData['expires_at'] = $permissionData['finpermi'];
-        $solde = $permissionData['sldrstpermi'];
-        $idemploi = $permissionData['employee_id'];
 
         // modification
         ModelsPermission::find($this->editPermission["id"])->update($permissionData);
-        SoldePermission::where('employee_id',$idemploi)->update(['solde' => $solde]);
 
         // creer un evenement pour dire que l'enregistrement est effectué
         $this->dispatchBrowserEvent("showSuccesMessage", ["message"=>"Permission modifier avec succès!"]);

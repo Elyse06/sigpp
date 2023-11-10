@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Employee;
 use App\Models\SoldeSortie;
 use App\Models\SortiePersonnel;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -115,28 +116,36 @@ class Sortie extends Component
         // recuperer le solde du moi en fonction du employee
         public function getSoldeByEmployeeId()
         {
-            // Effectuez ici la requête pour récupérer le solde du mois en fonction de l'ID de l'employé.
             $employeeId = $this->newSortie['employee_id'];
     
-            // Remplacez le code suivant par votre propre logique de requête.
-            $solde = DB::table('solde_sorties')
-                ->where('employee_id', $employeeId)
-                ->value('solde');
+            $solde = Employee::where('id', $employeeId)->value('soldesortie');
     
             $this->newSortie['sldtotsortie'] = $solde;
         }
     
         public function getSoldeByEmployeeIdEdit()
-        {
-            // Effectuez ici la requête pour récupérer le solde du mois en fonction de l'ID de l'employé.
+        { 
             $employeeId = $this->editSortie['employee_id'];
     
-            // Remplacez le code suivant par votre propre logique de requête.
-            $solde = DB::table('solde_sorties')
-                ->where('employee_id', $employeeId)
-                ->value('solde');
+            $solde = Employee::where('id', $employeeId)->value('soldesortie');
     
             $this->editSortie['sldtotsortie'] = $solde;
+        }
+
+        // recuperer le total prix by date
+        public function remplirTotalPrix()
+        {
+            $dateDebut = $this->newSortie['debutsortie'];
+            $dateFin = $this->newSortie['finsortie'];
+            $totalPrix = Carbon::parse($dateDebut)->diff(Carbon::parse($dateFin))->d;
+            $this->newSortie['sldeffsortie'] = $totalPrix;
+        }
+        public function remplirTotalPrixEdit()
+        {
+            $dateDebut = $this->editSortie['debutsortie'];
+            $dateFin = $this->editSortie['finsortie'];
+            $totalPrix = Carbon::parse($dateDebut)->diff(Carbon::parse($dateFin))->d;
+            $this->editSortie['sldeffsortie'] = $totalPrix;
         }
 
 
@@ -146,13 +155,9 @@ class Sortie extends Component
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
         $sortiData = $validationAttribute["newSortie"];
-        $sortiData['expires_at'] = $sortiData['finsortie'];
-        $solde = $sortiData['sldrstsortie'];
-        $idemploi = $sortiData['employee_id'];
         
         // ajout d'un nouvelle mission
         SortiePersonnel::create($sortiData);
-        SoldeSortie::where('employee_id',$idemploi)->update(['solde' => $solde]);
 
         // reinitialiser newMission 
         $this->newSortie = [];
@@ -166,13 +171,9 @@ class Sortie extends Component
         // verifier que les info envoyer par le form sont correct
         $validationAttribute = $this->validate();
         $sortiData = $validationAttribute["editSortie"];
-        $sortiData['expires_at'] = $sortiData['finsortie'];
-        $solde = $sortiData['sldrstsortie'];
-        $idemploi = $sortiData['employee_id'];
 
         // modification
         SortiePersonnel::find($this->editSortie["id"])->update($sortiData);
-        SoldeSortie::where('employee_id',$idemploi)->update(['solde' => $solde]);
 
         // creer un evenement pour dire que l'enregistrement est effectué
         $this->dispatchBrowserEvent("showSuccesMessage", ["message"=>"Sortie modifier avec succès!"]);

@@ -23,7 +23,6 @@ class CongeTableSeeder extends Seeder
                 "fincon" => "2023-10-16",
                 "motifcon" => "Etude",
                 "employee_id" => "3",
-                "expires_at" => "2023-10-16",
             ],
             [
                 "sldtotcon" => "2",
@@ -33,7 +32,6 @@ class CongeTableSeeder extends Seeder
                 "fincon" => "2023-10-20",
                 "motifcon" => "Famille",
                 "employee_id" => "5",
-                "expires_at" => "2023-10-20",
             ]
         ]);
     }

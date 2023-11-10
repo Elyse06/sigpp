@@ -17,7 +17,6 @@ class Conge extends Model
         'debutcon',
         'fincon',
         'motifcon',
-        'expires_at',
     ];
 
 

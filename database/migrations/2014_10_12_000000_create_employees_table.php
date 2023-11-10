@@ -21,6 +21,9 @@ class CreateEmployeesTable extends Migration
             $table->string('adresse');
             $table->string('numTel');
             $table->string('pin');
+            $table->integer('soldeconge');
+            $table->integer('soldepermission');
+            $table->integer('soldesortie');
             $table->timestamps();
         });
     }

@@ -17,7 +17,6 @@ class SortiePersonnel extends Model
         'debutsortie',
         'finsortie',
         'motifsortie',
-        'expires_at',
     ];
 
     public function emploie(){

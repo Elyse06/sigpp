@@ -34,9 +34,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionTableSeeder::class);
         $this->call(ReposMedicalTableSeeder::class);
         $this->call(SortiePersonnelTableSeeder::class);
-        $this->call(SoldeCongeTableSeeder::class);
-        $this->call(SoldeSortieTableSeeder::class);
-        $this->call(SoldePermissionTableSeeder::class);
         $this->call(EventSeeder::class);
         
 

@@ -29,7 +29,10 @@ class EmployeeFactory extends Factory
             "date_de_naissance" => $this->faker->date,
             "adresse" => $this->faker->address,
             "numTel" => $this->faker->unique()->phoneNumber,
-            "pin" => $this->faker->unique()->randomNumber,
+            "pin" => $this->faker->randomNumber,
+            "soldeconge" => $this->faker->randomNumber(4, false),
+            "soldepermission" => $this->faker->randomNumber(4, false),
+            "soldesortie" => $this->faker->unique()->randomNumber(4, false),
             "created_at" => $this->faker->date,
             "updated_at" => $this->faker->date
         ];

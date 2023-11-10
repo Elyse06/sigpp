@@ -8,19 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
-
-    public function soldeConges(){
-        return $this->hasOne(SoldeConge::class);
-    }
-
-    public function soldePermissions(){
-        return $this->hasOne(SoldePermission::class);
-    }
-
-    public function soldeSorties(){
-        return $this->hasOne(SoldeSortie::class);
-    }
-
+    
     public function users(){
         return $this->hasOne(User::class);
     }

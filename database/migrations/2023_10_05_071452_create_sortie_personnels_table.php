@@ -22,7 +22,6 @@ class CreateSortiePersonnelsTable extends Migration
             $table->date('finsortie');
             $table->string('motifsortie');
             $table->foreignId('employee_id')->constrained();
-            $table->timestamp('expires_at');
             $table->timestamps();
         });
 

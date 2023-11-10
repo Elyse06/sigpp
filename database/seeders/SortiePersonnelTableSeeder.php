@@ -23,7 +23,6 @@ class SortiePersonnelTableSeeder extends Seeder
                 "finsortie" => "2023-10-16",
                 "motifsortie" => "Etude",
                 "employee_id" => "2",
-                "expires_at" => "2023-10-16",
             ],
             [
                 "sldtotsortie" => "4",
@@ -33,7 +32,6 @@ class SortiePersonnelTableSeeder extends Seeder
                 "finsortie" => "2023-10-20",
                 "motifsortie" => "Famille",
                 "employee_id" => "6",
-                "expires_at" => "2023-10-20",
             ]
         ]);
     }

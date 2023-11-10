@@ -65,7 +65,7 @@
 
 <div class="form-group">
 <label>Date du fin</label>
-<input type="date" wire:model = "newSortie.finsortie" class="form-control" required>
+<input type="date" wire:model = "newSortie.finsortie" class="form-control" wire:change="remplirTotalPrix" required>
 </div>
 
 <div class="form-group">
