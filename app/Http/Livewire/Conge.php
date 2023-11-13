@@ -91,42 +91,47 @@ class Conge extends Component
     public function getSoldeByEmployeeId()
     {
         $employeeId = $this->newConge['employee_id'];
-        $dateDebut = Carbon::parse($this->newConge['debutcon']);
-        $moisDebut = $dateDebut->month;
-    
-        // Utilisation de la clause where pour filtrer par année et mois de début
-        $congeDuMois = ModelsConge::whereYear("debutcon", $dateDebut->year)
-            ->whereMonth("debutcon", $moisDebut)
+
+        // Récupérer la date de création de l'employé
+        $dateDebutEmploye = Employee::where('id', $employeeId)->value('created_at');
+
+        $soldeCumule = 0; // Solde cumulé depuis la création de l'employé
+        $soldeCongePris = 0; // Solde correspondant aux congés déjà pris
+
+        // Utilisation de la clause where pour filtrer par année
+        $congeTotal = ModelsConge::whereYear("debutcon", '>=', $dateDebutEmploye->year)
             ->where("employee_id", $employeeId)
             ->get();
-    
-        $solde = 0; // Initialisation du solde à 0
-    
-        if ($congeDuMois->isNotEmpty()) {
-            foreach ($congeDuMois as $congeDuMoi) {
-                $debut = Carbon::parse($congeDuMoi->debutcon);
-                $fin = Carbon::parse($congeDuMoi->fincon);
-    
+
+        $soldeCumule = 0;
+        $soldeCongePris = 0;
+
+        if ($congeTotal->isNotEmpty()) {
+            foreach ($congeTotal as $conge) {
+                $debut = Carbon::parse($conge->debutcon);
+                $fin = Carbon::parse($conge->fincon);
+
                 // Calcul de la différence entre la date de début et de fin en jours
                 $differenceEnJours = $debut->diffInDays($fin);
-    
-                // Ajoute la différence au solde
-                $solde += $differenceEnJours;
+
+                // Soustrait la différence du soldeCumule
+                $soldeCumule -= $differenceEnJours;
+                $soldeCongePris += $differenceEnJours;
             }
-    
-            // Ajuste le solde si nécessaire
-            if ($solde > 2) {
-                $solde = 0;
-            } else {
-                $solde = 2 - $solde;
-            }
-        } else {
-            // Si aucun congé trouvé, le solde reste à 2
-            $solde = 2;
         }
-    
+
+        // Ajoute 2 jours au soldeCumule pour chaque mois
+        $soldeCumule += (now()->diffInMonths($dateDebutEmploye) * 2);
+
+        // Ajuste le soldeCumule si nécessaire, ne dépassant pas 45 jours
+        $soldeCumule = min(45, $soldeCumule);
+
+        // Calcul du solde final
+        $soldeFinal = $soldeCumule - $soldeCongePris;
+
         // Mettez à jour le champ solde dans le formulaire
-        $this->newConge['sldtotcon'] = $solde;
+        $this->newConge['sldtotcon'] = $soldeFinal;
+
 
         // remplir total prix
         $dateDebute = $this->newConge['debutcon'];
@@ -136,7 +141,7 @@ class Conge extends Component
 
         // remplir solde restant
         // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
-        $soldeRestant = $solde - $totalPrix;
+        $soldeRestant = $soldeFinal - $totalPrix;
 
         // Mettez à jour le champ "Solde restant".
         $this->newConge['sldrstcon'] = $soldeRestant;
@@ -144,48 +149,52 @@ class Conge extends Component
     }
     
 
-
     public function getSoldeByEmployeeIdEdit()
     {
         $employeeId = $this->editConge['employee_id'];
-        $dateDebut = Carbon::parse($this->editConge['debutcon']);
-        $moisDebut = $dateDebut->month;
-        $jourDebut = $dateDebut->day;
-    
-        // Utilisation de la clause where pour filtrer par année et mois de début
-        $congeDuMois = ModelsConge::whereYear("debutcon", $dateDebut->year)
-            ->whereMonth("debutcon", $moisDebut)
-            ->whereDay("debutcon", !$jourDebut)
+        $dateDebutEmploye = Employee::where('id', $employeeId)->value('created_at');
+        $congeEnCoursId = $this->editConge['id'];
+
+        // Obtenir le modèle du congé en cours
+        $congeEnCours = ModelsConge::where('id', $congeEnCoursId)
+            ->where('employee_id', $employeeId)
+            ->first();
+
+        // Utilisation de la clause where pour filtrer par année
+        $congeTotal = ModelsConge::whereYear("debutcon", '>=', $dateDebutEmploye->year)
             ->where("employee_id", $employeeId)
             ->get();
-    
-        $solde = 0; // Initialisation du solde à 0
-    
-        if ($congeDuMois->isNotEmpty()) {
-            foreach ($congeDuMois as $congeDuMoi) {
-                $debut = Carbon::parse($congeDuMoi->debutcon);
-                $fin = Carbon::parse($congeDuMoi->fincon);
-    
-                // Calcul de la différence entre la date de début et de fin en jours
-                $differenceEnJours = $debut->diffInDays($fin);
-    
-                // Ajoute la différence au solde
-                $solde += $differenceEnJours;
+
+        $soldeCumule = 0;
+        $soldeCongePris = 0;
+
+        if ($congeTotal->isNotEmpty()) {
+            foreach ($congeTotal as $conge) {
+                if ($conge->id != $congeEnCours->id) {
+                    $debut = Carbon::parse($conge->debutcon);
+                    $fin = Carbon::parse($conge->fincon);
+
+                    // Calcul de la différence entre la date de début et de fin en jours
+                    $differenceEnJours = $debut->diffInDays($fin);
+
+                    // Soustrait la différence du soldeCumule
+                    $soldeCumule -= $differenceEnJours;
+                    $soldeCongePris += $differenceEnJours;
+                }
             }
-    
-            // Ajuste le solde si nécessaire
-            if ($solde > 2) {
-                $solde = 0;
-            } else {
-                $solde = 2 - $solde;
-            }
-        } else {
-            // Si aucun congé trouvé, le solde reste à 2
-            $solde = 2;
         }
-    
+
+        // Ajoute 2 jours au soldeCumule pour chaque mois
+        $soldeCumule += (now()->diffInMonths($dateDebutEmploye) * 2);
+
+        // Ajuste le soldeCumule si nécessaire, ne dépassant pas 45 jours
+        $soldeCumule = min(45, $soldeCumule);
+
+        // Calcul du solde final
+        $soldeFinal = $soldeCumule - $soldeCongePris;
+
         // Mettez à jour le champ solde dans le formulaire
-        $this->editConge['sldtotcon'] = $solde;
+        $this->editConge['sldtotcon'] = $soldeFinal;
 
         // remplir total prix
         $dateDebute = $this->editConge['debutcon'];
@@ -195,7 +204,7 @@ class Conge extends Component
 
         // remplir solde restant
         // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
-        $soldeRestant = $solde - $totalPrix;
+        $soldeRestant = $soldeFinal - $totalPrix;
 
         // Mettez à jour le champ "Solde restant".
         $this->editConge['sldrstcon'] = $soldeRestant;
