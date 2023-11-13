@@ -38,7 +38,7 @@
     <div class="card-body">
     <div class="form-group">
     <label>Nom</label>
-    <select style="width: 400px" wire:model = "editConge.employee_id" class="form-control" wire:change="getSoldeByEmployeeIdEdit">
+    <select style="width: 400px" wire:model = "editConge.employee_id" class="form-control">
         <option value="">Tous les Employées</option>
         @foreach ($employees as $employee)
             <option value="{{ $employee->id }}">{{ $employee->nom }} {{ $employee->prenom }}</option>
@@ -46,18 +46,7 @@
     </select>
     {{-- <input type="number" wire:model = "editConge.employee_id" value="1" class="form-control" required wire:change="getSoldeByEmployeeIdEdit"> --}}
     </div>
-    <div class="form-group">
-        <label>Solde du mois</label>
-        <input type="number" wire:model = "editConge.sldtotcon" value="1" class="form-control" required readonly>
-    </div>
-    <div class="form-group">
-        <label>Total Prix</label>
-        <input type="number" wire:model = "editConge.sldeffcon" value="1" class="form-control" required wire:change="remplirSoldeRestantEdit">
-    </div>
-    <div class="form-group">
-        <label>Solde restant</label>
-        <input type="number" wire:model = "editConge.sldrstcon" value="1" class="form-control" required readonly>
-    </div>
+
     <div class="form-group">
     <label>Date de debut</label>
     <input type="date" wire:model = "editConge.debutcon" class="form-control" required>
@@ -65,7 +54,22 @@
     
     <div class="form-group">
     <label>Date du fin</label>
-    <input type="date" wire:model = "editConge.fincon" class="form-control" wire:change="remplirTotalPrixEdit" required>
+    <input type="date" wire:model = "editConge.fincon" class="form-control" wire:change="getSoldeByEmployeeIdEdit" required>
+    </div>
+
+    <div class="form-group">
+        <label>Solde du mois</label>
+        <input type="number" wire:model = "editConge.sldtotcon" value="1" class="form-control" required readonly>
+    </div>
+
+    <div class="form-group">
+        <label>Total Prix</label>
+        <input type="number" wire:model = "editConge.sldeffcon" value="1" class="form-control" required readonly>
+    </div>
+
+    <div class="form-group">
+        <label>Solde restant</label>
+        <input type="number" wire:model = "editConge.sldrstcon" value="1" class="form-control" required readonly>
     </div>
     
     <div class="form-group">
