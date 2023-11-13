@@ -38,26 +38,14 @@
     <div class="card-body">
     <div class="form-group">
     <label>Nom</label>
-    <select style="width: 400px" wire:model = "editPermission.employee_id" class="form-control" wire:change="getSoldeByEmployeeIdEdit">
+    <select style="width: 400px" wire:model = "editPermission.employee_id" class="form-control">
         <option value="">Tous les Employées</option>
         @foreach ($employees as $employee)
             <option value="{{ $employee->id }}">{{ $employee->nom }} {{ $employee->prenom }}</option>
         @endforeach
     </select>
-    {{-- <input type="number" wire:model = "editPermission.employee_id" value="1" class="form-control" required wire:change="getSoldeByEmployeeIdEdit"> --}}
     </div>
-    <div class="form-group">
-        <label>Solde du mois</label>
-        <input type="number" wire:model = "editPermission.sldtotpermi" value="1" class="form-control" required readonly>
-    </div>
-    <div class="form-group">
-        <label>Total Prix</label>
-        <input type="number" wire:model = "editPermission.sldeffpermi" value="1" class="form-control" required wire:change="remplirSoldeRestantEdit">
-    </div>
-    <div class="form-group">
-        <label>Solde restant</label>
-        <input type="number" wire:model = "editPermission.sldrstpermi" value="1" class="form-control" required readonly>
-    </div>
+
     <div class="form-group">
     <label>Date de debut</label>
     <input type="date" wire:model = "editPermission.debutpermi" class="form-control" required>
@@ -65,7 +53,22 @@
     
     <div class="form-group">
     <label>Date du fin</label>
-    <input type="date" wire:model = "editPermission.finpermi" class="form-control" wire:change="remplirTotalPrixEdit" required>
+    <input type="date" wire:model = "editPermission.finpermi" class="form-control" required wire:change="getSoldeByEmployeeIdEdit">
+    </div>
+
+    <div class="form-group">
+        <label>Solde du mois</label>
+        <input type="number" wire:model = "editPermission.sldtotpermi" value="1" class="form-control" required readonly>
+    </div>
+
+    <div class="form-group">
+        <label>Total Prix</label>
+        <input type="number" wire:model = "editPermission.sldeffpermi" value="1" class="form-control" required readonly>
+    </div>
+
+    <div class="form-group">
+        <label>Solde restant</label>
+        <input type="number" wire:model = "editPermission.sldrstpermi" value="1" class="form-control" required readonly>
     </div>
     
     <div class="form-group">

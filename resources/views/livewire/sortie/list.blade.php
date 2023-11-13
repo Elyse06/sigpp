@@ -57,8 +57,8 @@
     <th style="width:15%;">Solde de moi</th>
     <th style="width:15%;">Solde effectué</th>
     <th style="width:10%;">Solde restant</th>
-    <th style="width:10%;">Date début</th>
-    <th style="width:10%;">Date fin</th>
+    <th style="width:10%;">Début du sortie</th>
+    <th style="width:10%;">Fin du sortie</th>
     <th style="width:20%;">Action</th>
     </tr>
     </thead>

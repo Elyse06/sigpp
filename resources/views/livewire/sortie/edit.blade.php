@@ -16,7 +16,7 @@
         }
         input[type="text"],
         input[type="number"],
-        input[type="date"],
+        input[type="datetime-local"],
         select {
             width: 400px; /* Largeur de tous les champs de saisie */
         }
@@ -39,34 +39,37 @@
     <div class="card-body">
     <div class="form-group">
     <label>Nom</label>
-    <select style="width: 400px" wire:model = "editSortie.employee_id" class="form-control" wire:change="getSoldeByEmployeeIdEdit">
+    <select style="width: 400px" wire:model = "editSortie.employee_id" class="form-control">
         <option value="">Tous les Employées</option>
         @foreach ($employees as $employee)
             <option value="{{ $employee->id }}">{{ $employee->nom }} {{ $employee->prenom }}</option>
         @endforeach
     </select>
-    {{-- <input type="number" wire:model = "editSortie.employee_id" value="1" class="form-control" required wire:change="getSoldeByEmployeeIdEdit"> --}}
     </div>
-    <div class="form-group">
-        <label>Solde du mois</label>
-        <input type="number" wire:model = "editSortie.sldtotsortie" value="1" class="form-control" required readonly>
-    </div>
-    <div class="form-group">
-        <label>Total Prix</label>
-        <input type="number" wire:model = "editSortie.sldeffsortie" value="1" class="form-control" required wire:change="remplirSoldeRestantEdit">
-    </div>
-    <div class="form-group">
-        <label>Solde restant</label>
-        <input type="number" wire:model = "editSortie.sldrstsortie" value="1" class="form-control" required readonly>
-    </div>
+
     <div class="form-group">
     <label>Date de debut</label>
-    <input type="date" wire:model = "editSortie.debutsortie" class="form-control" required>
+    <input type="datetime-local" wire:model = "editSortie.debutsortie" class="form-control" required>
     </div>
     
     <div class="form-group">
     <label>Date du fin</label>
-    <input type="date" wire:model = "editSortie.finsortie" class="form-control" wire:change="remplirTotalPrixEdit" required>
+    <input type="datetime-local" wire:model = "editSortie.finsortie" class="form-control" required wire:change="getSoldeByEmployeeIdEdit">
+    </div>
+
+    <div class="form-group">
+        <label>Solde du mois</label>
+        <input type="number" wire:model = "editSortie.sldtotsortie" value="1" class="form-control" required readonly>
+    </div>
+
+    <div class="form-group">
+        <label>Total Prix</label>
+        <input type="number" wire:model = "editSortie.sldeffsortie" value="1" class="form-control" required readonly>
+    </div>
+
+    <div class="form-group">
+        <label>Solde restant</label>
+        <input type="number" wire:model = "editSortie.sldrstsortie" value="1" class="form-control" required readonly>
     </div>
     
     <div class="form-group">
