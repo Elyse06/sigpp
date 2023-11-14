@@ -8,60 +8,67 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    {{-- css du view --}}
     <style>
-      /* Ajoutez de l'espace entre les éléments "Bounce Rate" */
-      .inner {
-        margin-bottom: 5px;
-        /* Vous pouvez ajuster la valeur selon vos besoins */
-      }
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 100%;
+        }
     
-      /* Augmente la largeur de chaque élément "small-box" */
-      .small-box {
-        width: 180px;
-        /* Vous pouvez ajuster la valeur selon vos besoins */
-        margin: 10px;
-      }
-    
-      #barChart {
-        max-width: 100%; /* Ajustez la largeur en pourcentage selon vos besoins */
-        background-color: white;
-        /* Couleur jaune pour les barres */
-        border-color: white;
-        min-height: 250px;
-        max-height: 250px;
-        display: block;
-        width: auto; /* Utilisez 'auto' pour que la largeur s'ajuste automatiquement */
-      }
-    
-      .chartjs-size-monitor label,
-      .chartjs-size-monitor-expand label,
-      .chartjs-size-monitor-shrink label {
-        color: white;
-      }
-    
-      /* Style pour les données (data) */
-      .chartjs-size-monitor span,
-      .chartjs-size-monitor-expand span,
-      .chartjs-size-monitor-shrink span {
-        color: white;
-      }
-    
-      .centered-element {
-        display: flex;
-        justify-content: center;
-        /* Centre horizontalement */
-        align-items: center;
-        /* Centre verticalement */
-        margin-top: 80px;
-        margin-left: 150px;
-      }
+        .box-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
-      .hidden-list {
-          display: none;
-      }
+        }
+    
+        .small-box {
+            width: 150px;
+            height: 100px;
+            margin: 10px;
+            transition: none;
+        }
+        .hidden-list {
+        max-height: 150px; /* Définissez la hauteur maximale que vous souhaitez pour le défilement */
+        overflow-y: auto; /* Ajoutez un défilement vertical si nécessaire */
+        display: none; /* Masquez la liste par défaut */
+    }
+    
+        .small-box-footer {
+            margin-top: 1px; /* Ajustez la marge selon vos besoins */
+            padding: 5px; /* Ajustez le padding selon vos besoins */
+            color: white;
+            text-align: center; /* Pour centrer le texte */
+            text-decoration: none;
+            display: inline-block;
+            background-color: #3c8dbc; /* Couleur de fond du lien */
+            border: 1px solid #367fa9; /* Bordure du lien */
+            border-radius: 3px; /* Coins arrondis */
+            transition: background-color 0.3s; /* Transition de la couleur de fond */
+        }
+    
+        .small-box-footer:hover {
+            background-color: #367fa9; /* Couleur de fond au survol */
+        }
+    
+        #barChart {
+            background-color: white;
+            border-color: white;
+            width: 100%;
+            margin: 10px;
+        }
+    
+        .hidden-list {
+        display: none;
+    }
+        .chart-container {
+        margin-top: 90px; /* Vous pouvez ajuster la valeur en fonction de la quantité d'espace souhaitée */
+    }
     </style>
-
+    
+    
+ <div class="flex-container">
         {{-- Box conge --}}
         <div class="small-box conge-box" style="background-color: turquoise">
             <div class="inner">
@@ -72,15 +79,14 @@
                 <i class="ion ion-stats-bars"></i>
             </div>
             <a href="#" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
-            <ul class="hidden-list">
-                
+            <!-- Déplacez la liste ul ici -->
+            <ul class="hidden-list" style="overflow-y: auto; color:white">
                 @foreach ($topEmployeesCon as $employee)
                     <li>{{ $employee->emploie->nom }} ({{ $employee->conge_count }})</li>
                 @endforeach
-                
             </ul>
         </div>
-    
+        
         {{-- Box mission --}}
         <div class="small-box mission-box" style="background-color: navy">
             <div class="inner">
@@ -91,7 +97,7 @@
                 <i class="ion ion-stats-bars"></i>
             </div>
             <a href="#" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
-            <ul class="hidden-list">
+            <ul class="hidden-list" style="color: white">
                 
                 @foreach ($topEmployeesMission as $employee)
                     <li>{{ $employee->nom }} ({{ $employee->mission_count }})</li>
@@ -110,7 +116,7 @@
                 <i class="ion ion-stats-bars"></i>
             </div>
             <a href="#" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
-            <ul class="hidden-list">
+            <ul class="hidden-list" style="color: white">
                 
                 @foreach ($topEmployeesPermi as $employee)
                     <li>{{ $employee->emploie->nom }} ({{ $employee->permission_count }})</li>
@@ -129,7 +135,7 @@
                 <i class="ion ion-stats-bars"></i>
             </div>
             <a href="#" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
-            <ul class="hidden-list">
+            <ul class="hidden-list" style="color: white">
                 
                 @foreach ($topEmployeesRep as $employee)
                     <li>{{ $employee->emploie->nom }} ({{ $employee->repos_count }})</li>
@@ -149,7 +155,7 @@
                 <i class="ion ion-stats-bars"></i>
             </div>
             <a href="#" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
-            <ul class="hidden-list">
+            <ul class="hidden-list" style="color: white">
                 
                 @foreach ($topEmployeesSortie as $employee)
                     <li>{{ $employee->emploie->nom }} ({{ $employee->sortie_count }})</li>
@@ -157,24 +163,38 @@
                 
             </ul>
         </div>
-        
+    </div>     
         {{-- Graphe --}}
-        <div class="centered-element">
-          
-            <div class="chartjs-size-monitor">
+    
+        <div class="chart-container w-100" style="background-color: #315358">
+        <div class="card card w-100">
+            <div class="card-header w-100" style="background-color: #315358;float:left;  font-weight: bold; color:white">Statistique des employées
+            <div class="card-tools w-100">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" style="float: left;color:white">
+            <i class="fas fa-minus"></i>
+            </button>
+
+            </div>
+            </div>
+            <div class="card-body">
+            <div class="chart">
+                <div class="chartjs-size-monitor">
                 <div class="chartjs-size-monitor-expand">
-    
+                    <div class="">
+                    </div>
                 </div>
-                <div class="chartjs-size-monitor-shrink">
-    
+                <div class="chartjs-size-monitor-shrink"><div class="">
+                    </div>
                 </div>
             </div>
-            <canvas id="barChart"
-                style="min-height: 250px; max-height: 250px; max-width: 100%; display: block; width: 700px;"
-                class="chartjs-render-monitor"></canvas>
-    
+            <canvas id="barChart" style="min-height: 100px; height: 150px; max-height: 150px; max-width: 100%; display: block; width: 100%;" width="500" height="150" class="chartjs-render-monitor"></canvas>
+            </div>
+            </div>
+        
         </div>
-    
+    </div>
+   
+            
    
 
     {{-- Script pour le grephe --}}
@@ -240,35 +260,27 @@
 
     {{-- script pour le box --}}
     <script>
-        $('.conge-box').hover(function() {
-            $(this).find('.hidden-list').slideDown();
-        }, function() {
-            $(this).find('.hidden-list').slideUp();
+        $(document).ready(function() {
+            // Cacher initialement la liste
+            $('.hidden-list').hide();
+    
+            // Gérer le survol pour chaque boîte
+            $('.conge-box, .mission-box, .permission-box, .repos-box, .sortie-box').hover(
+                function() {
+                    $(this).find('.hidden-list').slideDown();
+                },
+                function() {
+                    $(this).find('.hidden-list').slideUp();
+                }
+            );
         });
-
-        $('.mission-box').hover(function() {
-            $(this).find('.hidden-list').slideDown();
-        }, function() {
-            $(this).find('.hidden-list').slideUp();
-        })
-
-        $('.permission-box').hover(function() {
-            $(this).find('.hidden-list').slideDown();
-        }, function() {
-            $(this).find('.hidden-list').slideUp();
-        })
-
-        $('.repos-box').hover(function() {
-            $(this).find('.hidden-list').slideDown();
-        }, function() {
-            $(this).find('.hidden-list').slideUp();
-        })
-
-        $('.sortie-box').hover(function() {
-            $(this).find('.hidden-list').slideDown();
-        }, function() {
-            $(this).find('.hidden-list').slideUp();
-        })
+    </script>
+    <script>
+        function toggleCongeList() {
+            var congeList = document.getElementById("congeList");
+            // Basculer la visibilité
+            congeList.style.display = (congeList.style.display === "none") ? "block" : "none";
+        }
     </script>
     
     
