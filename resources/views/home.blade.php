@@ -168,9 +168,9 @@
     
         <div class="chart-container w-100" style="background-color: #315358">
         <div class="card card w-100">
-            <div class="card-header w-100" style="background-color: #315358;float:left;  font-weight: bold; color:white">Statistique des employées
+            <div class="card-header w-100" style="background-color: #315358;float:left;  font-weight: bold; color:white;">Statistique des employées
             <div class="card-tools w-100">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" style="float: left;color:white">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" style="float: right;color:white;">
             <i class="fas fa-minus"></i>
             </button>
 
@@ -187,7 +187,7 @@
                     </div>
                 </div>
             </div>
-            <canvas id="barChart" style="min-height: 100px; height: 150px; max-height: 150px; max-width: 100%; display: block; width: 100%;" width="500" height="150" class="chartjs-render-monitor"></canvas>
+            <canvas id="barChart" style="min-height: 260px; height: 260px; max-height: 260px; max-width: 100%; display: block; width: 100%;" width="280" height="260" class="barchart-canvas"></canvas>
             </div>
             </div>
         
@@ -259,29 +259,96 @@
     </script>
 
     {{-- script pour le box --}}
-    <script>
-        $(document).ready(function() {
-            // Cacher initialement la liste
-            $('.hidden-list').hide();
-    
-            // Gérer le survol pour chaque boîte
-            $('.conge-box, .mission-box, .permission-box, .repos-box, .sortie-box').hover(
-                function() {
-                    $(this).find('.hidden-list').slideDown();
-                },
-                function() {
-                    $(this).find('.hidden-list').slideUp();
-                }
-            );
+  <script>
+$(document).ready(function() {
+    // Cacher initialement la liste
+    $('.hidden-list').hide();
+
+    // Afficher le barchart au démarrage
+    $('.barchart-canvas').show();
+
+    // Variable pour suivre l'état des listes (ouvertes ou fermées)
+    var isListOpen = false;
+
+    // Gérer le survol sur le lien "plus d'info" dans les éléments small-box
+    $('.small-box-footer').hover(function(e) {
+        e.preventDefault(); // Empêcher le comportement par défaut du lien
+
+        // Cacher tous les barcharts actifs
+        $('.barchart-canvas').hide();
+
+        // Cacher toutes les autres listes sauf celle survolée
+        var otherLists = $('.hidden-list').not($(this).siblings('.hidden-list'));
+        otherLists.slideUp();
+
+        // Afficher la liste correspondante
+        var list = $(this).siblings('.hidden-list');
+        list.slideDown();
+
+        // Calculer la hauteur de la liste et ajuster la position du barchart
+        var listHeight = list.find('li').length * 20; // Taille approximative de chaque élément de la liste
+        var marginTop = Math.min(listHeight, 200); // Limiter la hauteur maximale à 200px
+        $('.chart-container').css('margin-top', marginTop + 90 + 'px');
+
+        // Mettre à jour le bouton pour indiquer la réduction
+        $(this).closest('.chart-container').find('.btn-tool i').removeClass('fa-minus').addClass('fa-plus');
+        isListOpen = true;
+    }, function() {
+        $(this).siblings('.hidden-list').slideUp(); // Cacher la liste au survol
+        $('.chart-container').css('margin-top', '90px'); // Réinitialiser la position du barchart
+    });
+
+    // Gérer le clic sur la liste pour réinitialiser le barchart
+    $('.hidden-list').click(function() {
+        $(this).slideUp();
+
+        // Réinitialiser tous les barcharts
+        $('.barchart-canvas').show();
+
+        // Réinitialiser la position du barchart
+        $('.chart-container').css('margin-top', '90px');
+
+        // Mettre à jour le bouton pour indiquer l'agrandissement
+        $('.btn-tool i').removeClass('fa-minus').addClass('fa-plus');
+        isListOpen = false;
+    });
+
+    // Gérer le clic sur le bouton de fermeture du barchart
+    $('.btn-tool').click(function() {
+        // Réinitialiser tous les barcharts
+        $('.barchart-canvas').show();
+
+        // Réinitialiser la position du barchart
+        $('.chart-container').css('margin-top', '90px');
+
+        // Mettre à jour le bouton pour indiquer l'agrandissement
+        $(this).find('i').toggleClass('fa-minus fa-plus');
+        isListOpen = !isListOpen;
+    });
+
+    // Fonction pour mettre à jour le bouton lorsque toutes les listes sont fermées
+    function updateButtonState() {
+        var allListsClosed = $('.hidden-list').toArray().every(function(list) {
+            return $(list).is(':hidden');
         });
-    </script>
-    <script>
-        function toggleCongeList() {
-            var congeList = document.getElementById("congeList");
-            // Basculer la visibilité
-            congeList.style.display = (congeList.style.display === "none") ? "block" : "none";
+
+        if (allListsClosed) {
+            $('.btn-tool i').removeClass('fa-minus').addClass('fa-plus');
+            isListOpen = false;
         }
+    }
+
+    // Vérifier l'état initial des listes et mettre à jour le bouton
+    updateButtonState();
+
+    // Vérifier l'état des listes lorsque le survol est terminé
+    $('.chart-container').mouseleave(function() {
+        updateButtonState();
+    });
+});
+
     </script>
+
     
     
 @endsection

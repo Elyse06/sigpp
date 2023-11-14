@@ -88,11 +88,21 @@
 </table>
 </div>
 
-
 <div class="card-footer">
-<div class="float-right">
+    <div class="float-right">
+        {{ $missions->links() }}
+    </div>
 
-{{ $missions->links() }}
+    <!-- Nouvelle division pour les boutons -->
+    <div class="float-left mt-2">
+        <!-- Trois boutons avec des classes pour la mise en forme -->
+        <button class="btn btn-info mr-2">Journalière</button>
+        <button class="btn btn-info mr-2">Mensuel</button>
+        <button class="btn btn-info">Annuel</button>
+    </div>
+</div>
+
+
 
 </div>
 </div>
