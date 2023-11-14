@@ -87,9 +87,9 @@
                             <td> {{ $employee->nom }} </td>
                             <td> {{ $employee->prenom }} </td>
                             <td> {{ $employee->numTel }} </td>
-                            <td class="text-center"> {{ $employee->soldeConges->solde }} </td>
-                            <td class="text-center"> {{ $employee->soldePermissions->solde }} </td>
-                            <td class="text-center"> {{ $employee->soldeSorties->solde }} </td>
+                            <td class="text-center"> {{ $soldeList[$employee->id]['conge'] }} j </td>
+                            <td class="text-center"> {{ $soldeList[$employee->id]['permission'] }} j </td>
+                            <td class="text-center"> {{ $soldeList[$employee->id]['sortie'] }} h </td>
                             <td class="text-center"> 
 
                                 @if (in_array($employee->id, $conges->pluck('employee_id')->all()))
