@@ -38,8 +38,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label>Nom</label>
-                    <select style="width: 400px" wire:model = "newConge.employee_id" class="form-control"
-                        wire:change="getSoldeByEmployeeId">
+                    <select style="width: 400px" wire:model = "newConge.employee_id" class="form-control">
                         <option value="">Tous les Employées</option>
                         @foreach ($employees as $employee)
                             <option value="{{ $employee->id }}">{{ $employee->nom }} {{ $employee->prenom }}</option>
@@ -55,7 +54,7 @@
 
                 <div class="form-group">
                     <label>Date du fin</label>
-                    <input type="date" wire:model = "newConge.fincon" class="form-control" wire:change="remplirTotalPrix" required>
+                    <input type="date" wire:model = "newConge.fincon" class="form-control" wire:change="getSoldeByEmployeeId"  required>
                 </div>
 
 
@@ -67,7 +66,7 @@
                 <div class="form-group">
                     <label>Total Prix</label>
                     <input type="number" wire:model = "newConge.sldeffcon" value="1" class="form-control" required
-                        wire:change="remplirSoldeRestant">
+                        wire:change="remplirSoldeRestant" readonly>
                 </div>
                 <div class="form-group">
                     <label>Solde restant</label>

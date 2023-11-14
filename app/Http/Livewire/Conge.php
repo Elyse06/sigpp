@@ -87,71 +87,129 @@ class Conge extends Component
         $this->editConge = [];
     }
 
-    // remplir le solde restant
-    public function remplirSoldeRestant()
+    // recuperer le solde du moi en fonction du employee et remplir automatiquement les solde
+    public function getSoldeByEmployeeId()
     {
-        // Récupérez le "Solde du mois" et le "Total Prix" depuis le modèle.
-        $soldeDuMois = $this->newConge['sldtotcon'];
-        $totalPrix = $this->newConge['sldeffcon'];
+        $employeeId = $this->newConge['employee_id'];
 
+        // Récupérer la date de création de l'employé
+        $dateDebutEmploye = Employee::where('id', $employeeId)->value('created_at');
+
+        $soldeCumule = 0; // Solde cumulé depuis la création de l'employé
+        $soldeCongePris = 0; // Solde correspondant aux congés déjà pris
+
+        // Utilisation de la clause where pour filtrer par année
+        $congeTotal = ModelsConge::whereYear("debutcon", '>=', $dateDebutEmploye->year)
+            ->where("employee_id", $employeeId)
+            ->get();
+
+        $soldeCumule = 0;
+        $soldeCongePris = 0;
+
+        if ($congeTotal->isNotEmpty()) {
+            foreach ($congeTotal as $conge) {
+                $debut = Carbon::parse($conge->debutcon);
+                $fin = Carbon::parse($conge->fincon);
+
+                // Calcul de la différence entre la date de début et de fin en jours
+                $differenceEnJours = $debut->diffInDays($fin);
+
+                // Soustrait la différence du soldeCumule
+                $soldeCumule -= $differenceEnJours;
+                $soldeCongePris += $differenceEnJours;
+            }
+        }
+
+        // Ajoute 2 jours au soldeCumule pour chaque mois
+        $soldeCumule += (now()->diffInMonths($dateDebutEmploye) * 2);
+
+        // Ajuste le soldeCumule si nécessaire, ne dépassant pas 45 jours
+        $soldeCumule = min(45, $soldeCumule);
+
+        // Calcul du solde final
+        $soldeFinal = $soldeCumule - $soldeCongePris;
+
+        // Mettez à jour le champ solde dans le formulaire
+        $this->newConge['sldtotcon'] = $soldeFinal;
+
+
+        // remplir total prix
+        $dateDebute = $this->newConge['debutcon'];
+        $dateFin = $this->newConge['fincon'];
+        $totalPrix = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->d;
+        $this->newConge['sldeffcon'] = $totalPrix;
+
+        // remplir solde restant
         // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
-        $soldeRestant = $soldeDuMois - $totalPrix;
+        $soldeRestant = $soldeFinal - $totalPrix;
 
         // Mettez à jour le champ "Solde restant".
         $this->newConge['sldrstcon'] = $soldeRestant;
+        
     }
+    
 
-    public function remplirSoldeRestantEdit()
+    public function getSoldeByEmployeeIdEdit()
     {
-        // Récupérez le "Solde du mois" et le "Total Prix" depuis le modèle.
-        $soldeDuMois = $this->editConge['sldtotcon'];
-        $totalPrix = $this->editConge['sldeffcon'];
+        $employeeId = $this->editConge['employee_id'];
+        $dateDebutEmploye = Employee::where('id', $employeeId)->value('created_at');
+        $congeEnCoursId = $this->editConge['id'];
 
+        // Obtenir le modèle du congé en cours
+        $congeEnCours = ModelsConge::where('id', $congeEnCoursId)
+            ->where('employee_id', $employeeId)
+            ->first();
+
+        // Utilisation de la clause where pour filtrer par année
+        $congeTotal = ModelsConge::whereYear("debutcon", '>=', $dateDebutEmploye->year)
+            ->where("employee_id", $employeeId)
+            ->get();
+
+        $soldeCumule = 0;
+        $soldeCongePris = 0;
+
+        if ($congeTotal->isNotEmpty()) {
+            foreach ($congeTotal as $conge) {
+                if ($conge->id != $congeEnCours->id) {
+                    $debut = Carbon::parse($conge->debutcon);
+                    $fin = Carbon::parse($conge->fincon);
+
+                    // Calcul de la différence entre la date de début et de fin en jours
+                    $differenceEnJours = $debut->diffInDays($fin);
+
+                    // Soustrait la différence du soldeCumule
+                    $soldeCumule -= $differenceEnJours;
+                    $soldeCongePris += $differenceEnJours;
+                }
+            }
+        }
+
+        // Ajoute 2 jours au soldeCumule pour chaque mois
+        $soldeCumule += (now()->diffInMonths($dateDebutEmploye) * 2);
+
+        // Ajuste le soldeCumule si nécessaire, ne dépassant pas 45 jours
+        $soldeCumule = min(45, $soldeCumule);
+
+        // Calcul du solde final
+        $soldeFinal = $soldeCumule - $soldeCongePris;
+
+        // Mettez à jour le champ solde dans le formulaire
+        $this->editConge['sldtotcon'] = $soldeFinal;
+
+        // remplir total prix
+        $dateDebute = $this->editConge['debutcon'];
+        $dateFin = $this->editConge['fincon'];
+        $totalPrix = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->d;
+        $this->editConge['sldeffcon'] = $totalPrix;
+
+        // remplir solde restant
         // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
-        $soldeRestant = $soldeDuMois - $totalPrix;
+        $soldeRestant = $soldeFinal - $totalPrix;
 
         // Mettez à jour le champ "Solde restant".
         $this->editConge['sldrstcon'] = $soldeRestant;
     }
 
-    // recuperer le solde du moi en fonction du employee
-    public function getSoldeByEmployeeId()
-    {
-        $dateDebut = Carbon::parse($this->newConge['debutcon'])->year;
-        $dateFin = Carbon::parse($this->newConge['fincon'])->year;
-
-        dump($dateDebut);
-        $employeeId = $this->newConge['employee_id'];
-
-        $solde = Employee::where('id', $employeeId)->value('soldeconge');
-
-        $this->newConge['sldtotcon'] = $solde;
-    }
-
-    public function getSoldeByEmployeeIdEdit()
-    {
-        $employeeId = $this->editConge['employee_id'];
-
-        $solde = Employee::where('id', $employeeId)->value('soldeconge');
-
-        $this->editConge['sldtotcon'] = $solde;
-    }
-
-    // recuperer le total prix by date
-    public function remplirTotalPrix()
-    {
-        $dateDebut = $this->newConge['debutcon'];
-        $dateFin = $this->newConge['fincon'];
-        $totalPrix = Carbon::parse($dateDebut)->diff(Carbon::parse($dateFin))->d;
-        $this->newConge['sldeffcon'] = $totalPrix;
-    }
-    public function remplirTotalPrixEdit()
-    {
-        $dateDebut = $this->editConge['debutcon'];
-        $dateFin = $this->editConge['fincon'];
-        $totalPrix = Carbon::parse($dateDebut)->diff(Carbon::parse($dateFin))->d;
-        $this->newConge['sldeffcon'] = $totalPrix;
-    }
 
     // pour faire l'ajout
     public function addConge(){

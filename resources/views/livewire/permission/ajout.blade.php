@@ -36,7 +36,7 @@
 <div class="card-body">
 <div class="form-group">
 <label>Nom</label>
-<select style="width: 400px" wire:model = "newPermission.employee_id" class="form-control" wire:change="getSoldeByEmployeeId">
+<select style="width: 400px" wire:model = "newPermission.employee_id" class="form-control">
     <option value="">Tous les Employées</option>
     @foreach ($employees as $employee)
         <option value="{{ $employee->id }}">{{ $employee->nom }} {{ $employee->prenom }}</option>
@@ -44,19 +44,7 @@
 </select>
 {{-- <input type="number" wire:model = "newPermission.employee_id" value="1" class="form-control" required wire:change="getSoldeByEmployeeId"> --}}
 </div>
-<div class="form-group">
-    <label>Solde du mois</label>
-    <input type="number" wire:model = "newPermission.sldtotpermi" class="form-control" required readonly>
-</div>
 
-<div class="form-group">
-    <label>Total Prix</label>
-    <input type="number" wire:model = "newPermission.sldeffpermi" value="1" class="form-control" required wire:change="remplirSoldeRestant">
-</div>
-<div class="form-group">
-    <label>Solde restant</label>
-    <input type="number" wire:model = "newPermission.sldrstpermi" value="1" class="form-control" required readonly>
-</div>
 <div class="form-group">
 <label>Date de debut</label>
 <input type="date" wire:model = "newPermission.debutpermi" class="form-control" required>
@@ -64,7 +52,22 @@
 
 <div class="form-group">
 <label>Date du fin</label>
-<input type="date" wire:model = "newPermission.finpermi" class="form-control" wire:change="remplirTotalPrix" required>
+<input type="date" wire:model = "newPermission.finpermi" class="form-control" wire:change="getSoldeByEmployeeId" required>
+</div>
+
+<div class="form-group">
+    <label>Solde du mois</label>
+    <input type="number" wire:model = "newPermission.sldtotpermi" class="form-control" required readonly>
+</div>
+
+<div class="form-group">
+    <label>Total Prix</label>
+    <input type="number" wire:model = "newPermission.sldeffpermi" value="1" class="form-control" required readonly>
+</div>
+
+<div class="form-group">
+    <label>Solde restant</label>
+    <input type="number" wire:model = "newPermission.sldrstpermi" value="1" class="form-control" required readonly>
 </div>
 
 <div class="form-group">

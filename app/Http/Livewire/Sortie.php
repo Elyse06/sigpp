@@ -86,66 +86,118 @@ class Sortie extends Component
         $this->editSortie = [];
     }
 
-        // remplir le solde restant
-        public function remplirSoldeRestant()
-        {
-            // Récupérez le "Solde du mois" et le "Total Prix" depuis le modèle.
-            $soldeDuMois = $this->newSortie['sldtotsortie'];
-            $totalPrix = $this->newSortie['sldeffsortie'];
-    
-            // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
-            $soldeRestant = $soldeDuMois - $totalPrix;
-    
-            // Mettez à jour le champ "Solde restant".
-            $this->newSortie['sldrstsortie'] = $soldeRestant;
-        }
-    
-        public function remplirSoldeRestantEdit()
-        {
-            // Récupérez le "Solde du mois" et le "Total Prix" depuis le modèle.
-            $soldeDuMois = $this->editSortie['sldtotsortie'];
-            $totalPrix = $this->editSortie['sldeffsortie'];
-    
-            // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
-            $soldeRestant = $soldeDuMois - $totalPrix;
-    
-            // Mettez à jour le champ "Solde restant".
-            $this->editSortie['sldrstsortie'] = $soldeRestant;
-        }
-    
-        // recuperer le solde du moi en fonction du employee
+        // recuperer le solde du moi en fonction du employee et remplir automatiquement les solde
         public function getSoldeByEmployeeId()
         {
             $employeeId = $this->newSortie['employee_id'];
-    
-            $solde = Employee::where('id', $employeeId)->value('soldesortie');
-    
+            $dateDebut = Carbon::parse($this->newSortie['debutsortie']);
+            $moisDebut = $dateDebut->month;
+        
+            // Utilisation de la clause where pour filtrer par année et mois de début
+            $SortieDuMois = SortiePersonnel::whereYear("debutsortie", $dateDebut->year)
+                ->whereMonth("debutsortie", $moisDebut)
+                ->where("employee_id", $employeeId)
+                ->get();
+        
+            $solde = 0; // Initialisation du solde à 0
+        
+            if ($SortieDuMois->isNotEmpty()) {
+                foreach ($SortieDuMois as $SortieDuMoi) {
+                    $debut = Carbon::parse($SortieDuMoi->debutsortie);
+                    $fin = Carbon::parse($SortieDuMoi->finsortie);
+        
+                    // Calcul de la différence entre l'heure de début et de fin en heure
+                    $differenceEnJours = $debut->diffInHours($fin);
+        
+                    // Ajoute la différence au solde
+                    $solde += $differenceEnJours;
+                }
+        
+                // Ajuste le solde si nécessaire
+                if ($solde > 8) {
+                    $solde = 0;
+                } else {
+                    $solde = 8 - $solde;
+                }
+            } else {
+                // Si aucun congé trouvé, le solde reste à 2
+                $solde = 8;
+            }
+        
+            // Mettez à jour le champ solde dans le formulaire
             $this->newSortie['sldtotsortie'] = $solde;
-        }
     
-        public function getSoldeByEmployeeIdEdit()
-        { 
-            $employeeId = $this->editSortie['employee_id'];
-    
-            $solde = Employee::where('id', $employeeId)->value('soldesortie');
-    
-            $this->editSortie['sldtotsortie'] = $solde;
-        }
-
-        // recuperer le total prix by date
-        public function remplirTotalPrix()
-        {
-            $dateDebut = $this->newSortie['debutsortie'];
+            // remplir total prix
+            $dateDebute = $this->newSortie['debutsortie'];
             $dateFin = $this->newSortie['finsortie'];
-            $totalPrix = Carbon::parse($dateDebut)->diff(Carbon::parse($dateFin))->d;
+            $totalPrix = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->h;
             $this->newSortie['sldeffsortie'] = $totalPrix;
+    
+            // remplir solde restant
+            // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
+            $soldeRestant = $solde - $totalPrix;
+    
+            // Mettez à jour le champ "Solde restant".
+            $this->newSortie['sldrstsortie'] = $soldeRestant;
+            
         }
-        public function remplirTotalPrixEdit()
+    
+        // recuperer le solde du moi en fonction du employee et remplir automatiquement les solde
+        public function getSoldeByEmployeeIdEdit()
         {
-            $dateDebut = $this->editSortie['debutsortie'];
+            $employeeId = $this->editSortie['employee_id'];
+            $dateDebut = Carbon::parse($this->editSortie['debutsortie']);
+            $moisDebut = $dateDebut->month;
+            $jourDebut = $dateDebut->day;
+        
+            // Utilisation de la clause where pour filtrer par année et mois de début
+            $SortieDuMois = SortiePersonnel::whereYear("debutsortie", $dateDebut->year)
+                ->whereMonth("debutsortie", $moisDebut)
+                ->whereDay("debutsortie", !$jourDebut)
+                ->where("employee_id", $employeeId)
+                ->get();
+        
+            $solde = 0; // Initialisation du solde à 0
+        
+            if ($SortieDuMois->isNotEmpty()) {
+                foreach ($SortieDuMois as $SortieDuMoi) {
+                    $debut = Carbon::parse($SortieDuMoi->debutsortie);
+                    $fin = Carbon::parse($SortieDuMoi->finsortie);
+        
+                    // Calcul de la différence entre l'heure de début et de fin en heure
+                    $differenceEnJours = $debut->diffInHours($fin);
+        
+                    // Ajoute la différence au solde
+                    $solde += $differenceEnJours;
+                }
+        
+                // Ajuste le solde si nécessaire
+                if ($solde > 8) {
+                    $solde = 0;
+                } else {
+                    $solde = 8 - $solde;
+                }
+            } else {
+                // Si aucun congé trouvé, le solde reste à 2
+                $solde = 8;
+            }
+        
+            // Mettez à jour le champ solde dans le formulaire
+            $this->editSortie['sldtotsortie'] = $solde;
+    
+            // remplir total prix
+            $dateDebute = $this->editSortie['debutsortie'];
             $dateFin = $this->editSortie['finsortie'];
-            $totalPrix = Carbon::parse($dateDebut)->diff(Carbon::parse($dateFin))->d;
+            $totalPrix = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->h;
             $this->editSortie['sldeffsortie'] = $totalPrix;
+    
+            // remplir solde restant
+            // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
+            $soldeRestant = $solde - $totalPrix;
+    
+            // Mettez à jour le champ "Solde restant".
+            $this->newSortie['sldrstsortie'] = $soldeRestant;
+            
         }
 
 

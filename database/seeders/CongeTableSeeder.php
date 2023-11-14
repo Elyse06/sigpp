@@ -20,7 +20,7 @@ class CongeTableSeeder extends Seeder
                 "sldeffcon" => "1",
                 "sldrstcon" => "1",
                 "debutcon" => "2023-10-16",
-                "fincon" => "2023-10-16",
+                "fincon" => "2023-10-17",
                 "motifcon" => "Etude",
                 "employee_id" => "3",
             ],
@@ -29,7 +29,7 @@ class CongeTableSeeder extends Seeder
                 "sldeffcon" => "1",
                 "sldrstcon" => "1",
                 "debutcon" => "2023-10-20",
-                "fincon" => "2023-10-20",
+                "fincon" => "2023-10-21",
                 "motifcon" => "Famille",
                 "employee_id" => "5",
             ]

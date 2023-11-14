@@ -18,8 +18,8 @@ class CreateSortiePersonnelsTable extends Migration
             $table->integer('sldtotsortie');
             $table->integer('sldeffsortie');
             $table->integer('sldrstsortie');
-            $table->date('debutsortie');
-            $table->date('finsortie');
+            $table->datetime('debutsortie');
+            $table->datetime('finsortie');
             $table->string('motifsortie');
             $table->foreignId('employee_id')->constrained();
             $table->timestamps();

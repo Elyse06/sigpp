@@ -15,7 +15,7 @@
     /* Classe pour les champs d'entrée spécifiques */
     input[type="text"],
         input[type="number"],
-        input[type="date"],
+        input[type="datetime-local"],
         select {
             width: 400px; /* Largeur de tous les champs de saisie */
         }
@@ -37,14 +37,24 @@
 <div class="card-body">
 <div class="form-group">
 <label>Nom</label>
-<select style="width: 400px" wire:model = "newSortie.employee_id" class="form-control" wire:change="getSoldeByEmployeeId">
+<select style="width: 400px" wire:model = "newSortie.employee_id" class="form-control">
     <option value="">Tous les Employées</option>
     @foreach ($employees as $employee)
         <option value="{{ $employee->id }}">{{ $employee->nom }} {{ $employee->prenom }}</option>
     @endforeach
 </select>
-{{-- <input type="number" wire:model = "newSortie.employee_id" value="1" class="form-control" required wire:change="getSoldeByEmployeeId"> --}}
 </div>
+
+<div class="form-group">
+<label>Date de debut</label>
+<input type="datetime-local" wire:model = "newSortie.debutsortie" class="form-control" required>
+</div>
+
+<div class="form-group">
+<label>Date du fin</label>
+<input type="datetime-local" wire:model = "newSortie.finsortie" class="form-control" required wire:change="getSoldeByEmployeeId">
+</div>
+
 <div class="form-group">
     <label>Solde du mois</label>
     <input type="number" wire:model = "newSortie.sldtotsortie" class="form-control" required readonly>
@@ -52,20 +62,12 @@
 
 <div class="form-group">
     <label>Total Prix</label>
-    <input type="number" wire:model = "newSortie.sldeffsortie" value="1" class="form-control" required wire:change="remplirSoldeRestant">
-</div>
-<div class="form-group">
-    <label>Solde restant</label>
-    <input type="number" wire:model = "newSortie.sldrstsortie" value="1" class="form-control" required readonly>
-</div>
-<div class="form-group">
-<label>Date de debut</label>
-<input type="date" wire:model = "newSortie.debutsortie" class="form-control" required>
+    <input type="number" wire:model = "newSortie.sldeffsortie" value="1" class="form-control" required readonly>
 </div>
 
 <div class="form-group">
-<label>Date du fin</label>
-<input type="date" wire:model = "newSortie.finsortie" class="form-control" wire:change="remplirTotalPrix" required>
+    <label>Solde restant</label>
+    <input type="number" wire:model = "newSortie.sldrstsortie" value="1" class="form-control" required readonly>
 </div>
 
 <div class="form-group">
