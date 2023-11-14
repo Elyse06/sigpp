@@ -14,11 +14,11 @@ class Etat extends Component
 {
     public function render()
     {
-        $mission = Mission::where('debutmis', '>=', now()->toDateString())->get();
-    	$conge = Conge::where('debutcon', '>=', now()->toDateString())->get();
-    	$permission = Permission::where('debutpermi', '>=', now()->toDateString())->get();
-    	$sortie = SortiePersonnel::where('debutsortie', '>=', now()->toDateString())->get();
-    	$repos = RepoMedical::where('debutrep', '>=', now()->toDateString())->get();
+        $mission = Mission::where('finmis', '>=', now()->toDateString())->where('debutmis', '<=', now()->toDateString())->get();
+    	$conge = Conge::where('fincon', '>=', now()->toDateString())->where('debutcon', '<=', now()->toDateString())->get();
+    	$permission = Permission::where('finpermi', '>=', now()->toDateString())->where('debutpermi', '<=', now()->toDateString())->get();
+    	$sortie = SortiePersonnel::where('finsortie', '>=', now()->toDateString())->where('debutsortie', '<=', now()->toDateString())->get();
+    	$repos = RepoMedical::where('finrep', '>=', now()->toDateString())->where('debutrep', '<=', now()->toDateString())->get();
         $total = Employee::get();
     	$mission_count = count($mission);    	
     	$conge_count = count($conge);
