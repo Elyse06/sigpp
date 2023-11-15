@@ -87,29 +87,37 @@
     </div>
     
     
-    <div class="card-footer">
-    <div class="float-right">
-    
-    {{ $reposs->links() }}
-    
+    <div class="card-footer d-flex justify-content-between align-items-center">
+    <div class="d-flex">
+        <a href="{{ route('planning.repos') }}" style="width: 150px;" class="btn btn-info mr-2">
+            <div style="color: white;">Actuelle</div>
+        </a>
+        <a href="{{ route('planning.repos.moi') }}" style="width: 150px;" class="btn btn-info mr-2">
+            <div style="color: white;">Mensuel</div>
+        </a>
+        <a href="{{ route('planning.repos.anne') }}" style="width: 150px;" class="btn btn-info mr-2">
+            <div style="color: white;">Annuel</div>
+        </a>
+        <a href="{{ route('planning.repos.tout') }}" style="width: 150px;" class="btn btn-info mr-2">
+            <div style="color: white;">Tous Les repos</div>
+        </a>
     </div>
-        <!-- Nouvelle division pour les boutons -->
-        <div class="float-left mt-2">
-            <!-- Trois boutons avec des classes pour la mise en forme -->
-            <button class="btn btn-info mr-2"><a href="{{ route('planning.repos') }}">Actuelle</a></button>
-            <button class="btn btn-info mr-2"><a href="{{ route('planning.repos.moi') }}">Mensuel</a></button>
-            <button class="btn btn-info"><a href="{{ route('planning.repos.anne') }}">Annuel</a></button>
-            <button class="btn btn-info"><a href="{{ route('planning.repos.tout') }}">Tous Les Repos</a></button>
+    
+        <!-- Bouton flottant à droite -->
+        <div class="float-right" style="margin-top: 15px">
+            {{ $reposs->links() }}
         </div>
     </div>
     
+    
+    
+    </div>
     </div>
     
     </div>
     
     </div>
     </div>
-    
 
     
     

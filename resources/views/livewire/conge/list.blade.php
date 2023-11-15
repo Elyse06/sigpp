@@ -107,27 +107,29 @@
             </div>
 
 
-            <div class="card-footer">
-                <div class="float-right">
-
-                    {{ $conges->links() }}
-
-                </div>
-                    <!-- Nouvelle division pour les boutons -->
-    <div class="float-left mt-2">
+   <div class="card-footer d-flex justify-content-between align-items-center">
+        <div class="d-flex">
         <!-- Trois boutons avec des classes pour la mise en forme -->
-        <button class="btn btn-info mr-2"><a href="{{ route('planning.conge') }}">Actuelle</a></button>
-        <button class="btn btn-info mr-2"><a href="{{ route('planning.conge.moi') }}">Mensuel</a></button>
-        <button class="btn btn-info"><a href="{{ route('planning.conge.anne') }}">Annuel</a></button>
-        <button class="btn btn-info"><a href="{{ route('planning.conge.tout') }}">Tous Les Conge</a></button>
+       <a href="{{ route('planning.conge') }}" style="width: 150px;" class="btn btn-info mr-2"> <div style="color: white;">Actuelle</div></a>
+       <a href="{{ route('planning.conge.moi') }}" style="width: 150px;" class="btn btn-info mr-2"><div style="color: white;">Mensuel</div></a>
+        <a href="{{ route('planning.conge.anne') }}" style="width: 150px;" class="btn btn-info mr-2"><div style="color: white;">Annuel</div></a>
+        <a href="{{ route('planning.conge.tout') }}" style="width: 150px;" class="btn btn-info mr-2"><div style="color: white;">Tous Les congés</div></a>
+    </div>
+
+    <!-- Bouton flottant à droite -->
+    <div class="float-right" style="margin-top: 15px">
+        {{ $conges->links() }}
     </div>
 </div>
 
-            </div>
 
-        </div>
 
-    </div>
+</div>
+</div>
+
+</div>
+
+</div>
 </div>
 
 

@@ -11,7 +11,12 @@
         align-items: center;
         margin-bottom: 20px;
     }
-
+  
+    .form {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      
+    }
     /* Classe pour les champs d'entrée spécifiques */
     input[type="text"],
     input[type="number"],
@@ -74,16 +79,27 @@
                         readonly>
                 </div>
 
-                <div class="form-group">
-                    <label>Motif</label>
-                    <select style="width: 400px" class="form-control" wire:model = "newConge.motifcon">
-                        <option value="">------------</option>
-                        <option value="Famille">Famille</option>
-                        <option value="Vacance">Vacance</option>
-                        <option value="Etude">Etude</option>
-                    </select>
-                </div>
-            </div>
+ 
+<div class="form-row" >
+    <div class="col-md-6">
+        <div class="form">
+            <label >Motif</label>
+            <select class="form-control" wire:model = "newConge.motifcon">
+                <option value="">------------</option>
+                <option value="Famille">Famille</option>
+                <option value="Vacance">Vacance</option>
+                <option value="Etude">Etude</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form" >
+            <label style="margin-right: 5px;">Autres</label>
+            <input style="width: 300px;" type="text" class="form-control" placeholder="Entrez autre motif ici" wire:model = "newConge.motifcon">
+        </div>
+    </div>
+</div>
+
 
             <div class="card-footer">
                 <button type="button" class="btn btn-danger" wire:click.prevent="retourListCon()">Retour</button>

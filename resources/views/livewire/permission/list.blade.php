@@ -93,22 +93,31 @@
     </div>
     
     
-    <div class="card-footer">
-    <div class="float-right">
-    
-    {{ $permissions->links() }}
-    
+    <div class="card-footer d-flex justify-content-between align-items-center">
+    <div class="d-flex">
+        <a href="{{ route('planning.permission') }}" style="width: 170px;" class="btn btn-info mr-2">
+            <div style="color: white;">Actuelle</div>
+        </a>
+        <a href="{{ route('planning.permission.moi') }}" style="width: 170px;" class="btn btn-info mr-2">
+            <div style="color: white;">Mensuel</div>
+        </a>
+        <a href="{{ route('planning.permission.anne') }}" style="width: 170px;" class="btn btn-info mr-2">
+            <div style="color: white;">Annuel</div>
+        </a>
+        <a href="{{ route('planning.permission.tout') }}" style="width: 170px;" class="btn btn-info mr-2">
+            <div style="color: white;">Tous Les permission</div>
+        </a>
     </div>
-        <!-- Nouvelle division pour les boutons -->
-        <div class="float-left mt-2">
-            <!-- Trois boutons avec des classes pour la mise en forme -->
-        <button class="btn btn-info mr-2"><a href="{{ route('planning.permission') }}">Actuelle</a></button>
-        <button class="btn btn-info mr-2"><a href="{{ route('planning.permission.moi') }}">Mensuel</a></button>
-        <button class="btn btn-info"><a href="{{ route('planning.permission.anne') }}">Annuel</a></button>
-        <button class="btn btn-info"><a href="{{ route('planning.permission.tout') }}">Tous Les Permission</a></button>
+    
+        <!-- Bouton flottant à droite -->
+        <div class="float-right" style="margin-top: 15px">
+            {{ $permissions->links() }}
         </div>
     </div>
     
+    
+    
+    </div>
     </div>
     
     </div>
