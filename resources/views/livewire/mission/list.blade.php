@@ -88,18 +88,26 @@
 </table>
 </div>
 
-<div class="card-footer">
-    <div class="float-right">
-        {{ $missions->links() }}
-    </div>
+<div class="card-footer d-flex justify-content-between align-items-center">
+    <!-- Boutons "Actuelle", "Mensuel" et "Annuel" -->
+<div class="d-flex">
+    <a href="{{ route('planning.mission') }}" style="width: 150px;" class="btn btn-info mr-2">
+        <div style="color: white;">Actuelle</div>
+    </a>
+    <a href="{{ route('planning.mission.moi') }}" style="width: 150px;" class="btn btn-info mr-2">
+        <div style="color: white;">Mensuel</div>
+    </a>
+    <a href="{{ route('planning.mission.anne') }}" style="width: 150px;" class="btn btn-info mr-2">
+        <div style="color: white;">Annuel</div>
+    </a>
+    <a href="{{ route('planning.mission.tout') }}" style="width: 150px;" class="btn btn-info mr-2">
+        <div style="color: white;">Tous Les Mission</div>
+    </a>
+</div>
 
-    <!-- Nouvelle division pour les boutons -->
-    <div class="float-left mt-2">
-        <!-- Trois boutons avec des classes pour la mise en forme -->
-        <button class="btn btn-info mr-2"><a href="{{ route('planning.mission') }}">Actuelle</a></button>
-        <button class="btn btn-info mr-2"><a href="{{ route('planning.mission.moi') }}">Mensuel</a></button>
-        <button class="btn btn-info"><a href="{{ route('planning.mission.anne') }}">Annuel</a></button>
-        <button class="btn btn-info"><a href="{{ route('planning.mission.tout') }}">Tous Les Mission</a></button>
+    <!-- Bouton flottant à droite -->
+    <div class="float-right" style="margin-top: 15px">
+        {{ $missions->links() }}
     </div>
 </div>
 

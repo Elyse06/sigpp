@@ -14,6 +14,11 @@
             margin-bottom: 20px;
             
         }
+        .form {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      
+    }
         input[type="text"],
         input[type="number"],
         input[type="date"],
@@ -71,18 +76,24 @@
         <input type="number" wire:model = "editPermission.sldrstpermi" value="1" class="form-control" required readonly>
     </div>
     
-    <div class="form-group">
-    <label>Motif</label>
-    <select style="width: 400px" class="form-control" wire:model = "editPermission.motifpermi">
-    <option value="">------------</option>
-    <option value="Famille">Famille</option>
-    <option value="Vacance">Vacance</option>
-    <option value="Etude">Etude</option>
-    </select>
-    </div>
-    
-    
-    
+    <div class="form-row" >
+        <div class="col-md-6">
+            <div class="form">
+                <label >Motif</label>
+                <select class="form-control" wire:model = "editPermission.motifpermi">
+                    <option value="">------------</option>
+                    <option value="Famille">Famille</option>
+                    <option value="Vacance">Vacance</option>
+                    <option value="Etude">Etude</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form" >
+                <label style="margin-right: 5px;">Autres</label>
+                <input style="width: 300px;" type="text" class="form-control" placeholder="Entrez autre motif ici" wire:model = "editPermission.motifpermi">
+            </div>
+        </div>
     </div>
     
     <div class="card-footer">

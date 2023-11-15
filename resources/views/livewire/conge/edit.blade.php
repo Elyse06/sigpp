@@ -23,7 +23,12 @@
         .card-footer button {
     width:120px; /* Ajustez la valeur en fonction de la taille souhaitée */
   }
-
+  .form {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      
+    }
+    
   </style>
 
 <div class="row">
@@ -72,19 +77,26 @@
         <input type="number" wire:model = "editConge.sldrstcon" value="1" class="form-control" required readonly>
     </div>
     
-    <div class="form-group">
-    <label>Motif</label>
-    <select style="width: 400px" class="form-control" wire:model = "editConge.motifcon">
-    <option value="">------------</option>
-    <option value="Famille">Famille</option>
-    <option value="Vacance">Vacance</option>
-    <option value="Etude">Etude</option>
-    </select>
+    <div class="form-row" >
+        <div class="col-md-6">
+            <div class="form">
+                <label >Motif</label>
+                <select class="form-control" wire:model = "editConge.motifcon">
+                    <option value="">------------</option>
+                    <option value="Famille">Famille</option>
+                    <option value="Vacance">Vacance</option>
+                    <option value="Etude">Etude</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form" >
+                <label style="margin-right: 5px;">Autres</label>
+                <input style="width: 300px;" type="text" class="form-control" placeholder="Entrez autre motif ici" wire:model = "editConge.motifcon">
+            </div>
+        </div>
     </div>
     
-    
-    
-    </div>
     
     <div class="card-footer">
     <button type="button" class="btn btn-danger" wire:click.prevent="retourListCon()">Retour</button>    

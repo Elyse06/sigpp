@@ -15,7 +15,7 @@
     .form {
       display: grid;
       grid-template-columns: 120px 1fr;
-      grid-column-gap: 0px;
+      
     }
     /* Classe pour les champs d'entrée spécifiques */
     input[type="text"],
@@ -78,7 +78,7 @@
     <div class="col-md-6">
         <div class="form">
             <label >Motif</label>
-            <select style="width: 200px" class="form-control" wire:model = "newMission.motifmis">
+            <select class="form-control" wire:model = "newMission.motifmis">
                 <option value="">------------</option>
                 <option value="Famille">Famille</option>
                 <option value="Vacance">Vacance</option>
@@ -87,9 +87,9 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="form" style="grid-template-columns: 50px 1fr;">
-            <label style="float: left">Autres</label>
-            <input style="width: 200px; float:left" type="text" class="form-control" placeholder="Entrez votre texte ici" wire:model = "newMission.motifmis">
+        <div class="form" >
+            <label style="margin-right: 5px;">Autres</label>
+            <input style="width: 300px;" type="text" class="form-control" placeholder="Entrez autre motif ici" wire:model = "newMission.motifmis">
         </div>
     </div>
 </div>
