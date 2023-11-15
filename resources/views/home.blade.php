@@ -78,7 +78,7 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('top.conge') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
             <!-- Déplacez la liste ul ici -->
             <ul class="hidden-list" style="overflow-y: auto; color:white">
                 @foreach ($topEmployeesCon as $employee)
@@ -96,7 +96,7 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('top.mission') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
             <ul class="hidden-list" style="color: white">
                 
                 @foreach ($topEmployeesMission as $employee)
@@ -115,7 +115,7 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('top.permission') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
             <ul class="hidden-list" style="color: white">
                 
                 @foreach ($topEmployeesPermi as $employee)
@@ -134,7 +134,7 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('top.repos') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
             <ul class="hidden-list" style="color: white">
                 
                 @foreach ($topEmployeesRep as $employee)
@@ -154,7 +154,7 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('top.sortie') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
             <ul class="hidden-list" style="color: white">
                 
                 @foreach ($topEmployeesSortie as $employee)
@@ -163,9 +163,9 @@
                 
             </ul>
         </div>
-    </div>     
+    </div>    
+
         {{-- Graphe --}}
-    
         <div class="chart-container w-100" style="background-color: #315358">
         <div class="card card w-100">
             <div class="card-header w-100" style="background-color: #315358;float:left;  font-weight: bold; color:white;">Statistique des employées
