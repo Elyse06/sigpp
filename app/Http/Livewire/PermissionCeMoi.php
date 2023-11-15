@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Permission extends Component
+class PermissionCeMoi extends Component
 {
 
     use WithPagination;
@@ -27,7 +27,8 @@ class Permission extends Component
 
     public function render()
     {
-        $date = now()->toDateString();
+        $date = now()->year;
+        $moi = now()->month;
 
         $searchCriteria = "%" . $this->search . "%";
 
@@ -35,8 +36,10 @@ class Permission extends Component
             "permissions" => ModelsPermission::whereHas('emploie', function ($query) use ($searchCriteria) {
                 $query->where('nom', 'like', '%' . $searchCriteria . '%');
             })
-            ->where('debutpermi', '<=', $date)
-            ->where('finpermi', '>=', $date)
+            ->whereYear('debutpermi', '<=', $date)
+            ->whereYear('finpermi', '>=', $date)
+            ->whereMonth('debutpermi', '<=', $moi)
+            ->whereMonth('finpermi', '>=', $moi)
             ->latest()
             ->paginate(5)
         ], [

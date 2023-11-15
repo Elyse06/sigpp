@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Permission extends Component
+class TouteLesPermission extends Component
 {
 
     use WithPagination;
@@ -27,18 +27,13 @@ class Permission extends Component
 
     public function render()
     {
-        $date = now()->toDateString();
 
         $searchCriteria = "%" . $this->search . "%";
 
         return view('livewire.permission.index', [
             "permissions" => ModelsPermission::whereHas('emploie', function ($query) use ($searchCriteria) {
                 $query->where('nom', 'like', '%' . $searchCriteria . '%');
-            })
-            ->where('debutpermi', '<=', $date)
-            ->where('finpermi', '>=', $date)
-            ->latest()
-            ->paginate(5)
+            })->latest()->paginate(5)
         ], [
             "employees" => Employee::all()
         ])

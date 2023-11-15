@@ -96,9 +96,10 @@
         <!-- Nouvelle division pour les boutons -->
         <div class="float-left mt-2">
             <!-- Trois boutons avec des classes pour la mise en forme -->
-            <button class="btn btn-info mr-2">Journalière</button>
-            <button class="btn btn-info mr-2">Mensuel</button>
-            <button class="btn btn-info">Annuel</button>
+            <button class="btn btn-info mr-2"><a href="{{ route('planning.repos') }}">Actuelle</a></button>
+            <button class="btn btn-info mr-2"><a href="{{ route('planning.repos.moi') }}">Mensuel</a></button>
+            <button class="btn btn-info"><a href="{{ route('planning.repos.anne') }}">Annuel</a></button>
+            <button class="btn btn-info"><a href="{{ route('planning.repos.tout') }}">Tous Les Repos</a></button>
         </div>
     </div>
     

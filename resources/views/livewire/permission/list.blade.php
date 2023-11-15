@@ -102,9 +102,10 @@
         <!-- Nouvelle division pour les boutons -->
         <div class="float-left mt-2">
             <!-- Trois boutons avec des classes pour la mise en forme -->
-            <button class="btn btn-info mr-2">Journalière</button>
-            <button class="btn btn-info mr-2">Mensuel</button>
-            <button class="btn btn-info">Annuel</button>
+        <button class="btn btn-info mr-2"><a href="{{ route('planning.permission') }}">Actuelle</a></button>
+        <button class="btn btn-info mr-2"><a href="{{ route('planning.permission.moi') }}">Mensuel</a></button>
+        <button class="btn btn-info"><a href="{{ route('planning.permission.anne') }}">Annuel</a></button>
+        <button class="btn btn-info"><a href="{{ route('planning.permission.tout') }}">Tous Les Permission</a></button>
         </div>
     </div>
     

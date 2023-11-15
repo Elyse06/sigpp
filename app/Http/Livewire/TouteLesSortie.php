@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Sortie extends Component
+class TouteLesSortie extends Component
 {
     
     use WithPagination;
@@ -27,7 +27,6 @@ class Sortie extends Component
 
     public function render()
     {
-        $date = now()->toDateString();
 
         $searchCriteria = "%".$this->search."%";
 
@@ -35,11 +34,7 @@ class Sortie extends Component
             "sorties" => SortiePersonnel::whereHas('emploie', function ($query) use ($searchCriteria){
                 $query->where('nom', 'like', '%' . $searchCriteria . '%');
 
-            })
-            ->where('debutsortie', '<=', $date)
-            ->where('finsortie', '>=', $date)
-            ->latest()
-            ->paginate(5)
+            })->latest()->paginate(5)
         ], [
             "employees" => Employee::all()
         ])

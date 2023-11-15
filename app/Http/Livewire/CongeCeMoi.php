@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Conge extends Component
+class CongeCeMoi extends Component
 {
     use WithPagination;
 
@@ -27,7 +27,8 @@ class Conge extends Component
 
     public function render()
     {
-        $date = now()->toDateString();
+        $date = now()->year;
+        $moi = now()->month;
 
         $searchCriteria = "%".$this->search."%";
 
@@ -37,8 +38,10 @@ class Conge extends Component
                 $query->where('nom', 'like', '%' . $searchCriteria . '%');
 
             })
-            ->where('debutcon', '<=', $date)
-            ->where('fincon', '>=', $date)
+            ->whereYear('debutcon', '<=', $date)
+            ->whereYear('fincon', '>=', $date)
+            ->whereMonth('debutcon', '<=', $moi)
+            ->whereMonth('fincon', '>=', $moi)
             ->latest()
             ->paginate(5)
         ], [
