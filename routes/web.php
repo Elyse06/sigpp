@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\EchartController;
+use App\Http\Controllers\TopCongeController;
+use App\Http\Controllers\TopMissionController;
 use App\Http\Livewire\Calendar;
 use App\Http\Livewire\Conge as LivewireConge;
 use App\Http\Livewire\CongeCeAnne;
@@ -54,6 +56,11 @@ Auth::routes();
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/Top Conge', [App\Http\Controllers\TopCongeController::class, 'index'])->name('top.conge');
+Route::get('/Top Mission', [App\Http\Controllers\TopMissionController::class, 'index'])->name('top.mission');
+Route::get('/Top Permission', [App\Http\Controllers\TopPermissionController::class, 'index'])->name('top.permission');
+Route::get('/Top Sortie', [App\Http\Controllers\TopSortieController::class, 'index'])->name('top.sortie');
+Route::get('/Top Repos', [App\Http\Controllers\TopReposController::class, 'index'])->name('top.repos');
 Route::get('/Solde des employées/sup', [App\Http\Controllers\NotificationController::class, 'index'])->name('solde');
 Route::get('/Solde des employées', [Solde::class, 'render'])->name('solde');
 
@@ -102,7 +109,7 @@ Route::group(
     }
 );
 
-
+// pdf pour le solde
 Route::get('/pdf', [Solde::class, 'generatePDF'])->name('rapport.generatePDF');
 
 Route::get('/Solde des employées/downloadPDF/{filename}', [Solde::class, 'downloadPDF'])
@@ -116,3 +123,32 @@ Route::get('/Solde des employées/downloadPDF/{filename}', [Solde::class, 'downl
         return Response::download($file);
     })->name('download-pdf');
 
+
+// pdf pour le top 10 des conges
+Route::get('/pdftopconge', [TopCongeController::class, 'generatePDF'])->name('topconge.generatePDF');
+
+Route::get('/Top Conge/downloadPDF/{filename}', [TopCongeController::class, 'downloadPDF'])
+    ->name('topconge.downloadPDF');
+
+    Route::get('/download-pdf/{filename}', function ($filename) {
+        $localPath = 'C:\laragon\www\Moo4\pdf';
+    
+        $file = $localPath . DIRECTORY_SEPARATOR . $filename;
+    
+        return Response::download($file);
+    })->name('download-pdf');
+
+// pdf pour le top 10 des Mission
+Route::get('/pdftopmission', [TopMissionController::class, 'generatePDF'])->name('topmission.generatePDF');
+
+Route::get('/Top Mission/downloadPDF/{filename}', [TopMissionController::class, 'downloadPDF'])
+    ->name('topmission.downloadPDF');
+
+    Route::get('/download-pdf/{filename}', function ($filename) {
+        $localPath = 'C:\laragon\www\Moo4\pdf';
+    
+        $file = $localPath . DIRECTORY_SEPARATOR . $filename;
+    
+        return Response::download($file);
+    })->name('download-pdf');
+    
