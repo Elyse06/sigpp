@@ -3,6 +3,9 @@
 use App\Http\Controllers\EchartController;
 use App\Http\Controllers\TopCongeController;
 use App\Http\Controllers\TopMissionController;
+use App\Http\Controllers\TopPermissionController;
+use App\Http\Controllers\TopReposController;
+use App\Http\Controllers\TopSortieController;
 use App\Http\Livewire\Calendar;
 use App\Http\Livewire\Conge as LivewireConge;
 use App\Http\Livewire\CongeCeAnne;
@@ -138,6 +141,7 @@ Route::get('/Top Conge/downloadPDF/{filename}', [TopCongeController::class, 'dow
         return Response::download($file);
     })->name('download-pdf');
 
+
 // pdf pour le top 10 des Mission
 Route::get('/pdftopmission', [TopMissionController::class, 'generatePDF'])->name('topmission.generatePDF');
 
@@ -151,4 +155,49 @@ Route::get('/Top Mission/downloadPDF/{filename}', [TopMissionController::class, 
     
         return Response::download($file);
     })->name('download-pdf');
+
+    
+// pdf pour le top 10 des Permission
+Route::get('/pdftoppermission', [TopPermissionController::class, 'generatePDF'])->name('toppermission.generatePDF');
+
+Route::get('/Top Permission/downloadPDF/{filename}', [TopPermissionController::class, 'downloadPDF'])
+    ->name('toppermission.downloadPDF');
+
+    Route::get('/download-pdf/{filename}', function ($filename) {
+        $localPath = 'C:\laragon\www\Moo4\pdf';
+    
+        $file = $localPath . DIRECTORY_SEPARATOR . $filename;
+    
+        return Response::download($file);
+    })->name('download-pdf');
+
+    
+// pdf pour le top 10 des repos
+Route::get('/pdftoprepos', [TopReposController::class, 'generatePDF'])->name('toprepos.generatePDF');
+
+Route::get('/Top Repos/downloadPDF/{filename}', [TopReposController::class, 'downloadPDF'])
+    ->name('toprepos.downloadPDF');
+
+    Route::get('/download-pdf/{filename}', function ($filename) {
+        $localPath = 'C:\laragon\www\Moo4\pdf';
+    
+        $file = $localPath . DIRECTORY_SEPARATOR . $filename;
+    
+        return Response::download($file);
+    })->name('download-pdf');
+
+    
+    // pdf pour le top 10 des sortie
+    Route::get('/pdftopsortie', [TopSortieController::class, 'generatePDF'])->name('topsortie.generatePDF');
+    
+    Route::get('/Top Sortie/downloadPDF/{filename}', [TopSortieController::class, 'downloadPDF'])
+        ->name('topsortie.downloadPDF');
+    
+        Route::get('/download-pdf/{filename}', function ($filename) {
+            $localPath = 'C:\laragon\www\Moo4\pdf';
+        
+            $file = $localPath . DIRECTORY_SEPARATOR . $filename;
+        
+            return Response::download($file);
+        })->name('download-pdf');
     

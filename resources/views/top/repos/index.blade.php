@@ -4,7 +4,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Top 10 Des Employées Qui à Pris Plus De Congé</h3>
+                    <h3 class="card-title">Top 10 Des Employées Qui à Pris Plus De Repo-Medical</h3>
+                    <a href="{{ route('toprepos.generatePDF') }}" class="btn btn-custom">
+                        <i class="fas fa-file-pdf" style="color: red;"></i>
+                        Générer le PDF
+                    </a>
                 </div>
 
                 <div class="card-body p-0">
