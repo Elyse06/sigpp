@@ -30,7 +30,7 @@
             transition: none;
         }
         .hidden-list {
-        max-height: 150px; /* Définissez la hauteur maximale que vous souhaitez pour le défilement */
+        max-height: 500px; /* Définissez la hauteur maximale que vous souhaitez pour le défilement */
         overflow-y: auto; /* Ajoutez un défilement vertical si nécessaire */
         display: none; /* Masquez la liste par défaut */
     }
@@ -314,7 +314,7 @@ $(document).ready(function() {
     });
 
     // Gérer le clic sur le bouton de fermeture du barchart
-    $('.btn-tool').click(function() {
+    $('.btn-tool').hover(function() {
         // Réinitialiser tous les barcharts
         $('.barchart-canvas').show();
 
