@@ -3,15 +3,12 @@
 namespace App\Http\Livewire;
 
 use App\Models\Employee;
-use App\Models\Mission as ModelsMission;
-use App\Models\User;
+use App\Models\Mission;
 use App\Models\Vehicule;
-use App\Notifications\MissionEndingNotification;
-use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Mission extends Component
+class TouteLesMission extends Component
 {
     use WithPagination;
 
@@ -27,14 +24,11 @@ class Mission extends Component
 
     public function render()
     {
-        $date = now()->toDateString();
 
         $searchCriteria = "%".$this->search."%";
-        $missions = ModelsMission::whereHas('emploie', function ($query) use ($searchCriteria){
+        $missions = Mission::whereHas('emploie', function ($query) use ($searchCriteria){
             $query->where('nom', 'like', '%' . $searchCriteria . '%');
         })
-        ->where('debutmis', '<=', $date)
-        ->where('finmis', '>=', $date)
         ->latest()
         ->paginate(5);
         $employees = Employee::all();
@@ -45,7 +39,7 @@ class Mission extends Component
         ->section("contenu");
     }
 
-    
+     
     // plusiere roles
     public function rules(){
         if($this->currentPage == PAGEEDITFORM){
@@ -76,7 +70,7 @@ class Mission extends Component
 
     // mandeha @formulaire editer
     public function goEditMission($id, $idem){
-        $mission = ModelsMission::find($id);
+        $mission = Mission::find($id);
         $table = $mission->toArray();
         
         // recuperer tous les valeur du table pour le mettre dans le form a editer 
@@ -109,12 +103,12 @@ class Mission extends Component
         $valide = $this->validate(['newMission.employee_id' => 'required']);
         
         // ajout d'un nouvelle mission
-        $newAdd = ModelsMission::create($missionData);
+        $newAdd = Mission::create($missionData);
 
         $newAdd = $newAdd->id;
 
         // ajout du table mission employee
-        ModelsMission::find($newAdd)->emploie()->attach($valide);
+        Mission::find($newAdd)->emploie()->attach($valide);
 
         // reinitialiser newMission 
         $this->newMission = [];
@@ -135,7 +129,7 @@ class Mission extends Component
         $id = $this->editMission["id"];
 
         //recuperer l'id du ligne a modifier
-        $mission = ModelsMission::find($id);
+        $mission = Mission::find($id);
         
 
         // $fn->edh_id = $valide['editMission']['empo'];
@@ -168,11 +162,12 @@ class Mission extends Component
 
     // pour la suppression
     public function deleteMission($id){
-        ModelsMission::find($id)->emploie()->detach();
+        Mission::find($id)->emploie()->detach();
 
-        ModelsMission::destroy($id);
+        Mission::destroy($id);
 
         $this->dispatchBrowserEvent("showSuccesMessage", ["message"=>"Mission supprimer avec succès!"]);
     }
 
 }
+

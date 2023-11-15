@@ -7,7 +7,7 @@ use App\Models\RepoMedical;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Repos extends Component
+class ReposCeAnne extends Component
 {
     use WithPagination;
 
@@ -23,7 +23,7 @@ class Repos extends Component
 
     public function render()
     {
-        $date = now()->toDateString();
+        $date = now()->year;
 
         $searchCriteria = "%".$this->search."%";
 
@@ -32,8 +32,8 @@ class Repos extends Component
                 $query->where('nom', 'like', '%' . $searchCriteria . '%');
 
             })
-            ->where('debutrep', '<=', $date)
-            ->where('finrep', '>=', $date)
+            ->whereYear('debutrep', '<=', $date)
+            ->whereYear('finrep', '>=', $date)
             ->latest()
             ->paginate(5)
         ], [
@@ -115,7 +115,8 @@ class Repos extends Component
     }
 
     // pour la confirmation du supression
-    public function confirmDelete($id){
+      
+       public function confirmDelete($id){
         $this->dispatchBrowserEvent("comfirmMessage", ["message"=>[
             "text" => "Vous etes sur le point de supprimer cette composant de la liste du repos. Voulez-vous continuer?",
             "title" => "Etes-vous sure de continuer?",
