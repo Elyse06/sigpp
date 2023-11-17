@@ -73,14 +73,14 @@
         <div class="small-box conge-box" style="background-color: turquoise">
             <div class="inner">
                 <h3 style="color: white">Top 10</h3>
-                <p style="color: white">Congé</p>
+                <p style="color: white;font-weight:bold">Congé</p>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
             <a href="{{ route('top.conge') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
             <!-- Déplacez la liste ul ici -->
-            <ul class="hidden-list" style="overflow-y: auto; color:white">
+            <ol class="hidden-list" style="color: black; border: 1px solid #ffffff; padding: 25px;background-color: white">
                 @foreach ($topEmployeesCon as $employee)
                     <li>{{ $employee->emploie->nom }} ({{ $employee->conge_count }})</li>
                 @endforeach
@@ -91,32 +91,30 @@
         <div class="small-box mission-box" style="background-color: navy">
             <div class="inner">
                 <h3 style="color: white">Top 10</h3>
-                <p style="color: white">Mission</p>
+                <p style="color: white;font-weight:bold">Mission</p>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
             <a href="{{ route('top.mission') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
-            <ul class="hidden-list" style="color: white">
-                
+            <ol class="hidden-list" style="color: black; border: 1px solid #ffffff; padding: 25px;background-color: white">
                 @foreach ($topEmployeesMission as $employee)
                     <li>{{ $employee->nom }} ({{ $employee->mission_count }})</li>
                 @endforeach
-                
-            </ul>
+            </ol>
         </div>
     
         {{-- Box permission --}}
         <div class="small-box permission-box" style="background-color: gray">
             <div class="inner">
                 <h3 style="color: white">Top 10</h3>
-                <p style="color: white">Permission</p>
+                <p style="color: white;font-weight:bold">Permission</p>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
             <a href="{{ route('top.permission') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
-            <ul class="hidden-list" style="color: white">
+            <ol class="hidden-list" style="color: black; border: 1px solid #ffffff; padding: 25px;background-color: white">
                 
                 @foreach ($topEmployeesPermi as $employee)
                     <li>{{ $employee->emploie->nom }} ({{ $employee->permission_count }})</li>
@@ -129,13 +127,13 @@
         <div class="small-box repos-box" style="background-color: red">
             <div class="inner">
                 <h3 style="color: white">Top 10</h3>
-                <p style="color: white">Répos Medical</p>
+                <p style="color: white;font-weight:bold">Répos Medical</p>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
             <a href="{{ route('top.repos') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
-            <ul class="hidden-list" style="color: white">
+            <ol class="hidden-list" style="color: black; border: 1px solid #ffffff; padding: 25px;background-color: white">
                 
                 @foreach ($topEmployeesRep as $employee)
                     <li>{{ $employee->emploie->nom }} ({{ $employee->repos_count }})</li>
@@ -146,16 +144,16 @@
         </div>
     
         {{-- Box sortie --}}
-        <div class="small-box sortie-box" style="background-color: yellow">
+        <div class="small-box sortie-box" style="background-color: #FFCD00">
             <div class="inner">
                 <h3 style="color: white">Top 10</h3>
-                <p style="color: white">Sortie personnel</p>
+                <p style="color: white;font-weight:bold">Sortie personnel</p>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
             <a href="{{ route('top.sortie') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
-            <ul class="hidden-list" style="color: white">
+            <ol class="hidden-list" style="color: black; border: 1px solid #ffffff; padding: 25px;background-color: white">
                 
                 @foreach ($topEmployeesSortie as $employee)
                     <li>{{ $employee->emploie->nom }} ({{ $employee->sortie_count }})</li>
@@ -233,8 +231,8 @@
                 {
                     label: 'Sortie Personnel',
                     data: [{{ $s_jan }}, {{ $s_fev }}, {{ $s_mar }}, {{ $s_avr }}, {{ $s_mai }}, {{ $s_jun }}, {{ $s_jul }}, {{ $s_aou }}, {{ $s_sep }}, {{ $s_oct }}, {{ $s_nov }}, {{ $s_dec }}],
-                    backgroundColor: 'yellow',
-                    borderColor: 'yellow',
+                    backgroundColor: '#FFCD00',
+                    borderColor: '#FFCD00',
                     borderWidth: 1
                 }
             ]
@@ -259,95 +257,55 @@
     </script>
 
     {{-- script pour le box --}}
-  <script>
-$(document).ready(function() {
-    // Cacher initialement la liste
-    $('.hidden-list').hide();
-
-    // Afficher le barchart au démarrage
-    $('.barchart-canvas').show();
-
-    // Variable pour suivre l'état des listes (ouvertes ou fermées)
-    var isListOpen = false;
-
-    // Gérer le survol sur le lien "plus d'info" dans les éléments small-box
-    $('.small-box-footer').hover(function(e) {
-        e.preventDefault(); // Empêcher le comportement par défaut du lien
-
-        // Cacher tous les barcharts actifs
-        $('.barchart-canvas').hide();
-
-        // Cacher toutes les autres listes sauf celle survolée
-        var otherLists = $('.hidden-list').not($(this).siblings('.hidden-list'));
-        otherLists.slideUp();
-
-        // Afficher la liste correspondante
-        var list = $(this).siblings('.hidden-list');
-        list.slideDown();
-
-        // Calculer la hauteur de la liste et ajuster la position du barchart
-        var listHeight = list.find('li').length * 20; // Taille approximative de chaque élément de la liste
-        var marginTop = Math.min(listHeight, 200); // Limiter la hauteur maximale à 200px
-        $('.chart-container').css('margin-top', marginTop + 90 + 'px');
-
-        // Mettre à jour le bouton pour indiquer la réduction
-        $(this).closest('.chart-container').find('.btn-tool i').removeClass('fa-minus').addClass('fa-plus');
-        isListOpen = true;
-    }, function() {
-        $(this).siblings('.hidden-list').slideUp(); // Cacher la liste au survol
-        $('.chart-container').css('margin-top', '90px'); // Réinitialiser la position du barchart
-    });
-
-    // Gérer le clic sur la liste pour réinitialiser le barchart
-    $('.hidden-list').click(function() {
-        $(this).slideUp();
-
-        // Réinitialiser tous les barcharts
-        $('.barchart-canvas').show();
-
-        // Réinitialiser la position du barchart
-        $('.chart-container').css('margin-top', '90px');
-
-        // Mettre à jour le bouton pour indiquer l'agrandissement
-        $('.btn-tool i').removeClass('fa-minus').addClass('fa-plus');
-        isListOpen = false;
-    });
-
-    // Gérer le clic sur le bouton de fermeture du barchart
-    $('.btn-tool').hover(function() {
-        // Réinitialiser tous les barcharts
-        $('.barchart-canvas').show();
-
-        // Réinitialiser la position du barchart
-        $('.chart-container').css('margin-top', '90px');
-
-        // Mettre à jour le bouton pour indiquer l'agrandissement
-        $(this).find('i').toggleClass('fa-minus fa-plus');
-        isListOpen = !isListOpen;
-    });
-
-    // Fonction pour mettre à jour le bouton lorsque toutes les listes sont fermées
-    function updateButtonState() {
-        var allListsClosed = $('.hidden-list').toArray().every(function(list) {
-            return $(list).is(':hidden');
+    <script>
+        $(document).ready(function() {
+            // Cacher initialement la liste et le graphe
+            $('.hidden-list').hide();
+        
+            // Afficher le graphe par défaut
+            $('.chart-container').show();
+        
+            // Gérer le survol sur le lien "plus d'info" dans les éléments small-box
+            $('.small-box-footer').mouseenter(function() {
+                // Cacher toutes les autres listes sauf celle survolée
+                var otherLists = $('.hidden-list').not($(this).siblings('.hidden-list'));
+                otherLists.slideUp();
+        
+                // Afficher la liste correspondante
+                var list = $(this).siblings('.hidden-list');
+                list.slideDown();
+        
+                // Déplacer le graphe vers le bas
+                $('.chart-container').stop().animate({ marginTop: '340px' }, 300);
+            });
+        
+            // Gérer le survol de sortie du lien "plus d'info"
+            $('.small-box-footer').mouseleave(function() {
+                // Cacher la liste au survol
+                $(this).siblings('.hidden-list').slideUp();
+        
+                // Réinitialiser la position du graphe
+                $('.chart-container').stop().animate({ marginTop: '100px' }, 300);
+            });
+        
+            // Fonction pour mettre à jour le bouton lorsque toutes les listes sont fermées
+            function updateButtonState() {
+                var allListsClosed = $('.hidden-list').toArray().every(function(list) {
+                    return $(list).is(':hidden');
+                });
+        
+                if (allListsClosed) {
+                    $('.chart-container').stop().animate({ marginTop: '50px' }, 300);
+                }
+            }
+        
+            // Vérifier l'état des listes lorsque le survol est terminé
+            $('.chart-container').mouseleave(function() {
+                updateButtonState();
+            });
         });
-
-        if (allListsClosed) {
-            $('.btn-tool i').removeClass('fa-minus').addClass('fa-plus');
-            isListOpen = false;
-        }
-    }
-
-    // Vérifier l'état initial des listes et mettre à jour le bouton
-    updateButtonState();
-
-    // Vérifier l'état des listes lorsque le survol est terminé
-    $('.chart-container').mouseleave(function() {
-        updateButtonState();
-    });
-});
-
-    </script>
+        </script>
+        
 
     
     
