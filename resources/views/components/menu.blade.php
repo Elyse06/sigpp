@@ -27,7 +27,7 @@
 
         <li class="nav-item {{ setMenuClass('employee.', 'menu-open') }}">
             <a href="#" class="nav-link {{ setMenuClass('employee.', 'active') }}">
-                <i class="nav-icon fas fa-calendar-alt"></i>
+                <i class="nav-icon fas fa-users"></i>
 
                 <p>
                     Employées
@@ -44,7 +44,8 @@
 
                 <li class="nav-item">
                     <a href="{{ route('employee.solde') }}" class="nav-link {{ setMenuActive('employee.solde') }}">
-                        <i class="fas fa-tachometer-alt"></i>
+                        <i class="fas fa-wallet"></i>
+
                         <p>Solde</p>
                     </a>
                 </li>
