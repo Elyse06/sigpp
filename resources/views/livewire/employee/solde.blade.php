@@ -1,7 +1,3 @@
-@extends('layouts.master')
-
-@section('contenu')
-
 <style>
         .table th,
         .table td {
@@ -49,10 +45,10 @@
             <div class="card-tools d-flex align-items-center">
                 <style>
                     .btn-custom {
-    background-color: transparent; /* Supprime l'arrière-plan */
-    border: none; /* Supprime la bordure */
-    padding: 0; /* Supprime le rembourrage */
-}
+                        background-color: transparent; /* Supprime l'arrière-plan */
+                        border: none; /* Supprime la bordure */
+                        padding: 0; /* Supprime le rembourrage */
+                    }
 
                 </style>
                 <div>
@@ -85,7 +81,6 @@
                     <tr>
                         <th style="width:15%;">Nom</th>
                         <th style="width:15%;">Prenom</th>
-                        <th style="width:15%;">Telephone</th>
                         <th style="width:15%;">Solde du conge</th>
                         <th style="width:15%;">Solde du permission</th>
                         <th style="width:15%;">Solde du sortie</th>
@@ -97,7 +92,6 @@
                         <tr>
                             <td> {{ $employee->nom }} </td>
                             <td> {{ $employee->prenom }} </td>
-                            <td> {{ $employee->numTel }} </td>
                             <td class="text-center"> {{ $soldeList[$employee->id]['conge'] }} j </td>
                             <td class="text-center"> {{ $soldeList[$employee->id]['permission'] }} j </td>
                             <td class="text-center"> {{ $soldeList[$employee->id]['sortie'] }} h </td>
@@ -137,4 +131,3 @@
     </ul>
 </div>
     </div>
-@endsection
