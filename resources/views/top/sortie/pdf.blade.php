@@ -19,13 +19,13 @@
                                     <li>
                                         <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
                                         {{ $employee->emploie->nom }} ({{ $employee->sortie_count }})
-                                        <ul>
+                                        <ol>
                                             @foreach ($employee->emploie->sortieperso as $sortie)
                                                 <li>
                                                     {{ $sortie->motifsortie }}: {{ $sortie->debutsortie }} / {{ $sortie->finsortie }}
                                                 </li>
                                             @endforeach
-                                        </ul>
+                                        </ol>
                                     </li>
                                 </ul>
                             @endforeach

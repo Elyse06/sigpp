@@ -19,13 +19,13 @@
                                     <li>
                                         <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
                                         {{ $employee->emploie->nom }} ({{ $employee->conge_count }})
-                                        <ul>
+                                        <ol>
                                             @foreach ($employee->emploie->permissions as $permission)
                                                 <li>
                                                     {{ $permission->motifpermi }}: {{ $permission->debutpermi }} / {{ $permission->finpermi }}
                                                 </li>
                                             @endforeach
-                                        </ul>
+                                        </ol>
                                     </li>
                                 </ul>
                             @endforeach

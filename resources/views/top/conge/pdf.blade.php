@@ -20,13 +20,13 @@
                                     <li>
                                         <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
                                         {{ $employee->emploie->nom }} ({{ $employee->conge_count }})
-                                        <ul>
+                                        <ol>
                                             @foreach ($employee->emploie->conges as $conge)
                                                 <li>
                                                     {{ $conge->motifcon }}: {{ $conge->debutcon }} / {{ $conge->fincon }}
                                                 </li>
                                             @endforeach
-                                        </ul>
+                                        </ol>
                                     </li>
                                 </ul>
                             @endforeach

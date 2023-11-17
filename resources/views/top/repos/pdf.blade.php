@@ -19,13 +19,13 @@
                                     <li>
                                         <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
                                         {{ $employee->emploie->nom }} ({{ $employee->conge_count }})
-                                        <ul>
+                                        <ol>
                                             @foreach ($employee->emploie->repomedicals as $repos)
                                                 <li>
                                                     {{ $repos->motifrep }}: {{ $repos->debutrep }} / {{ $repos->finrep }}
                                                 </li>
                                             @endforeach
-                                        </ul>
+                                        </ol>
                                     </li>
                                 </ul>
                             @endforeach
