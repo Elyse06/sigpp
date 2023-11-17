@@ -25,13 +25,24 @@ class Solde extends Component
     public function render()
     {
         $searchCriteria = "%".$this->search."%";
+        $date = now()->toDateString();
 
         $employees = Employee::where("nom", "like", $searchCriteria)->get();
-        $conges = Conge::all();
-        $missions = Mission::all();
-        $permissions = Permission::all();
-        $sorties = SortiePersonnel::all();
-        $repos = RepoMedical::all();
+        $conges = Conge::where('debutcon', '<=', $date)
+            ->where('fincon', '>=', $date)
+            ->get();
+        $missions = Mission::where('debutmis', '<=', $date)
+            ->where('finmis', '>=', $date)
+            ->get();
+        $permissions = Permission::where('debutpermi', '<=', $date)
+            ->where('finpermi', '>=', $date)
+            ->get();
+        $sorties = SortiePersonnel::where('debutsortie', '<=', $date)
+            ->where('finsortie', '>=', $date)
+            ->get();
+        $repos = RepoMedical::where('debutrep', '<=', $date)
+            ->where('finrep', '>=', $date)
+            ->get();
 
         // Tableau pour stocker les soldes
         $soldeList = [];
@@ -46,7 +57,9 @@ class Solde extends Component
         }
 
 
-        return view('livewire.solde.index', compact('employees','conges','missions','permissions','sorties','repos','soldeList'));
+        return view('livewire.employee.solde', compact('employees','conges','missions','permissions','sorties','repos','soldeList'))
+        ->extends('layouts.master')
+        ->section('contenu');
     }
 
     // Fonction pour calculer le solde total

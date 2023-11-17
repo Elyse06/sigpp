@@ -1,7 +1,3 @@
-@extends('layouts.master')
-
-@section('contenu')
-
 <style>
         .table th,
         .table td {
@@ -45,10 +41,8 @@
 
                 </style>
                 <div>
-                    <a style="margin-right: 10px; color:white" href="{{ route('rapport.generatePDF') }}" class="btn btn-custom"> <!-- Utilisez une classe personnalisée -->
-                        <i class="fas fa-file-pdf" style="color: red;"></i> <!-- Icône de PDF -->
-                        Générer le PDF
-                    </a>
+                    <a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="goAjouterEmployee()"><i
+                            class="fas fa-plus pr-1"></i>Ajout une nouvelle</a>
                 </div>
                 
                 
@@ -75,10 +69,11 @@
                         <th style="width:15%;">Nom</th>
                         <th style="width:15%;">Prenom</th>
                         <th style="width:15%;">Telephone</th>
-                        <th style="width:15%;">Solde du conge</th>
-                        <th style="width:15%;">Solde du permission</th>
-                        <th style="width:15%;">Solde du sortie</th>
+                        <th style="width:15%;">Date de Naissance</th>
+                        <th style="width:15%;">Adresse</th>
+                        <th style="width:15%;">Departement</th>
                         <th style="width:10%;">Statuts</th>
+                        <th style="width:10%;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,9 +82,9 @@
                             <td> {{ $employee->nom }} </td>
                             <td> {{ $employee->prenom }} </td>
                             <td> {{ $employee->numTel }} </td>
-                            <td class="text-center"> {{ $soldeList[$employee->id]['conge'] }} j </td>
-                            <td class="text-center"> {{ $soldeList[$employee->id]['permission'] }} j </td>
-                            <td class="text-center"> {{ $soldeList[$employee->id]['sortie'] }} h </td>
+                            <td> {{ $employee->date_de_naissance }} </td>
+                            <td>  </td>
+                            <td>  </td>
                             <td class="text-center"> 
 
                                 @if (in_array($employee->id, $conges->pluck('employee_id')->all()))
@@ -109,6 +104,15 @@
 
                              </td>
 
+                            <td>
+
+                                <button class="btn btn-link" wire:click="goEditEmployee({{ $employee->id }})"><i
+                                        style="color: green" class="far fa-edit"></i></button>
+                                <button class="btn btn-link" wire:click="confirmDelete({{ $employee->id }})"><i
+                                        style="color: red" class="far fa-trash-alt"></i></button>
+
+                            </td>
+
                         </tr>
                     @endforeach
                         
@@ -116,5 +120,10 @@
             </table>
         </div>
 
+        <div class="card-footer d-flex justify-content-between align-items-center">
+            <div class="float-left">
+                {{ $employees->links() }}
+            </div>
+        </div>
+
     </div>
-@endsection

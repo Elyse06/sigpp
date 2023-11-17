@@ -11,6 +11,7 @@ use App\Http\Livewire\Conge as LivewireConge;
 use App\Http\Livewire\CongeCeAnne;
 use App\Http\Livewire\CongeCeMoi;
 use App\Http\Livewire\Etat;
+use App\Http\Livewire\Liste;
 use App\Http\Livewire\Mission;
 use App\Http\Livewire\MissionCeAnne;
 use App\Http\Livewire\MissionCeMoi;
@@ -64,16 +65,15 @@ Route::get('/Top Mission', [App\Http\Controllers\TopMissionController::class, 'i
 Route::get('/Top Permission', [App\Http\Controllers\TopPermissionController::class, 'index'])->name('top.permission');
 Route::get('/Top Sortie', [App\Http\Controllers\TopSortieController::class, 'index'])->name('top.sortie');
 Route::get('/Top Repos', [App\Http\Controllers\TopReposController::class, 'index'])->name('top.repos');
-Route::get('/Solde des employées/sup', [App\Http\Controllers\NotificationController::class, 'index'])->name('solde');
-Route::get('/Solde des employées', [Solde::class, 'render'])->name('solde');
 
 Route::group(
     [
-        "prefix" => "emploie",
-        "as" => "emploie."
+        "prefix" => "employee",
+        "as" => "employee."
     ],
     function () {
-        Route::get('/calendar', Calendar::class)->name('calendar');
+        Route::get('/Liste', Liste::class)->name('liste');
+        Route::get('/Solde', Solde::class)->name('solde');
     }
 );
 

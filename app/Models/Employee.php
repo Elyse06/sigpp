@@ -8,6 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'nom',
+        'prenom',
+        'date_de_naissance',
+        'adresse',
+        'numTel',
+        'pin',
+        'soldeconge',
+        'soldepermission',
+        'soldesortie',
+    ];
     
     public function users(){
         return $this->hasOne(User::class);
