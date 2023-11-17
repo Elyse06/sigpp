@@ -1,12 +1,12 @@
 @extends('layouts.master')
 @section('contenu')
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Top 10 Des Employées Qui à Pris Plus De Congé</h3>
-                    <a href="{{ route('topconge.generatePDF') }}" class="btn btn-custom">
-                        <i class="fas fa-file-pdf" style="color: red;"></i>
+    <div class="row w-100">
+        <div class="col-12 w-100">
+            <div class="card w-100">
+                <div class="card-header w-100" style="background-color: #4A8B2C">
+                    <h3 class="card-title" style="color: white">Top 10 des employées qui ont pris plus de Congé</h3>
+                    <a style="float: right;color: white" href="{{ route('topconge.generatePDF') }}" class="btn btn-custom">
+                        <i  class="fas fa-file-pdf" style="color: red;"></i>
                         Générer le PDF
                     </a>
                 </div>

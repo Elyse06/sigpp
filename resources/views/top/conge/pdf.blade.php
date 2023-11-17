@@ -5,10 +5,11 @@
 </head>
 <body>
     <div class="row">
+        
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Top 10 Des Employées Qui à Pris Plus De Congé</h3>
+                    <h3 class="card-title">Top 10 des employées qui ont pris plus de Congé</h3>
                 </div>
 
                 <div class="card-body p-0">

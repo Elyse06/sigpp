@@ -8,7 +8,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Top 10 Des Employées Qui à Pris Plus De Repo-Medical</h3>
+                    <h3 class="card-title">Top 10 des employées qui ont pris plus de Repo-Medical</h3>
                 </div>
 
                 <div class="card-body p-0">

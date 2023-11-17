@@ -10,33 +10,48 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+            .form-group{
+      display: grid;
+      grid-template-columns: 1fr 160px;
+      
+    }
+    </style>
 </head>
 
 <body>
 
     <div id="accueil" class="content-section w-100">
         <div class="card card-danger">
-            <div style="background-color:#315358;float:left;  font-weight: bold;" class="card-header">Statut des employées
-                <div class="card-tools">
+            <div style="background-color:#315358;float:left;  font-weight: bold;font-size:200%;padding:5px;padding-top:20px " class="card-header">Statut des employées
+                <button style="float:right;" type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+                                <div class="card-tools w-100" style="padding-top:4px;" >
+                                
 
-                    <form method="get" action="{{ route('planning.etat') }}">
-                        @csrf
-                        <div class="form-group">
-                            <label for="dateDebut">Date de début :</label>
-                            <input type="date" name="dateDebut" id="dateDebut" class="form-control" value="$dateDebut">
-                    
-                            <label for="dateFin">Date de fin :</label>
-                            <input type="date" name="dateFin" id="dateFin" class="form-control" value="$dateFin">
-                            
-                            <button type="submit" class="btn btn-primary">Filtrer</button>
-                            <a href="{{ route('planning.etat') }}" class="btn btn-secondary">Ce jour</a>
-                        </div>
-                    </form>
+               
+                <div>
+                <form method="get" action="{{ route('planning.etat') }}">
+                    @csrf
+                    <div style="float:right" class="form-group">
+                        <label style="float:right;margin-left:10px;font-size:100%;padding-top:4px" for="dateFin">Date de fin :</label>
+                        <input style="margin-left: 20px,width:50px" type="date" name="dateFin" id="dateFin" class="form-control" value="$dateFin">
+                        <a style="margin-top: 10px; ;width:80px;" href="{{ route('planning.etat') }}" class="btn btn-secondary">Ce jour</a>
+                        <button style="margin-top: 10px;width:80px;" type="submit" class="btn btn-primary">Filtrer</button>
 
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                </div>
+                    </div>
+                    <div style="float:right" class="form-group">
+                        <label style="font-size:100%;padding-top:4px" for="dateDebut">Date de début :</label>
+                        <input style="margin-left: 10px,width:90px" type="date" name="dateDebut" id="dateDebut" class="form-control" value="$dateDebut">
+
+                  
+                    </div>
+
+
+                </form>
+            </div>
             </div>
             <style>
                 .card-body {
@@ -47,8 +62,8 @@
             </style>
             <div class="card-body">
                 <canvas id="pieChart"
-                    style="min-height: 400px; height: 400px; max-height: 400px; max-width: 100%; display: block; width: 100%;"
-                    width="334" height="250" class="chartjs-render-monitor"></canvas>
+                    style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%; display: block; width: 100%;"
+                    width="334" height="150" class="chartjs-render-monitor"></canvas>
             </div>
         </div>
     </div>
@@ -100,7 +115,7 @@
         // Fonction pour définir les couleurs des libellés
         function labelColor(context) {
             var index = context.dataIndex;
-            var labelsColors = ['white', 'white', 'white', 'white', 'white', 'white'];
+            var labelsColors = ['black', 'black', 'black', 'black', 'black', 'black'];
             return {
                 color: labelsColors[index],
                 backgroundColor: 'black'
