@@ -23,36 +23,46 @@
 
     <div id="accueil" class="content-section w-100">
         <div class="card card-danger">
-            <div style="background-color:#315358;float:left;  font-weight: bold;font-size:200%;padding:5px;padding-top:20px " class="card-header">Statut des employées
+            <div style="background-color:#315358;float:left;  font-weight: bold;font-size:150%;padding:5px;position:relative" class="card-header">Statut des employées
                 <button style="float:right;" type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
                 </button>
+                <div style="float: right">
+                    <a style="margin-top: 10px;width:80px; font-size: 12px;" href="{{ route('planning.etat') }}" class="btn btn-secondary">Ce jour</a>
+                    <button id="showDatePicker" style="font-size:50%;height:35px;border-radius:5px">Sélecteur de date</button>
+                   
+                </div>
             </div>
-                                <div class="card-tools w-100" style="padding-top:4px;" >
-                                
-
-               
-                <div>
-                <form method="get" action="{{ route('planning.etat') }}">
+            <div style="position: relative;">
+                <div style="position: absolute; top: 10px; right: 50px; z-index: 999;">   
+               <form id="dateForm" method="get" action="{{ route('planning.etat') }}" style="width:70%; display: none; padding: 10px;float:right">
                     @csrf
-                    <div style="float:right" class="form-group">
-                        <label style="float:right;margin-left:10px;font-size:100%;padding-top:4px" for="dateFin">Date de fin :</label>
-                        <input style="margin-left: 20px,width:50px" type="date" name="dateFin" id="dateFin" class="form-control" value="$dateFin">
-                        <a style="margin-top: 10px; ;width:80px;" href="{{ route('planning.etat') }}" class="btn btn-secondary">Ce jour</a>
-                        <button style="margin-top: 10px;width:80px;" type="submit" class="btn btn-primary">Filtrer</button>
-
+                    <div style="float: right">
+                        <div class="form-group" style="display: flex; align-items: center;">
+                            <label style="font-size: 10px; margin-right: 60px;" for="dateDebut">Date de début :</label>
+                            <input type="date" name="dateDebut" id="dateDebut" class="form-control" value="$dateDebut">
+                        </div>
+                        <div class="form-group">
+                            <label style="font-size: 15px;" for="dateFin">Date de fin :</label>
+                            <input type="date" name="dateFin" id="dateFin" class="form-control" value="$dateFin">
+                        </div>
+                        <button style="margin-top: 10px; width: 80px; font-size: 12px; float: right;" type="submit" class="btn btn-primary">Filtrer</button>
                     </div>
-                    <div style="float:right" class="form-group">
-                        <label style="font-size:100%;padding-top:4px" for="dateDebut">Date de début :</label>
-                        <input style="margin-left: 10px,width:90px" type="date" name="dateDebut" id="dateDebut" class="form-control" value="$dateDebut">
-
-                  
-                    </div>
-
-
                 </form>
             </div>
-            </div>
+        </div>
+        </div>        
+            <script>
+                document.getElementById('showDatePicker').addEventListener('click', function() {
+                    var form = document.getElementById('dateForm');
+                    if (form.style.display === 'none' || form.style.display === '') {
+                        form.style.display = 'block';
+                    } else {
+                        form.style.display = 'none';
+                    }
+                });
+            </script>
+            
             <style>
                 .card-body {
                     background-color: #FFFFFF;
@@ -60,7 +70,8 @@
 
                 }
             </style>
-            <div class="card-body">
+            <div>
+            <div class="card-body" >
                 <canvas id="pieChart"
                     style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%; display: block; width: 100%;"
                     width="334" height="150" class="chartjs-render-monitor"></canvas>
