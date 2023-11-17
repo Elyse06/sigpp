@@ -78,7 +78,7 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="{{ route('top.conge') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+            <a @can("agent") href="{{ route('top.conge') }}" @endcan class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
             <!-- Déplacez la liste ul ici -->
             <ol class="hidden-list" style="color: black; border: 1px solid #ffffff; padding: 25px;background-color: white">
                 @foreach ($topEmployeesCon as $employee)
@@ -96,7 +96,8 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="{{ route('top.mission') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+            <a @can("agent") href="{{ route('top.mission') }}" @endcan class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i>
+            </a>
             <ol class="hidden-list" style="color: black; border: 1px solid #ffffff; padding: 25px;background-color: white">
                 @foreach ($topEmployeesMission as $employee)
                     <li>{{ $employee->nom }} ({{ $employee->mission_count }})</li>
@@ -113,7 +114,8 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="{{ route('top.permission') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+            <a @can("agent") href="{{ route('top.permission') }}" @endcan class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i>
+            </a>
             <ol class="hidden-list" style="color: black; border: 1px solid #ffffff; padding: 25px;background-color: white">
                 
                 @foreach ($topEmployeesPermi as $employee)
@@ -132,7 +134,8 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="{{ route('top.repos') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+            <a @can("agent") href="{{ route('top.repos') }}" @endcan class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i>
+            </a>
             <ol class="hidden-list" style="color: black; border: 1px solid #ffffff; padding: 25px;background-color: white">
                 
                 @foreach ($topEmployeesRep as $employee)
@@ -152,7 +155,8 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="{{ route('top.sortie') }}" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+            <a @can("agent") href="{{ route('top.sortie') }}" @endcan class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i>
+            </a>
             <ol class="hidden-list" style="color: black; border: 1px solid #ffffff; padding: 25px;background-color: white">
                 
                 @foreach ($topEmployeesSortie as $employee)
@@ -165,32 +169,32 @@
 
         {{-- Graphe --}}
         <div class="chart-container w-100" style="background-color: #315358">
-        <div class="card card w-100">
-            <div class="card-header w-100" style="background-color: #315358;float:left;  font-weight: bold; color:white;">Statistique des employées
-            <div class="card-tools w-100">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" style="float: right;color:white;">
-            <i class="fas fa-minus"></i>
-            </button>
+            <div class="card card w-100">
+                <div class="card-header w-100" style="background-color: #315358;float:left;  font-weight: bold; color:white;">Statistique des employées
+                <div class="card-tools w-100">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="float: right;color:white;">
+                <i class="fas fa-minus"></i>
+                </button>
 
-            </div>
-            </div>
-            <div class="card-body">
-            <div class="chart">
-                <div class="chartjs-size-monitor">
-                <div class="chartjs-size-monitor-expand">
-                    <div class="">
+                </div>
+                </div>
+                <div class="card-body">
+                <div class="chart">
+                    <div class="chartjs-size-monitor">
+                    <div class="chartjs-size-monitor-expand">
+                        <div class="">
+                        </div>
+                    </div>
+                    <div class="chartjs-size-monitor-shrink"><div class="">
+                        </div>
                     </div>
                 </div>
-                <div class="chartjs-size-monitor-shrink"><div class="">
-                    </div>
+                <canvas id="barChart" style="min-height: 260px; height: 260px; max-height: 260px; max-width: 100%; display: block; width: 100%;" width="280" height="260" class="barchart-canvas"></canvas>
                 </div>
+                </div>
+            
             </div>
-            <canvas id="barChart" style="min-height: 260px; height: 260px; max-height: 260px; max-width: 100%; display: block; width: 100%;" width="280" height="260" class="barchart-canvas"></canvas>
-            </div>
-            </div>
-        
         </div>
-    </div>
    
             
    

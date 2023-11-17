@@ -46,5 +46,18 @@ class User extends Authenticatable
     public function emploie(){
         return $this->belongsTo(Employee::class, "employee_id", "id");
     }
+
+    public function profiles(){
+        return $this->belongsToMany(Profile::class, "user_profiles", "user_id", "profile_id");
+    }
+
+
+    public function hasProfile($profile){
+        return $this->profiles()->where("type_profile", $profile)->first() !== null;
+    }
+
+    public function hasAnyProfile($profiles){
+        return $this->profiles()->whereIn("type_profile", $profiles)->first() !== null;
+    }
     
 }

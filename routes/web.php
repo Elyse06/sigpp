@@ -60,11 +60,11 @@ Auth::routes();
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/Top Conge', [App\Http\Controllers\TopCongeController::class, 'index'])->name('top.conge');
-Route::get('/Top Mission', [App\Http\Controllers\TopMissionController::class, 'index'])->name('top.mission');
-Route::get('/Top Permission', [App\Http\Controllers\TopPermissionController::class, 'index'])->name('top.permission');
-Route::get('/Top Sortie', [App\Http\Controllers\TopSortieController::class, 'index'])->name('top.sortie');
-Route::get('/Top Repos', [App\Http\Controllers\TopReposController::class, 'index'])->name('top.repos');
+Route::get('/Top Conge', [App\Http\Controllers\TopCongeController::class, 'index'])->name('top.conge')->middleware("auth.agent");
+Route::get('/Top Mission', [App\Http\Controllers\TopMissionController::class, 'index'])->name('top.mission')->middleware("auth.agent");
+Route::get('/Top Permission', [App\Http\Controllers\TopPermissionController::class, 'index'])->name('top.permission')->middleware("auth.agent");
+Route::get('/Top Sortie', [App\Http\Controllers\TopSortieController::class, 'index'])->name('top.sortie')->middleware("auth.agent");
+Route::get('/Top Repos', [App\Http\Controllers\TopReposController::class, 'index'])->name('top.repos')->middleware("auth.agent");
 
 Route::group(
     [

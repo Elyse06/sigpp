@@ -40,10 +40,12 @@
 }
 
                 </style>
-                <div>
-                    <a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="goAjouterEmployee()"><i
-                            class="fas fa-plus pr-1"></i>Ajout une nouvelle</a>
-                </div>
+                @can("agent")
+                    <div>
+                        <a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="goAjouterEmployee()"><i
+                                class="fas fa-plus pr-1"></i>Ajout une nouvelle</a>
+                    </div>
+                @endcan
                 
                 
 
@@ -73,7 +75,9 @@
                         <th style="width:15%;">Adresse</th>
                         <th style="width:15%;">Departement</th>
                         <th style="width:10%;">Statuts</th>
+                        @can("agent")
                         <th style="width:10%;">Action</th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -104,14 +108,14 @@
 
                              </td>
 
+                            @can("agent")
                             <td>
-
                                 <button class="btn btn-link" wire:click="goEditEmployee({{ $employee->id }})"><i
                                         style="color: green" class="far fa-edit"></i></button>
                                 <button class="btn btn-link" wire:click="confirmDelete({{ $employee->id }})"><i
                                         style="color: red" class="far fa-trash-alt"></i></button>
-
                             </td>
+                            @endcan
 
                         </tr>
                     @endforeach

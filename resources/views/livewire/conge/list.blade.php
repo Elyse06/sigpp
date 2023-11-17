@@ -40,8 +40,10 @@
 
                 <div class="card-tools d-flex align-items-center">
 
-                    <a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="goAjouterConge()"><i
+                    @can("agent")
+                        <a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="goAjouterConge()"><i
                             class="fas fa-plus pr-1"></i>Ajout une nouvelle</a>
+                    @endcan
 
                     <div class="input-group input-group-md" style="width: 250px;">
                         <input type="text" name="table_search" wire:model.debounce="search"
@@ -73,7 +75,9 @@
                             <th style="width:10%;">Solde restant</th>
                             <th style="width:10%;">Date début</th>
                             <th style="width:10%;">Date fin</th>
-                            <th style="width:20%;">Action</th>
+                            @can("agent")
+                                <th style="width:20%;">Action</th>
+                            @endcan
                         </tr>
                     </thead>
 
@@ -90,14 +94,14 @@
                                 <td class="text-center"> {{ $conge->sldrstcon }} </td>
                                 <td> {{ $conge->debutcon }} </td>
                                 <td> {{ $conge->fincon }} </td>
-                                <td>
-
-                                    <button class="btn btn-link" wire:click="goEditConge({{ $conge->id }})"><i
-                                            style="color: green" class="far fa-edit"></i></button>
-                                    <button class="btn btn-link" wire:click="confirmDelete({{ $conge->id }})"><i
-                                            style="color: red" class="far fa-trash-alt"></i></button>
-
-                                </td>
+                                @can("agent")
+                                    <td>
+                                        <button class="btn btn-link" wire:click="goEditConge({{ $conge->id }})"><i
+                                                style="color: green" class="far fa-edit"></i></button>
+                                        <button class="btn btn-link" wire:click="confirmDelete({{ $conge->id }})"><i
+                                                style="color: red" class="far fa-trash-alt"></i></button>
+                                    </td>
+                                @endcan
                             </tr>
                         @endforeach
                     </tbody>
