@@ -28,7 +28,12 @@ class DatabaseSeeder extends Seeder
         Vehicule::factory(5)->create();
         User::factory(30)->create();
         
+        $this->call(ProfileSeeder::class);
         Mission::factory(5)->create();
+
+        User::find(1)->profiles()->attach(1);
+        User::find(2)->profiles()->attach(2);
+        User::find(3)->profiles()->attach(3);
         
         $this->call(CongeTableSeeder::class);
         $this->call(PermissionTableSeeder::class);
