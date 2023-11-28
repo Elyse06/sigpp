@@ -24,6 +24,17 @@
             width: 90%;
             /* Ajustez la largeur totale du tableau */
         }
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+        }
+        li {
+            margin-right: 20px; /* Espace entre les éléments de liste */
+            color: black ;
+            
+        }
     </style>
 
     <div class="card" style="width:100%">
@@ -124,9 +135,20 @@
             </table>
         </div>
 
-        <div class="card-footer d-flex justify-content-between align-items-center">
-            <div class="float-left">
+        <div class="card-footer" style="float: right">
+            <div class="float-right">
                 {{ $employees->links() }}
+
+            </div>
+            <div style="padding: 15px">
+                <ul>
+                    <li style="font-weight: bold;"> Congé<i class="fas fa-circle" style="color: turquoise; font-size: 10px;"></i></li>
+                    <li style="font-weight: bold;">Mission<i class="fas fa-circle" style="color: navy; font-size: 10px;"></i></li>
+                    <li style="font-weight: bold;">Permission<i class="fas fa-circle" style="color: gray; font-size: 10px;"></i></li>
+                    <li style="font-weight: bold;">Sortie Personnel<i class="fas fa-circle" style="color: orange; font-size: 10px;"></i></li>
+                    <li style="font-weight: bold;">Répos Médicale<i class="fas fa-circle" style="color: red; font-size: 10px;"></i></li>
+                    <li style="font-weight: bold;">Présent(e)<i class="fas fa-circle" style="color: green; font-size: 10px;"></i></li>
+                </ul>
             </div>
         </div>
 

@@ -6,7 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Profile;
 use Laravel\Sanctum\HasApiTokens;
+
 
 class User extends Authenticatable
 {
@@ -21,7 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'employee_id',
+        'role', 
     ];
 
     /**
@@ -43,9 +45,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function emploie(){
-        return $this->belongsTo(Employee::class, "employee_id", "id");
-    }
+    // public function emploie(){
+    //     return $this->belongsTo(Employee::class, "employee_id", "id");
+    // }
 
     public function profiles(){
         return $this->belongsToMany(Profile::class, "user_profiles", "user_id", "profile_id");

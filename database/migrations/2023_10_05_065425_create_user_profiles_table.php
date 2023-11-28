@@ -11,11 +11,37 @@ class CreateUserProfilesTable extends Migration
      *
      * @return void
      */
+    // public function up()
+    // {
+    //     Schema::create('user_profiles', function (Blueprint $table) {
+    //         $table->foreignId("user_id")->constrained();
+    //         $table->foreignId("profile_id")->constrained();
+    //     });
+
+    //     Schema::enableForeignKeyConstraints();
+    // }
+
+    // /**
+    //  * Reverse the migrations.
+    //  *
+    //  * @return void
+    //  */
+    // public function down()
+    // {
+    //     Schema::table('user_profiles', function (Blueprint $table) {
+    //         $table->dropForeign("user_id");
+    //         $table->dropForeign("profile_id");
+    //     });
+
+    //     Schema::dropIfExists('user_profiles');
+    // }
+
     public function up()
     {
         Schema::create('user_profiles', function (Blueprint $table) {
-            $table->foreignId("user_id")->constrained();
-            $table->foreignId("profile_id")->constrained();
+            $table->foreignId('user_id')->constrained('users'); // Définition de la clé étrangère vers la table users
+            $table->foreignId('profile_id')->constrained('profiles'); // Définition de la clé étrangère vers la table profiles
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();
@@ -29,10 +55,11 @@ class CreateUserProfilesTable extends Migration
     public function down()
     {
         Schema::table('user_profiles', function (Blueprint $table) {
-            $table->dropForeign("user_id");
-            $table->dropForeign("profile_id");
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['profile_id']);
         });
 
         Schema::dropIfExists('user_profiles');
     }
 }
+

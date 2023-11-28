@@ -1,11 +1,28 @@
+<style>
+
+    select {
+        height: 38px;
+        width: 342px;
+        /* Largeur de tous les champs de saisie */
+    }
+    .form {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      
+    }
+
+</style>
+
+
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+    <div class="row justify-content-center"  >
+        <div class="col-md-8"  style="margin-top:70px">
+            <div class="card" >
+                <div class="card-header"  style="background-color: #315358; color:#FFCD00;">{{ __('Nouveau compte utilisateur') }} </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -61,17 +78,35 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form">
+                            <label for="role">Rôle</label>
+                            <select id="role" name="role" required>
+                                <option value="admin">Admin</option>
+                                <option value="agent">Agent</option>
+                                <option value="employee">Employé</option>
+                            </select>
+                        </div>
+                        </div>
+                    </div>
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                <button type="submit" class="btn btn-primary" style="width: 150px;margin-left:100px">
+                                    {{ __('Enregistrer') }}
                                 </button>
                             </div>
                         </div>
                     </form>
+               
                 </div>
+                            
             </div>
         </div>
     </div>
-</div>
+         
+
+
 @endsection
+</div>
+</div>
