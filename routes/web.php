@@ -66,6 +66,16 @@ Route::get('/Top Permission', [App\Http\Controllers\TopPermissionController::cla
 Route::get('/Top Sortie', [App\Http\Controllers\TopSortieController::class, 'index'])->name('top.sortie')->middleware("auth.agent");
 Route::get('/Top Repos', [App\Http\Controllers\TopReposController::class, 'index'])->name('top.repos')->middleware("auth.agent");
 
+
+
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
+
+
+
+
+
+
 Route::group(
     [
         "prefix" => "employee",

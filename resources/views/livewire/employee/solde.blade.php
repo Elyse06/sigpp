@@ -24,17 +24,7 @@
             width: 90%;
             /* Ajustez la largeur totale du tableau */
         }
-        ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-direction: row;
-        }
-        li {
-            margin-right: 20px; /* Espace entre les éléments de liste */
-            color: black ;
-            
-        }
+
     </style>
 
     <div class="card" style="width:100%">
@@ -84,7 +74,6 @@
                         <th style="width:15%;">Solde du conge</th>
                         <th style="width:15%;">Solde du permission</th>
                         <th style="width:15%;">Solde du sortie</th>
-                        <th style="width:10%;">Statuts</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,24 +84,6 @@
                             <td class="text-center"> {{ $soldeList[$employee->id]['conge'] }} j </td>
                             <td class="text-center"> {{ $soldeList[$employee->id]['permission'] }} j </td>
                             <td class="text-center"> {{ $soldeList[$employee->id]['sortie'] }} h </td>
-                            <td class="text-center"> 
-
-                                @if (in_array($employee->id, $conges->pluck('employee_id')->all()))
-                                <i class="fas fa-circle" style="color: turquoise; font-size: 10px;"></i>
-
-                                @elseif (in_array($employee->id, $missions->pluck('pivot.employee_id')->all()))
-                                <i class="fas fa-circle" style="color: navy; font-size: 10px;"></i>
-                                @elseif (in_array($employee->id, $permissions->pluck('employee_id')->all()))
-                                <i class="fas fa-circle" style="color: gray; font-size: 10px;"></i>
-                                @elseif (in_array($employee->id, $sorties->pluck('employee_id')->all()))
-                                <i class="fas fa-circle" style="color: orange; font-size: 10px;"></i>
-                                @elseif (in_array($employee->id, $repos->pluck('employee_id')->all()))
-                                <i class="fas fa-circle" style="color: red; font-size: 10px;"></i>
-                                @else
-                                <i class="fas fa-circle" style="color: green; font-size: 10px;"></i>
-                                @endif
-
-                             </td>
 
                         </tr>
                     @endforeach
@@ -120,14 +91,5 @@
                 </tbody>
             </table>
         </div>
-<div style="padding: 15px">
-    <ul>
-        <li style="font-weight: bold;"> Congé<i class="fas fa-circle" style="color: turquoise; font-size: 10px;"></i></li>
-        <li style="font-weight: bold;">Mission<i class="fas fa-circle" style="color: navy; font-size: 10px;"></i></li>
-        <li style="font-weight: bold;">Permission<i class="fas fa-circle" style="color: gray; font-size: 10px;"></i></li>
-        <li style="font-weight: bold;">Sortie Personnel<i class="fas fa-circle" style="color: orange; font-size: 10px;"></i></li>
-        <li style="font-weight: bold;">Répos Médicale<i class="fas fa-circle" style="color: red; font-size: 10px;"></i></li>
-        <li style="font-weight: bold;">Présent(e)<i class="fas fa-circle" style="color: green; font-size: 10px;"></i></li>
-    </ul>
-</div>
+
     </div>

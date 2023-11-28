@@ -7,13 +7,13 @@
 
     .table th:nth-child(1),
     .table td:nth-child(1) {
-        width: 5%;
+        width: 3%;
         /* Ajustez la largeur de la première colonne */
     }
 
     .table th:nth-child(2),
     .table td:nth-child(2) {
-        width: 5%;
+        width: 3%;
         /* Ajustez la largeur de la deuxième colonne */
     }
 
@@ -21,7 +21,7 @@
 
     /* Pour réduire la largeur du tableau lui-même */
     .table {
-        width: 90%;
+        width: 70%;
         /* Ajustez la largeur totale du tableau */
     }
 </style>

@@ -83,20 +83,10 @@
                 <option value="Famille">Famille</option>
                 <option value="Vacance">Vacance</option>
                 <option value="Etude">Etude</option>
+                <option value="formation">Formation</option>
             </select>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="form" >
-            <label style="margin-right: 5px;">Autres</label>
-            <input style="width: 300px;" type="text" class="form-control" placeholder="Entrez autre motif ici" wire:model = "newMission.motifmis">
-        </div>
-    </div>
-</div>
-
-
-
-
 </div>
 
 <div class="card-footer">

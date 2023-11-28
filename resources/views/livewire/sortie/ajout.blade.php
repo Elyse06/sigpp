@@ -74,26 +74,12 @@
     <input type="number" wire:model = "newSortie.sldrstsortie" value="1" class="form-control" required readonly>
 </div>
 
-<div class="form-row" >
-  <div class="col-md-6">
-      <div class="form">
-          <label >Motif</label>
-          <select class="form-control" wire:model = "newSortie.motifsortie">
-              <option value="">------------</option>
-              <option value="Famille">Famille</option>
-              <option value="Vacance">Vacance</option>
-              <option value="Etude">Etude</option>
-          </select>
-      </div>
-  </div>
-  <div class="col-md-6">
-      <div class="form" >
-          <label style="margin-right: 5px;">Autres</label>
-          <input style="width: 300px;" type="text" class="form-control" placeholder="Entrez autre motif ici" wire:model = "newSortie.motifsortie">
-      </div>
-  </div>
-</div>
+<div class="form-group" >
 
+          <label >Motif</label>
+          <input  type="text" class="form-control" placeholder="Entrez votre motif ici" wire:model = "newSortie.motifsortie">
+ 
+        </div>
 <div class="card-footer">
 <button type="button" class="btn btn-danger" wire:click.prevent="retourListSortie()">Retour</button>    
 <button type="submit" class="btn btn-primary">Enregistrer</button>

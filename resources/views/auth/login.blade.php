@@ -1,52 +1,57 @@
 @extends('layouts.auth')
 
 @section('container')
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="../../index2.html" style="color: #FFCD00;"><b>Planning personnel</b></a>
+        </div>
 
-<div class="login-box">
-<div class="login-logo">
-<a href="../../index2.html"><b>SIGPP</b></a>
-</div>
-
-<div class="card bg-dark">
-<div class="card-body bg-dark login-card-body">
-
-
-<form method="POST" action="{{ route('login') }}">
-@csrf
-<div class="input-group mb-3">
-<input type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-<div class="input-group-append">
-<div class="input-group-text">
-<span class="fas fa-envelope"></span>
-</div>
-</div>
-</div>
-<div class="input-group mb-3">
-<input type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-<div class="input-group-append">
-<div class="input-group-text">
-<span class="fas fa-lock"></span>
-</div>
-</div>
-</div>
-<div class="row">
-
-<div class="col">
-<button type="submit" class="btn btn-primary btn-block">Se connecter</button>
-</div>
-
-</div>
-</form>
+        <div class="card" style="background-color:#315358 ">
+            <div class="card-body  login-card-body" style="background-color: white;height:280px">
 
 
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="input-group mb-3">
+                        <input type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror"
+                            name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" placeholder="Password"
+                            class="form-control @error('password') is-invalid @enderror" name="password" required
+                            autocomplete="current-password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+                           <P class="dami p-1">----------------------ou-----------------------</P>
+                            
+                           <div class="d-flex">  <a  class="btn btn-success btn-block" href="{{ route('register') }}">{{ __('Créer un nouveau compte') }}</a></div>
+                        </div>
+
+                    </div>
+                </form>
 
 
-</div>
 
-</div>
-</div>
 
-{{-- 
+            </div>
+
+        </div>
+    </div>
+
+    {{-- 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

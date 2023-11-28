@@ -19,39 +19,36 @@
     </style>
 </head>
 
-<body>
+<body >
 
     <div id="accueil" class="content-section w-100">
         <div class="card card-danger">
             <div style="background-color:#315358;float:left;  font-weight: bold;font-size:150%;padding:5px;position:relative" class="card-header">Statut des employées
-                <button style="float:right;" type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
+
                 <div style="float: right">
-                    <a style="margin-top: 10px;width:80px; font-size: 12px;" href="{{ route('planning.etat') }}" class="btn btn-secondary">Ce jour</a>
-                    <button id="showDatePicker" style="font-size:50%;height:35px;border-radius:5px">Sélecteur de date</button>
+                    <a style="width:80px; font-size: 12px;" href="{{ route('planning.etat') }}" class="btn btn-secondary">Ce jour</a>
+                    <button class="damy bg-primary" id="showDatePicker" style="font-size:50%;height:32px;border-radius:4px;">filtrage par date</button>
                    
                 </div>
             </div>
-            <div style="position: relative;">
-                <div style="position: absolute; top: 10px; right: 50px; z-index: 999;">   
-               <form id="dateForm" method="get" action="{{ route('planning.etat') }}" style="width:70%; display: none; padding: 10px;float:right">
-                    @csrf
-                    <div style="float: right">
-                        <div class="form-group" style="display: flex; align-items: center;">
-                            <label style="font-size: 10px; margin-right: 60px;" for="dateDebut">Date de début :</label>
-                            <input type="date" name="dateDebut" id="dateDebut" class="form-control" value="$dateDebut">
+            <div style="position: relative; " >
+                <div style="position: absolute; top: 1px; right: 5px; z-index: 999;background-color:#315358">
+                    <form id="dateForm" method="get" action="{{ route('planning.etat') }}" style="width:70%; display: none; padding: 10px; float: right;">
+                        @csrf
+                        <div style="float: right; border: 1px solid #ccc; padding: 10px;">
+                            <div class="form-group" style="display: flex; align-items: center;">
+                                <label style="font-size: 13px;color:white; text-align: right; width: 100px; margin-right: 10px;" for="dateDebut">Date de début :</label>
+                                <input style="width: 200px;" type="date" name="dateDebut" id="dateDebut" class="form-control" value="$dateDebut">
+                            </div>
+                            <div class="form-group" style="display: flex; align-items: center;">
+                                <label style="font-size: 13px;color:white;  text-align: right; width: 100px; margin-right: 10px;" for="dateFin">Date de fin :</label>
+                                <input style="width: 200px;" type="date" name="dateFin" id="dateFin" class="form-control" value="$dateFin">
+                            </div>
+                            <button style="margin-top: 10px; width: 80px; font-size: 12px; float: right;" type="submit" class="btn btn-primary">Filtrer</button>
                         </div>
-                        <div class="form-group">
-                            <label style="font-size: 15px;" for="dateFin">Date de fin :</label>
-                            <input type="date" name="dateFin" id="dateFin" class="form-control" value="$dateFin">
-                        </div>
-                        <button style="margin-top: 10px; width: 80px; font-size: 12px; float: right;" type="submit" class="btn btn-primary">Filtrer</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        </div>        
+                    </form>
+                </div>
+                        
             <script>
                 document.getElementById('showDatePicker').addEventListener('click', function() {
                     var form = document.getElementById('dateForm');
@@ -62,7 +59,7 @@
                     }
                 });
             </script>
-            
+ 
             <style>
                 .card-body {
                     background-color: #FFFFFF;
@@ -71,7 +68,7 @@
                 }
             </style>
             <div>
-            <div class="card-body" >
+            <div class="card-body" id="chartContainer">
                 <canvas id="pieChart"
                     style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%; display: block; width: 100%;"
                     width="334" height="150" class="chartjs-render-monitor"></canvas>
