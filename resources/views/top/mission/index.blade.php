@@ -29,7 +29,11 @@
                                                 <tbody>
                                                     @foreach ($employee->missions as $mission)
                                                         <tr>
-                                                            <td>{{ $mission->motifmis }}: {{ $mission->debutmis }} / {{ $mission->finmis }}</td>
+                                                            <td>
+                                                                Motif : {{ $mission->motifmis }}  <br>
+                                                                Date de debut : {{ $mission->debutmis }} <br>
+                                                                Date de fin : {{ $mission->finmis }}
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

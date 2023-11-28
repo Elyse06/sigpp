@@ -28,7 +28,11 @@
                                                 <tbody>
                                                     @foreach ($employee->emploie->permissions as $permission)
                                                         <tr>
-                                                            <td>{{ $permission->motifpermi }}: {{ $permission->debutpermi }} / {{ $permission->finpermi }}</td>
+                                                            <td>
+                                                                Motif : {{ $permission->motifpermi }}  <br>
+                                                                Date de debut : {{ $permission->debutpermi }} <br>
+                                                                Date de fin : {{ $permission->finpermi }}
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

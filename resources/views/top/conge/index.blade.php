@@ -28,7 +28,11 @@
                                                 <tbody>
                                                     @foreach ($employee->emploie->conges as $conge)
                                                         <tr>
-                                                            <td>{{ $conge->motifcon }}: {{ $conge->debutcon }} / {{ $conge->fincon }}</td>
+                                                            <td>
+                                                                Motif : {{ $conge->motifcon }}  <br>
+                                                                Date de debut : {{ $conge->debutcon }} <br>
+                                                                Date de fin : {{ $conge->fincon }}
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

@@ -134,21 +134,43 @@ class Permission extends Component
             $solde = 8;
         }
 
-        // Mettez à jour le champ solde dans le formulaire
-        $this->newPermission['sldtotpermi'] = $solde;
+        if($solde > 0){
+            // Mettez à jour le champ solde dans le formulaire
+            $this->newPermission['sldtotpermi'] = $solde;
 
-        // remplir total prix
-        $dateDebute = $this->newPermission['debutpermi'];
-        $dateFin = $this->newPermission['finpermi'];
-        $totalPrix = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->d;
-        $this->newPermission['sldeffpermi'] = $totalPrix;
+            // remplir total prix
+            $dateDebute = $this->newPermission['debutpermi'];
+            $dateFin = $this->newPermission['finpermi'];
+            $totalPrix = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->d;
 
-        // remplir solde restant
-        // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
-        $soldeRestant = $solde - $totalPrix;
+            if($solde >= $totalPrix){
+                $this->newPermission['sldeffpermi'] = $totalPrix;
+    
+                // remplir solde restant
+                // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
+                $soldeRestant = $solde - $totalPrix;
+    
+                // Mettez à jour le champ "Solde restant".
+                $this->newPermission['sldrstpermi'] = $soldeRestant;
+            }
+            else{
+                $this->dispatchBrowserEvent("comfirmMessage", ["message"=>[
+                    "text" => "Le solde du mois ( $solde ) est insuffisance pour le total de permission ( $totalPrix ) que vous avez prix !",
+                    "title" => "Desolé!",
+                    "type" => "warning",
+                ]]);
+                $this->newPermission = [];
+            }
+        }
+        else{
+            $this->dispatchBrowserEvent("comfirmMessage", ["message"=>[
+                "text" => "Desolé, le solde du mois ( $solde ) est insuffisance pour le permission!",
+                "title" => "Etes-vous sure de continuer?",
+                "type" => "warning",
+            ]]);
+            $this->newPermission = [];
+        }
 
-        // Mettez à jour le champ "Solde restant".
-        $this->newPermission['sldrstpermi'] = $soldeRestant;
     }
 
 

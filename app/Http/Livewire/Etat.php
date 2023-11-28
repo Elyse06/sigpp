@@ -27,11 +27,51 @@ class Etat extends Component
 		$dateDebut = $request->input('dateDebut', $this->dateDebut);
     	$dateFin = $request->input('dateFin', $this->dateFin);
 
-        $mission = Mission::where('finmis', '<=', $dateFin)->where('debutmis', '>=', $dateDebut)->get();
-    	$conge = Conge::where('fincon', '<=', $dateFin)->where('debutcon', '>=', $dateDebut)->get();
-    	$permission = Permission::where('finpermi', '<=', $dateFin)->where('debutpermi', '>=', $dateDebut)->get();
-    	$sortie = SortiePersonnel::where('finsortie', '<=', $dateFin)->where('debutsortie', '>=', $dateDebut)->get();
-    	$repos = RepoMedical::where('finrep', '<=', $dateFin)->where('debutrep', '>=', $dateDebut)->get();
+		$mission = Mission::where(function($query) use ($dateDebut, $dateFin) {
+				$query->whereBetween('debutmis', [$dateDebut, $dateFin])
+					  ->orWhere(function($query) use ($dateDebut, $dateFin) {
+						  $query->where('debutmis', '<', $dateDebut)
+								->where('finmis', '>', $dateDebut);
+					  });
+		})
+		->get();
+	
+		$conge = Conge::where(function($query) use ($dateDebut, $dateFin) {
+				$query->whereBetween('debutcon', [$dateDebut, $dateFin])
+					  ->orWhere(function($query) use ($dateDebut, $dateFin) {
+						  $query->where('debutcon', '<', $dateDebut)
+								->where('fincon', '>', $dateDebut);
+					  });
+		})
+		->get();
+	
+		$permission = Permission::where(function($query) use ($dateDebut, $dateFin) {
+				$query->whereBetween('debutpermi', [$dateDebut, $dateFin])
+					  ->orWhere(function($query) use ($dateDebut, $dateFin) {
+						  $query->where('debutpermi', '<', $dateDebut)
+								->where('finpermi', '>', $dateDebut);
+					  });
+		})
+		->get();
+	
+		$sortie = SortiePersonnel::where(function($query) use ($dateDebut, $dateFin) {
+				$query->whereBetween('debutsortie', [$dateDebut, $dateFin])
+					  ->orWhere(function($query) use ($dateDebut, $dateFin) {
+						  $query->where('debutsortie', '<', $dateDebut)
+								->where('finsortie', '>', $dateDebut);
+					  });
+		})
+		->get();
+	
+		$repos = RepoMedical::where(function($query) use ($dateDebut, $dateFin) {
+				$query->whereBetween('debutrep', [$dateDebut, $dateFin])
+					  ->orWhere(function($query) use ($dateDebut, $dateFin) {
+						  $query->where('debutrep', '<', $dateDebut)
+								->where('finrep', '>', $dateDebut);
+					  });
+		})
+		->get();
+
         $total = Employee::get();
     	$mission_count = count($mission);    	
     	$conge_count = count($conge);

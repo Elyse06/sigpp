@@ -134,23 +134,44 @@ class Conge extends Component
         // Calcul du solde final
         $soldeFinal = $soldeCumule - $soldeCongePris;
 
-        // Mettez à jour le champ solde dans le formulaire
-        $this->newConge['sldtotcon'] = $soldeFinal;
+        if($soldeFinal > 0){
+            // Mettez à jour le champ solde dans le formulaire
+            $this->newConge['sldtotcon'] = $soldeFinal;
 
+            // remplir total prix
+            $dateDebute = $this->newConge['debutcon'];
+            $dateFin = $this->newConge['fincon'];
+            $totalPrix = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->d;
 
-        // remplir total prix
-        $dateDebute = $this->newConge['debutcon'];
-        $dateFin = $this->newConge['fincon'];
-        $totalPrix = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->d;
-        $this->newConge['sldeffcon'] = $totalPrix;
+            if($totalPrix <= $soldeFinal){
+                
+                $this->newConge['sldeffcon'] = $totalPrix;
 
-        // remplir solde restant
-        // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
-        $soldeRestant = $soldeFinal - $totalPrix;
+                // remplir solde restant
+                // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
+                $soldeRestant = $soldeFinal - $totalPrix;
 
-        // Mettez à jour le champ "Solde restant".
-        $this->newConge['sldrstcon'] = $soldeRestant;
-        
+                // Mettez à jour le champ "Solde restant".
+                $this->newConge['sldrstcon'] = $soldeRestant;
+
+            }
+            else{
+                $this->dispatchBrowserEvent("comfirmMessage", ["message"=>[
+                    "text" => "Desolé, le solde du mois ( $soldeFinal ) est insuffisance pour le total de conge ( $totalPrix ) que vous avez prix !",
+                    "title" => "Etes-vous sure de continuer?",
+                    "type" => "warning",
+                ]]);
+                $this->newConge = [];
+            }
+        }
+        else{
+            $this->dispatchBrowserEvent("comfirmMessage", ["message"=>[
+                "text" => "Desolé, le solde du mois ( $soldeFinal ) est insuffisance pour le conge!",
+                "title" => "Etes-vous sure de continuer?",
+                "type" => "warning",
+            ]]);
+            $this->newConge = [];
+        }  
     }
     
 

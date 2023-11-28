@@ -28,7 +28,11 @@
                                                 <tbody>
                                                     @foreach ($employee->emploie->sortieperso as $sortie)
                                                         <tr>
-                                                            <td>{{ $sortie->motifsortie }}: {{ $sortie->debutsortie }} / {{ $sortie->finsortie }}</td>
+                                                            <td>
+                                                                Motif : {{ $sortie->motifsortie }}  <br>
+                                                                Date de debut : {{ $sortie->debutsortie }} <br>
+                                                                Date de fin : {{ $sortie->finsortie }}
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

@@ -28,7 +28,11 @@
                                                 <tbody>
                                                     @foreach ($employee->emploie->repomedicals as $repos)
                                                         <tr>
-                                                            <td>{{ $repos->motifrep }}: {{ $repos->debutrep }} / {{ $repos->finrep }}</td>
+                                                            <td>
+                                                                Motif : {{ $repos->motifrep }}  <br>
+                                                                Date de debut : {{ $repos->debutrep }} <br>
+                                                                Date de fin : {{ $repos->finrep }}
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
