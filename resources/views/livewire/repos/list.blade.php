@@ -101,16 +101,16 @@
 
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <div class="d-flex">
-                    <a href="{{ route('planning.repos') }}" style="width: 150px;" class="btn btn-info mr-2">
+                    <a href="{{ route('planning.repos') }}" style="width: 150px;" class="btn btn-info mr-2 {{ setMenuActive('planning.repos') }}">
                         <div style="color: white;">Actuelle</div>
                     </a>
-                    <a href="{{ route('planning.repos.moi') }}" style="width: 150px;" class="btn btn-info mr-2">
+                    <a href="{{ route('planning.repos.moi') }}" style="width: 150px;" class="btn btn-info mr-2 {{ setMenuActive('planning.repos.moi') }}">
                         <div style="color: white;">Mensuel</div>
                     </a>
-                    <a href="{{ route('planning.repos.anne') }}" style="width: 150px;" class="btn btn-info mr-2">
+                    <a href="{{ route('planning.repos.anne') }}" style="width: 150px;" class="btn btn-info mr-2 {{ setMenuActive('planning.repos.anne') }}">
                         <div style="color: white;">Annuel</div>
                     </a>
-                    <a href="{{ route('planning.repos.tout') }}" style="width: 150px;" class="btn btn-info mr-2">
+                    <a href="{{ route('planning.repos.tout') }}" style="width: 150px;" class="btn btn-info mr-2 {{ setMenuActive('planning.repos.tout') }}">
                         <div style="color: white;">Tous Les repos</div>
                     </a>
                 </div>

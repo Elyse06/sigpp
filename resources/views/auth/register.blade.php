@@ -1,13 +1,14 @@
 <style>
 
     select {
-        height: 38px;
+        height: 25px;
         width: 342px;
         /* Largeur de tous les champs de saisie */
     }
     .form {
       display: grid;
       grid-template-columns: 240px 1fr;
+      margin-bottom: 10px;
       
     }
 
@@ -22,14 +23,27 @@
     <div class="row justify-content-center"  >
         <div class="col-md-8"  style="margin-top:70px">
             <div class="card" >
-                <div class="card-header"  style="background-color: #315358; color:#FFCD00;">{{ __('Nouveau compte utilisateur') }} </div>
+                <div class="card-header"  style="background-color: #315358; color:#FFCD00;">
+                    {{ __('Nouveau compte utilisateur') }} 
+                        
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
+                        <div class="form">
+                            <label>Employée concerner</label>
+                            <select style="width: 350px;" name="employee_id" class="form-control">
+                                <option value="">Tous les Employées</option>
+                                @foreach ($employees as $employee)
+                                    <option value="{{ $employee->id }}">{{ $employee->nom }} {{ $employee->prenom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nom') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -43,7 +57,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Adresse Mail') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -57,7 +71,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Mot de passe') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -71,7 +85,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirmer le mot de passe') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">

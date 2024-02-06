@@ -50,41 +50,43 @@ class CheckEventEndDates extends Command
      */
     public function handle()
     {
-        $id = 1;
+        // // notification mission
+        // $missions = Mission::whereDate('finmis', '<', now())->get();
+        // foreach ($missions as $mission) {
+        //     $employee = $mission->emploie;
+        //     if ($employee) {
+        //         $employeeName = $employee->nom;
+        //         $user = $employee->users;
+        //         if ($user) {
 
-        // notification mission
-        $missions = Conge::whereDate('fincon', '<', now())->get();
-        foreach ($missions as $mission) {
-            $employee = $mission->emploie;
-            if ($employee) {
-                $employeeName = $employee->nom;
-                $user = $employee->users;
-                if ($user) {
-                    $rhUser = User::where('id', $id)->get();
-                    if ($rhUser) {
-                        $planning = 'mission';
-                        Notification::send($user, new CongeEndingNotification($employeeName));
-                        Notification::send($rhUser, new PlanningEndingNotification($employeeName, $planning));
-                    } else {
-                        Notification::send($user, new CongeEndingNotification($employeeName));
-                    }
-                    // Maintenant, vous avez l'objet User associé à la mission.
-                    // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
-                    // Notification::send($user, new CongeEndingNotification($employeeName));
-                }
-            }
-        }
+        //             // Récupérer les utilisateurs avec le rôle "agent"
+        //             // $rhUser = User::whereHas('profiles', function ($query) {
+        //             //     $query->where('name', 'agent');
+        //             // })->get();
+
+        //             if ($rhUser) {
+        //                 $planning = 'mission';
+        //                 Notification::send($user, new CongeEndingNotification($employeeName));
+        //                 Notification::send($rhUser, new PlanningEndingNotification($employeeName, $planning));
+        //             } else {
+        //                 Notification::send($user, new CongeEndingNotification($employeeName));
+        //             }
+        //         }
+        //     }
+        // }
 
 
         // notification conge
-        $conges = Conge::whereDate('fincon', '<', now())->get();
+        $conges = Conge::whereDate('fincon', '=', now())->get();
         foreach ($conges as $conge) {
             $employee = $conge->emploie;
             if ($employee) {
                 $employeeName = $employee->nom;
                 $user = $employee->users;
                 if ($user) {
-                    $rhUser = User::where('id', $id)->get();
+                    $rhUser = User::whereHas('profiles', function ($query) {
+                        $query->where('type_profile', 'agent');
+                    })->get();
                     if ($rhUser) {
                         $planning = 'conge';
                         Notification::send($user, new CongeEndingNotification($employeeName));
@@ -92,22 +94,21 @@ class CheckEventEndDates extends Command
                     } else {
                         Notification::send($user, new CongeEndingNotification($employeeName));
                     }
-                    // Maintenant, vous avez l'objet User associé à la mission.
-                    // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
-                    // Notification::send($user, new CongeEndingNotification($employeeName));
                 }
             }
         }
 
         // notification permission
-        $permissions = Permission::whereDate('finpermi', '<', now())->get();
+        $permissions = Permission::whereDate('finpermi', '=', now())->get();
         foreach ($permissions as $permission) {
             $employee = $permission->emploie;
             if ($employee) {
                 $employeeName = $employee->nom;
                 $user = $employee->users;
                 if ($user) {
-                    $rhUser = User::where('id', $id)->get();
+                    $rhUser = User::whereHas('profiles', function ($query) {
+                        $query->where('type_profile', 'agent');
+                    })->get();
                     if ($rhUser) {
                         $planning = 'permission';
                         Notification::send($user, new PermissionEndingNotification($employeeName));
@@ -115,22 +116,21 @@ class CheckEventEndDates extends Command
                     } else {
                         Notification::send($user, new PermissionEndingNotification($employeeName));
                     }
-                    // Maintenant, vous avez l'objet User associé à la mission.
-                    // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
-                    // Notification::send($user, new PermissionEndingNotification($employeeName));
                 }
             }
         }
 
         // notification repos
-        $reposs = RepoMedical::whereDate('finrep', '<', now())->get();
+        $reposs = RepoMedical::whereDate('finrep', '=', now())->get();
         foreach ($reposs as $repos) {
             $employee = $repos->emploie;
             if ($employee) {
                 $employeeName = $employee->nom;
                 $user = $employee->users;
                 if ($user) {
-                    $rhUser = User::where('id', $id)->get();
+                    $rhUser = User::whereHas('profiles', function ($query) {
+                        $query->where('type_profile', 'agent');
+                    })->get();
                     if ($rhUser) {
                         $planning = 'repos';
                         Notification::send($user, new ReposEndingNotification($employeeName));
@@ -138,22 +138,21 @@ class CheckEventEndDates extends Command
                     } else {
                         Notification::send($user, new ReposEndingNotification($employeeName));
                     }
-                    // Maintenant, vous avez l'objet User associé à la mission.
-                    // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
-                    // Notification::send($user, new ReposEndingNotification($employeeName));
                 }
             }
         }
 
         // notification sortie
-        $sorties = SortiePersonnel::whereDate('finsortie', '<', now())->get();
+        $sorties = SortiePersonnel::whereDate('finsortie', '=', now())->get();
         foreach ($sorties as $sortie) {
             $employee = $sortie->emploie;
             if ($employee) {
                 $employeeName = $employee->nom;
                 $user = $employee->users;
                 if ($user) {
-                    $rhUser = User::where('id', $id)->get();
+                    $rhUser = User::whereHas('profiles', function ($query) {
+                        $query->where('type_profile', 'agent');
+                    })->get();
                     if ($rhUser) {
                         $planning = 'sortie';
                         Notification::send($user, new SortiEndingNotification($employeeName));
@@ -161,9 +160,6 @@ class CheckEventEndDates extends Command
                     } else {
                         Notification::send($user, new SortiEndingNotification($employeeName));
                     }
-                    // Maintenant, vous avez l'objet User associé à la mission.
-                    // Vous pouvez utiliser $user pour envoyer des notifications, par exemple.
-                    // Notification::send($user, new SortiEndingNotification($employeeName));
                 }
             }
         }

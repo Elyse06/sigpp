@@ -16,9 +16,6 @@ class Employee extends Model
         'adresse',
         'numTel',
         'pin',
-        'soldeconge',
-        'soldepermission',
-        'soldesortie',
     ];
     
     public function users(){

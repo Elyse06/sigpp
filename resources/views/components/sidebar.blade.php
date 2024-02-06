@@ -7,7 +7,6 @@
 <img class="profile-user-img img-fluid img-circle" src="{{asset('images/user.png')}}" alt="User profile picture">
 </div>
 <h3 class="profile-username text-center">{{Auth::user()->name}}</h3>
-<p class="text-muted text-center">Software Engineer</p>
 
 
 <a class="btn btn-primary btn-block" href="{{ route('logout') }}"

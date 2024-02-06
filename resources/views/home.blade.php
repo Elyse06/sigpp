@@ -78,7 +78,7 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a @can("agent") href="{{ route('top.conge') }}" @endcan class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+            <a @can("agent") href="{{ route('top.conge') }}" @endcan class="small-box-footer {{ setMenuActive('home') }}">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
             <!-- Déplacez la liste ul ici -->
             <ol class="hidden-list" style="color: black; border: 1px solid #ffffff; padding: 25px;background-color: white">
                 @foreach ($topEmployeesCon as $employee)
@@ -308,7 +308,7 @@
                 updateButtonState();
             });
         });
-        </script>
+    </script>
         
 
     

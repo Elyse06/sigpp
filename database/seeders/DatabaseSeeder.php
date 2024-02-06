@@ -39,7 +39,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionTableSeeder::class);
         $this->call(ReposMedicalTableSeeder::class);
         $this->call(SortiePersonnelTableSeeder::class);
-        $this->call(EventSeeder::class);
         
 
         Mission::find(1)->emploie()->attach(7);

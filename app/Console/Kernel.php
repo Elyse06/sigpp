@@ -16,9 +16,6 @@ class Kernel extends ConsoleKernel
 
     protected $commands = [
         Commands\DeleteExpiredRecords::class,
-        Commands\IncrementSoldeConge::class,
-        Commands\ResetSoldePermission::class,
-        Commands\ResetSoldeSortie::class,
         Commands\CheckEventEndDates::class,
     ];
 
@@ -26,10 +23,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         // $schedule->command('expired:delete')->everyMinute();
-        $schedule->command('end:date')->everyMinute();
-        $schedule->command('increment:solde')->monthlyOn(28, '23:59');
-        $schedule->command('reset:permission')->monthlyOn(28, '23:59');
-        $schedule->command('reset:sortie')->monthlyOn(28, '23:59');
+        $schedule->command('end:date')->dailyAt('08:00');
     }
 
     /**

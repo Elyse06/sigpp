@@ -21,7 +21,7 @@
                 </a>
                 <style>
                     .notification-list {
-                        max-height: 300px; /* Ajustez cette valeur selon vos besoins */
+                        max-height: 300px; 
                         overflow-y: auto;
                         
                     }

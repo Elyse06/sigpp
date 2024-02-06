@@ -35,7 +35,7 @@
 
                         <div class="col">
                             <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
-                           <P class="dami p-1">----------------------ou-----------------------</P>
+                           <P class="dami p-1">-------------------ou---------------------</P>
                             
                            <div class="d-flex">  <a  class="btn btn-success btn-block" href="{{ route('register') }}">{{ __('Créer un nouveau compte') }}</a></div>
                         </div>

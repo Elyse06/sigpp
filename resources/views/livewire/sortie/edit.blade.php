@@ -43,7 +43,7 @@
     <div class="card-body">
     <div class="form-group">
     <label>Nom</label>
-    <select style="width: 400px" wire:model = "editSortie.employee_id" class="form-control">
+    <select style="width: 400px" wire:model = "editSortie.employee_id" class="form-control" wire:change="getSoldeByEmployeeIdEdit">
         <option value="">Tous les Employées</option>
         @foreach ($employees as $employee)
             <option value="{{ $employee->id }}">{{ $employee->nom }} {{ $employee->prenom }}</option>
@@ -53,7 +53,7 @@
 
     <div class="form-group">
     <label>Date de debut</label>
-    <input type="datetime-local" wire:model = "editSortie.debutsortie" class="form-control" required>
+    <input type="datetime-local" wire:model = "editSortie.debutsortie" class="form-control" required wire:change="getSoldeByEmployeeIdEdit">
     </div>
     
     <div class="form-group">

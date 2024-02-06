@@ -114,10 +114,10 @@
         <div class="card-footer d-flex justify-content-between align-items-center">
             <div class="d-flex">
                 <!-- Trois boutons avec des classes pour la mise en forme -->
-                <a href="{{ route('planning.conge') }}" style="width: 150px;" class="btn btn-info mr-2"> <div style="color: white;">Actuelle</div></a>
-                <a href="{{ route('planning.conge.moi') }}" style="width: 150px;" class="btn btn-info mr-2"><div style="color: white;">Mensuel</div></a>
-                <a href="{{ route('planning.conge.anne') }}" style="width: 150px;" class="btn btn-info mr-2"><div style="color: white;">Annuel</div></a>
-                <a href="{{ route('planning.conge.tout') }}" style="width: 150px;" class="btn btn-info mr-2"><div style="color: white;">Tous Les congés</div></a>
+                <a href="{{ route('planning.conge') }}" style="width: 150px;" class="btn btn-info mr-2 {{ setMenuActive('planning.conge') }}"> <div style="color: white;">Actuelle</div></a>
+                <a href="{{ route('planning.conge.moi') }}" style="width: 150px;" class="btn btn-info mr-2 {{ setMenuActive('planning.conge.moi') }}"><div style="color: white;">Mensuel</div></a>
+                <a href="{{ route('planning.conge.anne') }}" style="width: 150px;" class="btn btn-info mr-2 {{ setMenuActive('planning.conge.anne') }}"><div style="color: white;">Annuel</div></a>
+                <a href="{{ route('planning.conge.tout') }}" style="width: 150px;" class="btn btn-info mr-2 {{ setMenuActive('planning.conge.tout') }}"><div style="color: white;">Tous Les congés</div></a>
             </div>
 
             <!-- Bouton flottant à droite -->

@@ -19,6 +19,7 @@ class TouteLesSortie extends Component
 
     // pour les changement du page
     public $currentPage = PAGELIST;
+    public $soldeSortie = SOLDESORTIE;
 
     public $newSortie = [];
     public $editSortie = [];
@@ -86,9 +87,9 @@ class TouteLesSortie extends Component
         $this->editSortie = [];
     }
 
-        // recuperer le solde du moi en fonction du employee et remplir automatiquement les solde
-        public function getSoldeByEmployeeId()
-        {
+    // recuperer le solde du moi en fonction du employee et remplir automatiquement les solde
+    public function getSoldeByEmployeeId()
+    {
             $employeeId = $this->newSortie['employee_id'];
             $dateDebut = Carbon::parse($this->newSortie['debutsortie']);
             $moisDebut = $dateDebut->month;
@@ -100,6 +101,7 @@ class TouteLesSortie extends Component
                 ->get();
         
             $solde = 0; // Initialisation du solde à 0
+            $soldeSortie = $this->soldeSortie;
         
             if ($SortieDuMois->isNotEmpty()) {
                 foreach ($SortieDuMois as $SortieDuMoi) {
@@ -107,81 +109,101 @@ class TouteLesSortie extends Component
                     $fin = Carbon::parse($SortieDuMoi->finsortie);
         
                     // Calcul de la différence entre l'heure de début et de fin en heure
-                    $differenceEnJours = $debut->diffInHours($fin);
+                    $differenceEnHeures = $debut->diffInHours($fin);
         
                     // Ajoute la différence au solde
-                    $solde += $differenceEnJours;
+                    $solde += $differenceEnHeures;
                 }
         
                 // Ajuste le solde si nécessaire
-                if ($solde > 8) {
+                if ($solde > $soldeSortie) {
                     $solde = 0;
                 } else {
-                    $solde = 8 - $solde;
+                    $solde = $soldeSortie - $solde;
                 }
             } else {
                 // Si aucun congé trouvé, le solde reste à 2
-                $solde = 8;
+                $solde = $soldeSortie;
             }
+
+            if($solde > 0){
+                // Mettez à jour le champ solde dans le formulaire
+                $this->newSortie['sldtotsortie'] = $solde;
         
-            // Mettez à jour le champ solde dans le formulaire
-            $this->newSortie['sldtotsortie'] = $solde;
-    
-            // remplir total prix
-            $dateDebute = $this->newSortie['debutsortie'];
-            $dateFin = $this->newSortie['finsortie'];
-            $totalPrix = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->h;
-            $this->newSortie['sldeffsortie'] = $totalPrix;
-    
-            // remplir solde restant
-            // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
-            $soldeRestant = $solde - $totalPrix;
-    
-            // Mettez à jour le champ "Solde restant".
-            $this->newSortie['sldrstsortie'] = $soldeRestant;
+                // remplir total prix
+                $dateDebute = $this->newSortie['debutsortie'];
+                $dateFin = $this->newSortie['finsortie'];
+                $totalPrix = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->h;
+
+                if($solde >= $totalPrix){
+                    $this->newSortie['sldeffsortie'] = $totalPrix;
             
-        }
-    
-        // recuperer le solde du moi en fonction du employee et remplir automatiquement les solde
-        public function getSoldeByEmployeeIdEdit()
-        {
-            $employeeId = $this->editSortie['employee_id'];
-            $dateDebut = Carbon::parse($this->editSortie['debutsortie']);
-            $moisDebut = $dateDebut->month;
-            $jourDebut = $dateDebut->day;
-        
-            // Utilisation de la clause where pour filtrer par année et mois de début
-            $SortieDuMois = SortiePersonnel::whereYear("debutsortie", $dateDebut->year)
-                ->whereMonth("debutsortie", $moisDebut)
-                ->whereDay("debutsortie", !$jourDebut)
-                ->where("employee_id", $employeeId)
-                ->get();
-        
-            $solde = 0; // Initialisation du solde à 0
-        
-            if ($SortieDuMois->isNotEmpty()) {
-                foreach ($SortieDuMois as $SortieDuMoi) {
-                    $debut = Carbon::parse($SortieDuMoi->debutsortie);
-                    $fin = Carbon::parse($SortieDuMoi->finsortie);
-        
-                    // Calcul de la différence entre l'heure de début et de fin en heure
-                    $differenceEnJours = $debut->diffInHours($fin);
-        
-                    // Ajoute la différence au solde
-                    $solde += $differenceEnJours;
+                    // remplir solde restant
+                    // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
+                    $soldeRestant = $solde - $totalPrix;
+            
+                    // Mettez à jour le champ "Solde restant".
+                    $this->newSortie['sldrstsortie'] = $soldeRestant;
                 }
-        
-                // Ajuste le solde si nécessaire
-                if ($solde > 8) {
-                    $solde = 0;
-                } else {
-                    $solde = 8 - $solde;
+                else{
+                    $this->dispatchBrowserEvent("comfirmMessage", ["message"=>[
+                        "text" => "Le solde du mois ( $solde ) est insuffisance pour le total de sortie ( $totalPrix ) que vous avez prix !",
+                        "title" => "Desolé!",
+                        "type" => "warning",
+                    ]]);
+                    $this->newSortie = [];
                 }
-            } else {
-                // Si aucun congé trouvé, le solde reste à 2
-                $solde = 8;
             }
-        
+            else{
+                $this->dispatchBrowserEvent("comfirmMessage", ["message"=>[
+                    "text" => "Desolé, le solde du mois ( $solde ) est insuffisance pour le permission!",
+                    "title" => "Etes-vous sure de continuer?",
+                    "type" => "warning",
+                ]]);
+                $this->newSortie = [];
+            }    
+    }
+    
+    // recuperer le solde du moi en fonction du employee et remplir automatiquement les solde
+    public function getSoldeByEmployeeIdEdit()
+    {
+        $employeeId = $this->editSortie['employee_id'];
+        $dateDebut = Carbon::parse($this->editSortie['debutsortie']);
+        $moisDebut = $dateDebut->month;
+    
+        // Utilisation de la clause where pour filtrer par année et mois de début
+        $SortieDuMois = SortiePersonnel::whereYear("debutsortie", $dateDebut->year)
+            ->whereMonth("debutsortie", $moisDebut)
+            ->where("employee_id", $employeeId)
+            ->get();
+    
+        $solde = 0; // Initialisation du solde à 0
+        $soldeSortie = $this->soldeSortie;
+    
+        if ($SortieDuMois->isNotEmpty()) {
+            foreach ($SortieDuMois as $SortieDuMoi) {
+                $debut = Carbon::parse($SortieDuMoi->debutsortie);
+                $fin = Carbon::parse($SortieDuMoi->finsortie);
+    
+                // Calcul de la différence entre l'heure de début et de fin en heure
+                $differenceEnHeures = $debut->diffInHours($fin);
+    
+                // Ajoute la différence au solde
+                $solde += $differenceEnHeures;
+            }
+    
+            // Ajuste le solde si nécessaire
+            if ($solde > $soldeSortie) {
+                $solde = 0;
+            } else {
+                $solde = $soldeSortie - $solde;
+            }
+        } else {
+            // Si aucun congé trouvé, le solde reste à 2
+            $solde = $soldeSortie;
+        }
+
+        if($solde > 0){
             // Mettez à jour le champ solde dans le formulaire
             $this->editSortie['sldtotsortie'] = $solde;
     
@@ -189,17 +211,35 @@ class TouteLesSortie extends Component
             $dateDebute = $this->editSortie['debutsortie'];
             $dateFin = $this->editSortie['finsortie'];
             $totalPrix = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->h;
-            $this->editSortie['sldeffsortie'] = $totalPrix;
-    
-            // remplir solde restant
-            // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
-            $soldeRestant = $solde - $totalPrix;
-    
-            // Mettez à jour le champ "Solde restant".
-            $this->newSortie['sldrstsortie'] = $soldeRestant;
-            
-        }
 
+            if($solde >= $totalPrix){
+                $this->editSortie['sldeffsortie'] = $totalPrix;
+        
+                // remplir solde restant
+                // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
+                $soldeRestant = $solde - $totalPrix;
+        
+                // Mettez à jour le champ "Solde restant".
+                $this->editSortie['sldrstsortie'] = $soldeRestant;
+            }
+            else{
+                $this->dispatchBrowserEvent("comfirmMessage", ["message"=>[
+                    "text" => "Le solde du mois ( $solde ) est insuffisance pour le total de sortie ( $totalPrix ) que vous avez prix !",
+                    "title" => "Desolé!",
+                    "type" => "warning",
+                ]]);
+                $this->editSortie = [];
+            }
+        }
+        else{
+            $this->dispatchBrowserEvent("comfirmMessage", ["message"=>[
+                "text" => "Desolé, le solde du mois ( $solde ) est insuffisance pour le permission!",
+                "title" => "Etes-vous sure de continuer?",
+                "type" => "warning",
+            ]]);
+            $this->editSortie = [];
+        }    
+    }
 
     // pour faire l'ajout
     public function addSortie(){

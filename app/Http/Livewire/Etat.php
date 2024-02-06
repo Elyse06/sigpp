@@ -30,8 +30,8 @@ class Etat extends Component
 		$mission = Mission::where(function($query) use ($dateDebut, $dateFin) {
 				$query->whereBetween('debutmis', [$dateDebut, $dateFin])
 					  ->orWhere(function($query) use ($dateDebut, $dateFin) {
-						  $query->where('debutmis', '<', $dateDebut)
-								->where('finmis', '>', $dateDebut);
+						  $query->where('debutmis', '=<', $dateDebut)
+								->where('finmis', '>=', $dateDebut);
 					  });
 		})
 		->get();
@@ -39,8 +39,8 @@ class Etat extends Component
 		$conge = Conge::where(function($query) use ($dateDebut, $dateFin) {
 				$query->whereBetween('debutcon', [$dateDebut, $dateFin])
 					  ->orWhere(function($query) use ($dateDebut, $dateFin) {
-						  $query->where('debutcon', '<', $dateDebut)
-								->where('fincon', '>', $dateDebut);
+						  $query->where('debutcon', '=<', $dateDebut)
+								->where('fincon', '>=', $dateDebut);
 					  });
 		})
 		->get();
@@ -48,8 +48,8 @@ class Etat extends Component
 		$permission = Permission::where(function($query) use ($dateDebut, $dateFin) {
 				$query->whereBetween('debutpermi', [$dateDebut, $dateFin])
 					  ->orWhere(function($query) use ($dateDebut, $dateFin) {
-						  $query->where('debutpermi', '<', $dateDebut)
-								->where('finpermi', '>', $dateDebut);
+						  $query->where('debutpermi', '=<', $dateDebut)
+								->where('finpermi', '>=', $dateDebut);
 					  });
 		})
 		->get();
@@ -57,8 +57,8 @@ class Etat extends Component
 		$sortie = SortiePersonnel::where(function($query) use ($dateDebut, $dateFin) {
 				$query->whereBetween('debutsortie', [$dateDebut, $dateFin])
 					  ->orWhere(function($query) use ($dateDebut, $dateFin) {
-						  $query->where('debutsortie', '<', $dateDebut)
-								->where('finsortie', '>', $dateDebut);
+						  $query->where('debutsortie', '=<', $dateDebut)
+								->where('finsortie', '>=', $dateDebut);
 					  });
 		})
 		->get();
@@ -66,8 +66,8 @@ class Etat extends Component
 		$repos = RepoMedical::where(function($query) use ($dateDebut, $dateFin) {
 				$query->whereBetween('debutrep', [$dateDebut, $dateFin])
 					  ->orWhere(function($query) use ($dateDebut, $dateFin) {
-						  $query->where('debutrep', '<', $dateDebut)
-								->where('finrep', '>', $dateDebut);
+						  $query->where('debutrep', '=<', $dateDebut)
+								->where('finrep', '>=', $dateDebut);
 					  });
 		})
 		->get();

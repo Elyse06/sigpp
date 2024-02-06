@@ -1,6 +1,6 @@
 <nav class="mt-2">
 
-    <ul class="nav nav-pills nav-sidebar">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
         <li class="nav-item">
             <a href="{{ route('home') }}" class="nav-link {{ setMenuActive('home') }}">
@@ -9,21 +9,7 @@
                     Acceuil
                 </p>
             </a>
-    </ul>
-
-    {{-- <ul class="nav nav-pills nav-sidebar">
-
-        <li class="nav-item">
-            <a href="" class="nav-link">
-                <i class=""></i>
-                <p>
-                    <i class="fas fa-money-bill-wave"></i> Solde Des Employées
-                </p>
-
-            </a>
-    </ul> --}}
-
-    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        </li>
 
         <li class="nav-item {{ setMenuClass('employee.', 'menu-open') }}">
             <a href="#" class="nav-link {{ setMenuClass('employee.', 'active') }}">
@@ -52,9 +38,6 @@
             </ul>
         </li>
 
-    </ul>
-
-    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
         <li class="nav-item {{ setMenuClass('planning.', 'menu-open') }}">
             <a href="#" class="nav-link {{ setMenuClass('planning.', 'active') }}">
@@ -114,5 +97,6 @@
         </li>
 
     </ul>
+
 
 </nav>

@@ -9,7 +9,6 @@ use App\Models\Permission;
 use App\Models\RepoMedical;
 use App\Models\SortiePersonnel;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
 use PDF;
@@ -21,6 +20,9 @@ class Solde extends Component
     public $search = "";
 
     protected $paginationTheme = "bootstrap";
+    public $soldeConge = SOLDECONGE;
+    public $soldePermission = SOLDEPERMISSION;
+    public $soldeSortie = SOLDESORTIE;
 
     public function render()
     {
@@ -28,21 +30,6 @@ class Solde extends Component
         $date = now()->toDateString();
 
         $employees = Employee::where("nom", "like", $searchCriteria)->get();
-        $conges = Conge::where('debutcon', '<=', $date)
-            ->where('fincon', '>=', $date)
-            ->get();
-        $missions = Mission::where('debutmis', '<=', $date)
-            ->where('finmis', '>=', $date)
-            ->get();
-        $permissions = Permission::where('debutpermi', '<=', $date)
-            ->where('finpermi', '>=', $date)
-            ->get();
-        $sorties = SortiePersonnel::where('debutsortie', '<=', $date)
-            ->where('finsortie', '>=', $date)
-            ->get();
-        $repos = RepoMedical::where('debutrep', '<=', $date)
-            ->where('finrep', '>=', $date)
-            ->get();
 
         // Tableau pour stocker les soldes
         $soldeList = [];
@@ -57,7 +44,7 @@ class Solde extends Component
         }
 
 
-        return view('livewire.employee.solde', compact('employees','conges','missions','permissions','sorties','repos','soldeList'))
+        return view('livewire.employee.solde', compact('employees','soldeList'))
         ->extends('layouts.master')
         ->section('contenu');
     }
@@ -74,7 +61,9 @@ class Solde extends Component
             ->where("employee_id", $employeeId)
             ->get();
 
-        $soldeCumule = 0;
+        $soldeConge = $this->soldeConge;
+
+        $soldeCumule = $soldeConge;
         $soldeCongePris = 0;
 
         if ($congeTotal->isNotEmpty()) {
@@ -92,7 +81,7 @@ class Solde extends Component
         }
 
         // Ajoute 2 jours au soldeCumule pour chaque mois
-        $soldeCumule += (now()->diffInMonths($dateDebutEmploye) * 2);
+        $soldeCumule += (now()->diffInMonths($dateDebutEmploye) * $soldeConge);
 
         // Ajuste le soldeCumule si nécessaire, ne dépassant pas 45 jours
         $soldeCumule = min(45, $soldeCumule);
@@ -101,6 +90,7 @@ class Solde extends Component
         $soldeFinal = $soldeCumule - $soldeCongePris;
 
         return $soldeFinal;
+
     }
 
     private function calculateSoldePermission($employeeId)
@@ -115,6 +105,7 @@ class Solde extends Component
             ->get();
 
         $solde = 0; // Initialisation du solde à 0
+        $soldePermission = $this->soldePermission;
 
         if ($PermissionDuMois->isNotEmpty()) {
             foreach ($PermissionDuMois as $PermissionDuMoi) {
@@ -129,14 +120,14 @@ class Solde extends Component
             }
 
             // Ajuste le solde si nécessaire
-            if ($solde > 8) {
+            if ($solde > $soldePermission) {
                 $solde = 0;
             } else {
-                $solde = 8 - $solde;
+                $solde = $soldePermission - $solde;
             }
         } else {
             // Si aucun congé trouvé, le solde reste à 2
-            $solde = 8;
+            $solde = $soldePermission;
         }
 
         return $solde;
@@ -154,6 +145,7 @@ class Solde extends Component
                 ->get();
         
             $solde = 0; // Initialisation du solde à 0
+            $soldeSortie = $this->soldeSortie;
         
             if ($SortieDuMois->isNotEmpty()) {
                 foreach ($SortieDuMois as $SortieDuMoi) {
@@ -168,14 +160,14 @@ class Solde extends Component
                 }
         
                 // Ajuste le solde si nécessaire
-                if ($solde > 8) {
+                if ($solde > $soldeSortie) {
                     $solde = 0;
                 } else {
-                    $solde = 8 - $solde;
+                    $solde = $soldeSortie - $solde;
                 }
             } else {
                 // Si aucun congé trouvé, le solde reste à 2
-                $solde = 8;
+                $solde = $soldeSortie;
             }
 
             return $solde;
@@ -197,7 +189,7 @@ class Solde extends Component
             ];
         }
 
-        $pdf = PDF::loadView('livewire.solde.pdf', compact('employees','soldeList'));
+        $pdf = PDF::loadView('livewire.employee.pdf', compact('employees','soldeList'));
 
         $localPath = 'E:';
         $filename = 'Liste-' . now()->format('Y-m-d') . '.pdf';

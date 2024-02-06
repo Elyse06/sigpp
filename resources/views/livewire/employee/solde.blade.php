@@ -50,7 +50,7 @@
                 
                 
 
-                <div class="input-group input-group-md" style="width: 250px;">
+                {{-- <div class="input-group input-group-md" style="width: 250px;">
                     <input type="text" name="table_search" wire:model.debounce="search"
                         class="form-control float-right" placeholder="Search">
 
@@ -59,7 +59,7 @@
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
         </div>
@@ -91,5 +91,13 @@
                 </tbody>
             </table>
         </div>
+
+        {{-- <div class="card-footer" style="float: right">
+            <div class="float-right">
+
+                {{ $employees->links() }}
+
+            </div>
+        </div> --}}
 
     </div>

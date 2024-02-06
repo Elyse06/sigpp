@@ -43,18 +43,17 @@
     <div class="card-body">
     <div class="form-group">
     <label>Nom</label>
-    <select style="width: 400px" wire:model = "editConge.employee_id" class="form-control">
+    <select style="width: 400px" wire:model = "editConge.employee_id" class="form-control" wire:change="getSoldeByEmployeeIdEdit">
         <option value="">Tous les Employées</option>
         @foreach ($employees as $employee)
             <option value="{{ $employee->id }}">{{ $employee->nom }} {{ $employee->prenom }}</option>
         @endforeach
     </select>
-    {{-- <input type="number" wire:model = "editConge.employee_id" value="1" class="form-control" required wire:change="getSoldeByEmployeeIdEdit"> --}}
     </div>
 
     <div class="form-group">
     <label>Date de debut</label>
-    <input type="date" wire:model = "editConge.debutcon" class="form-control" required>
+    <input type="date" wire:model = "editConge.debutcon" class="form-control" wire:change="getSoldeByEmployeeIdEdit" required>
     </div>
     
     <div class="form-group">

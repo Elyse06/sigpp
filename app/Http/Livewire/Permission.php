@@ -19,6 +19,7 @@ class Permission extends Component
 
     // pour les changement du page
     public $currentPage = PAGELIST;
+    public $soldePermission = SOLDEPERMISSION;
 
     public $newPermission = [];
     public $editPermission = [];
@@ -110,6 +111,7 @@ class Permission extends Component
             ->get();
 
         $solde = 0; // Initialisation du solde à 0
+        $soldePermission = $this->soldePermission;
 
         if ($PermissionDuMois->isNotEmpty()) {
             foreach ($PermissionDuMois as $PermissionDuMoi) {
@@ -118,20 +120,22 @@ class Permission extends Component
 
                 // Calcul de la différence entre la date de début et de fin en jours
                 $differenceEnJours = $debut->diffInDays($fin);
+                $differenceEnMois = ($debut->diffInMonths($fin)) * 30;
+                $difference = $differenceEnJours + $differenceEnMois;
 
                 // Ajoute la différence au solde
-                $solde += $differenceEnJours;
+                $solde += $difference;
             }
 
             // Ajuste le solde si nécessaire
-            if ($solde > 8) {
+            if ($solde > $soldePermission) {
                 $solde = 0;
             } else {
-                $solde = 8 - $solde;
+                $solde = $soldePermission - $solde;
             }
         } else {
             // Si aucun congé trouvé, le solde reste à 2
-            $solde = 8;
+            $solde = $soldePermission;
         }
 
         if($solde > 0){
@@ -141,7 +145,9 @@ class Permission extends Component
             // remplir total prix
             $dateDebute = $this->newPermission['debutpermi'];
             $dateFin = $this->newPermission['finpermi'];
-            $totalPrix = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->d;
+            $differenceEnJours = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->d;
+            $differenceEnMois = (Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->m) * 30;
+            $totalPrix = $differenceEnJours + $differenceEnMois;
 
             if($solde >= $totalPrix){
                 $this->newPermission['sldeffpermi'] = $totalPrix;
@@ -179,16 +185,15 @@ class Permission extends Component
         $employeeId = $this->editPermission['employee_id'];
         $dateDebut = Carbon::parse($this->editPermission['debutpermi']);
         $moisDebut = $dateDebut->month;
-        $jourDebut = $dateDebut->day;
 
         // Utilisation de la clause where pour filtrer par année et mois de début
         $PermissionDuMois = ModelsPermission::whereYear("debutpermi", $dateDebut->year)
             ->whereMonth("debutpermi", $moisDebut)
-            ->whereDay("debutpermi", !$jourDebut)
             ->where("employee_id", $employeeId)
             ->get();
 
         $solde = 0; // Initialisation du solde à 0
+        $soldePermission = $this->soldePermission;
 
         if ($PermissionDuMois->isNotEmpty()) {
             foreach ($PermissionDuMois as $PermissionDuMoi) {
@@ -197,37 +202,63 @@ class Permission extends Component
 
                 // Calcul de la différence entre la date de début et de fin en jours
                 $differenceEnJours = $debut->diffInDays($fin);
+                $differenceEnMois = ($debut->diffInMonths($fin)) * 30;
+                $difference = $differenceEnJours + $differenceEnMois;
 
                 // Ajoute la différence au solde
-                $solde += $differenceEnJours;
+                $solde += $difference;
             }
 
             // Ajuste le solde si nécessaire
-            if ($solde > 8) {
+            if ($solde > $soldePermission) {
                 $solde = 0;
             } else {
-                $solde = 8 - $solde;
+                $solde = $soldePermission - $solde;
             }
         } else {
             // Si aucun congé trouvé, le solde reste à 2
-            $solde = 8;
+            $solde = $soldePermission;
         }
 
-        // Mettez à jour le champ solde dans le formulaire
-        $this->editPermission['sldtotpermi'] = $solde;
+        if($solde > 0){
+            // Mettez à jour le champ solde dans le formulaire
+            $this->editPermission['sldtotpermi'] = $solde;
 
-        // remplir total prix
-        $dateDebute = $this->editPermission['debutpermi'];
-        $dateFin = $this->editPermission['finpermi'];
-        $totalPrix = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->d;
-        $this->editPermission['sldeffpermi'] = $totalPrix;
+            // remplir total prix
+            $dateDebute = $this->editPermission['debutpermi'];
+            $dateFin = $this->editPermission['finpermi'];
+            $differenceEnJours = Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->d;
+            $differenceEnMois = (Carbon::parse($dateDebute)->diff(Carbon::parse($dateFin))->m) * 30;
+            $totalPrix = $differenceEnJours + $differenceEnMois;
 
-        // remplir solde restant
-        // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
-        $soldeRestant = $solde - $totalPrix;
+            if($solde >= $totalPrix){
+                $this->editPermission['sldeffpermi'] = $totalPrix;
+    
+                // remplir solde restant
+                // Calculez le "Solde restant" en soustrayant le "Total Prix" du "Solde du mois".
+                $soldeRestant = $solde - $totalPrix;
+    
+                // Mettez à jour le champ "Solde restant".
+                $this->editPermission['sldrstpermi'] = $soldeRestant;
+            }
+            else{
+                $this->dispatchBrowserEvent("comfirmMessage", ["message"=>[
+                    "text" => "Le solde du mois ( $solde ) est insuffisance pour le total de permission ( $totalPrix ) que vous avez prix !",
+                    "title" => "Desolé!",
+                    "type" => "warning",
+                ]]);
+                $this->editPermission = [];
+            }
+        }
+        else{
+            $this->dispatchBrowserEvent("comfirmMessage", ["message"=>[
+                "text" => "Desolé, le solde du mois ( $solde ) est insuffisance pour le permission!",
+                "title" => "Etes-vous sure de continuer?",
+                "type" => "warning",
+            ]]);
+            $this->editPermission = [];
+        }
 
-        // Mettez à jour le champ "Solde restant".
-        $this->editPermission['sldrstpermi'] = $soldeRestant;
     }
 
 

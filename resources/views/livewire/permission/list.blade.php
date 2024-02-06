@@ -107,16 +107,16 @@
 
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <div class="d-flex">
-                    <a href="{{ route('planning.permission') }}" style="width: 170px;" class="btn btn-info mr-2">
+                    <a href="{{ route('planning.permission') }}" style="width: 170px;" class="btn btn-info mr-2 {{ setMenuActive('planning.permission') }}">
                         <div style="color: white;">Actuelle</div>
                     </a>
-                    <a href="{{ route('planning.permission.moi') }}" style="width: 170px;" class="btn btn-info mr-2">
+                    <a href="{{ route('planning.permission.moi') }}" style="width: 170px;" class="btn btn-info mr-2 {{ setMenuActive('planning.permission.moi') }}">
                         <div style="color: white;">Mensuel</div>
                     </a>
-                    <a href="{{ route('planning.permission.anne') }}" style="width: 170px;" class="btn btn-info mr-2">
+                    <a href="{{ route('planning.permission.anne') }}" style="width: 170px;" class="btn btn-info mr-2 {{ setMenuActive('planning.permission.anne') }}">
                         <div style="color: white;">Annuel</div>
                     </a>
-                    <a href="{{ route('planning.permission.tout') }}" style="width: 170px;" class="btn btn-info mr-2">
+                    <a href="{{ route('planning.permission.tout') }}" style="width: 170px;" class="btn btn-info mr-2 {{ setMenuActive('planning.permission.tout') }}">
                         <div style="color: white;">Tous Les permission</div>
                     </a>
                 </div>

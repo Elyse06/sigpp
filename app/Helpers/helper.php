@@ -5,6 +5,9 @@ use Illuminate\Support\Str;
 define("PAGELIST", "list");
 define("PAGECREATFORM", "ajout");
 define("PAGEEDITFORM", "edit");
+define("SOLDECONGE", 2);
+define("SOLDEPERMISSION", 8);
+define("SOLDESORTIE", 4);
 
 
 // retourner le nom d'utilisateur

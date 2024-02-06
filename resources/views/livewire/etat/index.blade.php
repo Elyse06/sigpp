@@ -150,7 +150,7 @@
 
             // Créez un tableau de libellés avec les pourcentages
             var labelsWithPercentages = newLabels.map((label, index) => label + " (" + percentages[index] +
-            ")");
+            ")" + " : " + newValues [index] + "/" + {{ $total_count }});
 
             // Mettez à jour les données du graphique
             myPieChart.data.labels = labelsWithPercentages;

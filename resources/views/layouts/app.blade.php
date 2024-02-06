@@ -40,8 +40,7 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a     style="color: white" class="nav-link" href="{{ route('login') }}"><i class="fas fa-user-plus pr-2"></i>
-                                        {{ __('S\'inscrire') }}</a>
+                                    <a     style="color: white" class="nav-link" href="{{ route('login') }}">{{ __('S\'inscrire') }}</a>
                                 </li>
                             @endif
 

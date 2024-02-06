@@ -104,9 +104,6 @@ class Liste extends Component
     {
         $validation = $this->validate();
         $employeeData = $validation["newEmployee"];
-        $employeeData['soldeconge'] = 2;
-        $employeeData['soldepermission'] = 8;
-        $employeeData['soldesortie'] = 4;
         Employee::create($employeeData);
         $this->newEmployee = [];
         $this->dispatchBrowserEvent("showSuccesMessage", ["message"=>"Employee creer avec succès!"]);
@@ -117,9 +114,6 @@ class Liste extends Component
     {
         $validation = $this->validate();
         $employeeData = $validation["editEmployee"];
-        $employeeData['soldeconge'] = 2;
-        $employeeData['soldepermission'] = 8;
-        $employeeData['soldesortie'] = 4;
         Employee::find($this->editEmployee["id"])->update($employeeData);
         $this->dispatchBrowserEvent("showSuccesMessage", ["message"=>"Employee modifier avec succès!"]);
     }

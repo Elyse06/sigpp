@@ -108,16 +108,16 @@
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <!-- Boutons "Actuelle", "Mensuel" et "Annuel" -->
                 <div class="d-flex">
-                    <a href="{{ route('planning.sortie') }}" style="width: 150px;" class="btn btn-info mr-2">
+                    <a href="{{ route('planning.sortie') }}" style="width: 150px;" class="btn btn-info mr-2 {{ setMenuActive('planning.sortie') }}">
                         <div style="color: white;">Actuelle</div>
                     </a>
-                    <a href="{{ route('planning.sortie.moi') }}" style="width: 150px;" class="btn btn-info mr-2">
+                    <a href="{{ route('planning.sortie.moi') }}" style="width: 150px;" class="btn btn-info mr-2 {{ setMenuActive('planning.sortie.moi') }}">
                         <div style="color: white;">Mensuel</div>
                     </a>
-                    <a href="{{ route('planning.sortie.anne') }}" style="width: 150px;" class="btn btn-info mr-2">
+                    <a href="{{ route('planning.sortie.anne') }}" style="width: 150px;" class="btn btn-info mr-2 {{ setMenuActive('planning.sortie.anne') }}">
                         <div style="color: white;">Annuel</div>
                     </a>
-                    <a href="{{ route('planning.sortie.tout') }}" style="width: 150px;" class="btn btn-info mr-2">
+                    <a href="{{ route('planning.sortie.tout') }}" style="width: 150px;" class="btn btn-info mr-2 {{ setMenuActive('planning.sortie.tout') }}">
                         <div style="color: white;">Tous Les sortie</div>
                     </a>
                 </div>

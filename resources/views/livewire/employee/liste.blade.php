@@ -84,7 +84,6 @@
                         <th style="width:15%;">Telephone</th>
                         <th style="width:15%;">Date de Naissance</th>
                         <th style="width:15%;">Adresse</th>
-                        <th style="width:15%;">Departement</th>
                         <th style="width:10%;">Statuts</th>
                         @can("agent")
                         <th style="width:10%;">Action</th>
@@ -98,8 +97,7 @@
                             <td> {{ $employee->prenom }} </td>
                             <td> {{ $employee->numTel }} </td>
                             <td> {{ $employee->date_de_naissance }} </td>
-                            <td>  </td>
-                            <td>  </td>
+                            <td> {{ $employee->adresse }} </td>
                             <td class="text-center"> 
 
                                 @if (in_array($employee->id, $conges->pluck('employee_id')->all()))
